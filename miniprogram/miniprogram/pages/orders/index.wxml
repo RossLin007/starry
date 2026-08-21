@@ -24,13 +24,13 @@
       <view class="order-header">
         <view class="order-no">单号：{{ item.orderNo }}</view>
         <view class="order-status-tag status-{{ item.status }}">
-          {{ item.status === 'PAID' ? '已支付' : (item.status === 'PENDING' ? '待支付' : '已关闭') }}
+          {{ item.statusText }}
         </view>
       </view>
 
       <view class="order-body">
         <view class="order-title">{{ item.targetTitle }}</view>
-        <view class="order-time">{{ item.createdAt ? item.createdAt.slice(0, 16).replace('T', ' ') : '' }}</view>
+        <view class="order-time">{{ item.timeFormatted }}</view>
       </view>
 
       <view class="order-footer">

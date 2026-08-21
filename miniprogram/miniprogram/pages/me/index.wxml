@@ -4,16 +4,16 @@
   <view class="starry-card profile-card">
     <view class="profile-main">
       <view class="avatar-box">
-        <text class="avatar-letter">{{ user ? user.nickname.slice(0, 1) : '星' }}</text>
+        <text class="avatar-letter">{{ avatarLetter }}</text>
       </view>
       <view class="profile-info">
         <view class="nickname-row">
           <text class="nickname">{{ user ? user.nickname : '若星学员' }}</text>
-          <text class="tier-tag {{ user && user.memberTier === 'STAR_MEMBER' ? 'tier-vip' : 'tier-free' }}">
-            {{ user && user.memberTier === 'STAR_MEMBER' ? '✦ 星愿会员' : '普通学员' }}
+          <text class="tier-tag {{ isVip ? 'tier-vip' : 'tier-free' }}">
+            {{ isVip ? '✦ 星愿会员' : '普通学员' }}
           </text>
         </view>
-        <view class="join-days" wx:if="{{ user }}">已在若星陪伴生活 {{ user.joinDays || 1 }} 天</view>
+        <view class="join-days" wx:if="{{ user }}">已在若星陪伴生活 {{ user.daysJoined || 1 }} 天</view>
       </view>
     </view>
 
@@ -30,12 +30,10 @@
   <view class="vip-banner" data-url="/pages/member/index" bindtap="onNavTo">
     <view class="vip-banner-left">
       <view class="vip-banner-title">✦ 若星星愿年度会员</view>
-      <view class="vip-banner-desc">
-        {{ user && user.memberTier === 'STAR_MEMBER' ? '有效期至：' + (user.memberExpireAt ? user.memberExpireAt.slice(0, 10) : '长期') : '开通享全场课程 8.8 折与雅集礼盒' }}
-      </view>
+      <view class="vip-banner-desc">{{ vipExpireText }}</view>
     </view>
     <view class="vip-banner-btn">
-      {{ user && user.memberTier === 'STAR_MEMBER' ? '续费 ➔' : '立即开通 ➔' }}
+      {{ isVip ? '续费 ➔' : '立即开通 ➔' }}
     </view>
   </view>
 

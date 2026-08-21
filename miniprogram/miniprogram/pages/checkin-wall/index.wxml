@@ -11,10 +11,10 @@
     <view wx:for="{{ checkins }}" wx:key="id" class="starry-card item-card">
       <!-- 学员头部 -->
       <view class="item-user">
-        <view class="user-avatar-text">{{ item.user.nickname ? item.user.nickname.slice(0, 1) : '星' }}</view>
+        <view class="user-avatar-text">{{ item.avatarLetter }}</view>
         <view class="user-meta">
-          <view class="user-name">{{ item.user.nickname || '若星学员' }}</view>
-          <view class="course-name">{{ item.course?.title || '日常整理实践' }}</view>
+          <view class="user-name">{{ item.userNickname }}</view>
+          <view class="course-name">{{ item.courseTitle }}</view>
         </view>
       </view>
 

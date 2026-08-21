@@ -29,7 +29,13 @@ Page({
       const res = await request<any[]>({
         url: `/v1/client/orders${status ? `?status=${status}` : ''}`,
       });
-      this.setData({ orders: res || [] });
+      const list = res || [];
+      const formatted = list.map((item: any) => ({
+        ...item,
+        timeFormatted: item.createdAt ? item.createdAt.substring(0, 16).replace('T', ' ') : '',
+        statusText: item.status === 'PAID' ? '已支付' : (item.status === 'PENDING' ? '待支付' : '已关闭'),
+      }));
+      this.setData({ orders: formatted });
     } catch (err) {
       console.error(err);
     } finally {

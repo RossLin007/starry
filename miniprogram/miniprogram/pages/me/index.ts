@@ -5,6 +5,9 @@ Page({
   data: {
     user: null as any,
     loading: true,
+    avatarLetter: '星',
+    isVip: false,
+    vipExpireText: '',
     showAddressModal: false,
     showContactModal: false,
     addressForm: {
@@ -27,7 +30,20 @@ Page({
       const res = await request<any>({
         url: '/v1/client/auth/profile',
       });
-      this.setData({ user: res });
+      const isVip = res && (res.memberTier === 'DEEP' || res.memberTier === 'STAR_MEMBER');
+      const avatarLetter = res?.nickname ? res.nickname.substring(0, 1) : '星';
+      const expireDate = res?.memberExpireAt ? res.memberExpireAt.substring(0, 10) : '';
+      const vipExpireText = isVip
+        ? (expireDate ? `有效期至：${expireDate}` : '长期尊享')
+        : '开通享全场课程 8.8 折与雅集礼盒';
+
+      this.setData({
+        user: res,
+        isVip,
+        avatarLetter,
+        vipExpireText,
+      });
+
       if (res?.shippingAddress) {
         this.setData({ addressForm: res.shippingAddress });
       }
