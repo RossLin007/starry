@@ -2,7 +2,7 @@
   "miniprogramRoot": "miniprogram/",
   "projectname": "starry-space-miniprogram",
   "description": "若星空间微信小程序",
-  "appid": "touristappid",
+  "appid": "wx9cd59e2c89880289",
   "setting": {
     "urlCheck": false,
     "es6": true,
@@ -14,9 +14,28 @@
     "packNpmRelationList": [],
     "minifyWXSS": true,
     "disableUseStrict": false,
-    "minifyWXML": true
+    "minifyWXML": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "localPlugins": false,
+    "useCompilerPlugins": [
+      "typescript"
+    ],
+    "condition": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
   "libVersion": "3.5.0",
-  "condition": {}
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {}
 }
