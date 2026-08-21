@@ -2,6 +2,8 @@
   "pages": [
     "pages/home/index",
     "pages/courses/index",
+    "pages/shop/index",
+    "pages/me/index",
     "pages/course-detail/index",
     "pages/enroll/index",
     "pages/activities/index",
@@ -13,42 +15,44 @@
     "pages/daily-feed/index",
     "pages/member/index",
     "pages/orders/index",
-    "pages/learn/index",
-    "pages/shop/index",
-    "pages/me/index"
+    "pages/learn/index"
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#F8FAFC",
+    "navigationBarBackgroundColor": "#FEFFFD",
     "navigationBarTitleText": "若星空间",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#F8FAFC"
+    "backgroundColor": "#F1F0E8"
   },
   "tabBar": {
-    "color": "#94A3B8",
-    "selectedColor": "#4F46E5",
-    "backgroundColor": "#FFFFFF",
+    "color": "#4F5345",
+    "selectedColor": "#019A4A",
+    "backgroundColor": "#FEFFFD",
     "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/home/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "assets/icons/tab_home.png",
+        "selectedIconPath": "assets/icons/tab_home_active.png"
       },
       {
         "pagePath": "pages/courses/index",
-        "text": "课程"
-      },
-      {
-        "pagePath": "pages/learn/index",
-        "text": "学习"
+        "text": "成长",
+        "iconPath": "assets/icons/tab_growth.png",
+        "selectedIconPath": "assets/icons/tab_growth_active.png"
       },
       {
         "pagePath": "pages/shop/index",
-        "text": "好物"
+        "text": "商城",
+        "iconPath": "assets/icons/tab_shop.png",
+        "selectedIconPath": "assets/icons/tab_shop_active.png"
       },
       {
         "pagePath": "pages/me/index",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "assets/icons/tab_me.png",
+        "selectedIconPath": "assets/icons/tab_me_active.png"
       }
     ]
   },
