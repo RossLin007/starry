@@ -483,6 +483,8 @@ docs/Design/prototype-v3/admin/
 以：
 
 ```text
+docs/Design/design.md
+.agents/rules/design-rules.md
 docs/Design/VI/
 docs/Design/prototype-v3/
 ```
