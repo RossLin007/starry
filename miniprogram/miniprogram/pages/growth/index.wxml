@@ -1,58 +1,57 @@
 <!-- pages/growth/index.wxml -->
-<view class="container growth-page" wx:if="{{ growth }}">
-  <!-- 星图总览卡片 -->
+<!-- 星夜世界 · 成长星图 (依据 docs/Design/design.md 规范) -->
+<view class="container growth-page" wx:if="{{ growthData }}">
+  <!-- 个人星图总览卡片 (星夜世界) -->
   <view class="star-hero-card">
     <view class="hero-top">
-      <view class="user-tier-badge">✦ {{ growth.user.memberTier === 'STAR_MEMBER' ? '若星签约星愿会员' : '若星学员' }}</view>
-      <view class="points-label">累计星图积分</view>
-      <view class="points-num">{{ growth.user.points }} <text class="points-unit">pts</text></view>
+      <view class="user-tier-badge">✦ {{ growthData.user.tier === 'DEEP' ? '星愿深度会员' : '若星学友' }}</view>
+      <view class="points-label">累计点亮星光</view>
+      <view class="points-num">{{ growthData.points }} <text class="points-unit">✦ 星图点</text></view>
     </view>
-
     <view class="hero-stats">
       <view class="stat-col">
-        <view class="stat-val">{{ growth.streakDays }} <text class="stat-u">天</text></view>
-        <view class="stat-lbl">连续实践打卡</view>
+        <view class="stat-val">{{ growthData.stats.totalCheckins }} <text class="stat-u">次</text></view>
+        <view class="stat-lbl">实践打卡</view>
       </view>
       <view class="stat-divider"></view>
       <view class="stat-col">
-        <view class="stat-val">{{ growth.totalCheckins }} <text class="stat-u">次</text></view>
-        <view class="stat-lbl">累计实践次数</view>
+        <view class="stat-val">{{ growthData.stats.consecutiveDays }} <text class="stat-u">天</text></view>
+        <view class="stat-lbl">连续修行</view>
       </view>
       <view class="stat-divider"></view>
       <view class="stat-col">
-        <view class="stat-val">{{ growth.totalDays }} <text class="stat-u">天</text></view>
-        <view class="stat-lbl">点亮星图天数</view>
+        <view class="stat-val">{{ growthData.stats.activeCourses }} <text class="stat-u">门</text></view>
+        <view class="stat-lbl">在修课程</view>
       </view>
     </view>
   </view>
 
-  <!-- 30天星图打卡热力墙 -->
-  <view class="starry-card heatmap-card">
-    <view class="card-title">✦ 近 30 天实践星图</view>
-    <view class="card-subtitle">每一次打卡，都是在自己内心的宇宙点亮一颗星</view>
-
+  <!-- 30天成长星图热力日历 -->
+  <view class="starry-card-night heatmap-card">
+    <view class="card-title-night">✦ 近 30 天实践星图</view>
+    <view class="card-subtitle-night">成长不是进度条，是一片慢慢被点亮的星空</view>
     <view class="dots-grid">
       <view
-        wx:for="{{ calendarDays }}"
+        wx:for="{{ growthData.heatmap }}"
         wx:key="date"
-        class="dot-item {{ item.isChecked ? 'dot-active' : 'dot-empty' }}"
+        class="dot-item {{ item.count > 0 ? 'dot-active' : 'dot-empty' }}"
       >
-        <text class="dot-day">{{ item.dayNum }}</text>
-        <text class="dot-star">{{ item.isChecked ? '★' : '·' }}</text>
+        <text wx:if="{{ item.count > 0 }}" class="dot-star">✦</text>
+        <text class="dot-day">{{ item.dayStr }}</text>
       </view>
     </view>
   </view>
 
-  <!-- 积分规则说明 -->
-  <view class="starry-card rules-card">
-    <view class="card-title">星图积分权益说明</view>
-    <view class="rule-item">1. 每次完成整理打卡：获得 +10 星图积分</view>
-    <view class="rule-item">2. 积分可用于抵扣若星空间线下雅集门票与沙龙席位</view>
-    <view class="rule-item">3. 连续打卡满 21 天可获赠《若星空间生活整理手册》纸质版</view>
+  <!-- 积分规则与陪伴约定 -->
+  <view class="starry-card-night rules-card">
+    <view class="card-title-night">星图与点亮守则</view>
+    <view class="rule-item">1. 每完成一次课节实践打卡，点亮 10 颗微光星点。</view>
+    <view class="rule-item">2. 实践心得被主理人精选上墙，额外点亮 20 颗微光星点。</view>
+    <view class="rule-item">3. 连续打卡满 7 天，解锁专属星座连线勋章。</view>
   </view>
 
-  <!-- 打卡按钮 -->
-  <button class="starry-btn action-btn" bindtap="onTapCheckin">
-    去打卡 · 点亮今日星光 ➔
+  <!-- 去打卡行动按钮 -->
+  <button class="starry-btn action-btn" bindtap="onTapGoCheckin">
+    记录今天的微小实践 ➔
   </button>
 </view>

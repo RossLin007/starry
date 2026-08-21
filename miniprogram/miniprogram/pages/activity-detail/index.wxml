@@ -10,7 +10,7 @@
   <view class="starry-card info-card">
     <view class="price-row">
       <text class="price-main">{{ activity.price === 0 ? '免费参加' : '¥' + activity.price }}</text>
-      <text class="quota-tip">限额 {{ activity.maxParticipants || '不限' }} 人 · 已报名 {{ activity.currentParticipants }} 人</text>
+      <text class="quota-tip">限额 {{ activity.maxParticipants || '不限' }} 席 · 已报名 {{ activity.currentParticipants }} 人</text>
     </view>
     <view class="detail-title">{{ activity.title }}</view>
   </view>
@@ -35,7 +35,7 @@
 
   <!-- 活动内容介绍 -->
   <view class="starry-card content-card">
-    <view class="section-title">活动详情与流程</view>
+    <view class="section-title">雅集详情与流程</view>
     <view class="content-body">
       {{ activity.content || '欢迎来到若星空间雅集。在这里，我们放慢步调，共同探讨生活秩序、器物美学与内省心念。' }}
     </view>
@@ -45,14 +45,14 @@
   <view class="bottom-bar">
     <view class="bar-left">
       <view class="bar-price">{{ activity.price === 0 ? '免费参加' : '¥' + activity.price }}</view>
-      <view class="bar-tip">包含雅集茶饮与器物体验资料</view>
+      <view class="bar-tip">已包含雅集茶饮与器物体验资料</view>
     </view>
 
     <view wx:if="{{ activity.isEnrolled }}" class="starry-btn ticket-btn" bindtap="onTapViewTicket">
       已报名 · 查看入场票 ➔
     </view>
     <view wx:else class="starry-btn enroll-btn" bindtap="onTapEnroll">
-      立即报名
+      报名参加
     </view>
   </view>
 </view>

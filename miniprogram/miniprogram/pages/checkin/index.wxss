@@ -7,28 +7,29 @@
 }
 
 .tip-card {
-  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
-  color: #FFFFFF;
+  background: var(--starry-bud);
+  border: 1rpx solid var(--starry-rice);
+  color: var(--starry-ink);
 }
 
 .tip-title {
   font-size: 30rpx;
-  font-weight: 700;
-  color: #FBBF24;
+  font-weight: 600;
+  color: var(--starry-green);
   margin-bottom: 10rpx;
 }
 
 .tip-desc {
   font-size: 24rpx;
-  color: #E2E8F0;
-  line-height: 1.5;
+  color: var(--starry-tea);
+  line-height: 1.6;
 }
 
 .tag-course {
   margin-top: 16rpx;
   font-size: 22rpx;
-  color: #FBBF24;
-  background: rgba(251, 191, 36, 0.15);
+  color: var(--starry-tea);
+  background: rgba(1, 154, 74, 0.1);
   padding: 6rpx 16rpx;
   border-radius: var(--starry-radius-sm);
   display: inline-block;
@@ -44,8 +45,8 @@
   width: 100%;
   height: 320rpx;
   font-size: 28rpx;
-  color: var(--starry-text-main);
-  line-height: 1.6;
+  color: var(--starry-ink);
+  line-height: 1.7;
 }
 
 .images-grid {
@@ -67,8 +68,8 @@
 }
 
 .upload-btn {
-  background: #F1F5F9;
-  border: 2rpx dashed #CBD5E1;
+  background: var(--starry-muted-bg);
+  border: 2rpx dashed var(--starry-rice);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,7 +83,7 @@
 
 .upload-text {
   font-size: 22rpx;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
 }
 
 .submit-btn {

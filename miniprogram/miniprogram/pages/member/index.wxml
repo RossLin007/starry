@@ -1,6 +1,7 @@
 <!-- pages/member/index.wxml -->
+<!-- 星夜世界专属页面 (依据 docs/Design/design.md 规范) -->
 <view class="container member-page" wx:if="{{ benefits }}">
-  <!-- 会员尊享 Hero 卡片 -->
+  <!-- 会员尊享 Hero 卡片 (星夜世界) -->
   <view class="vip-hero-card">
     <view class="vip-badge">✦ STARRY VIP</view>
     <view class="vip-title">{{ benefits.tierName }}</view>
@@ -13,8 +14,8 @@
   </view>
 
   <!-- 五大会员核心特权 -->
-  <view class="starry-card benefits-card">
-    <view class="section-title">✦ 星愿会员尊享 5 大特权</view>
+  <view class="starry-card-night benefits-card">
+    <view class="section-title-night">✦ 星愿会员尊享 5 大特权</view>
     <view class="benefit-item" wx:for="{{ benefits.benefits }}" wx:key="title">
       <view class="b-icon-box">{{ item.icon }}</view>
       <view class="b-text">
@@ -25,10 +26,10 @@
   </view>
 
   <!-- 会员开通须知 -->
-  <view class="starry-card note-card">
-    <view class="section-title">开通与服务说明</view>
+  <view class="starry-card-night note-card">
+    <view class="section-title-night">开通与服务说明</view>
     <view class="note-item">1. 星愿会员有效期为自支付成功之日起 365 天。</view>
-    <view class="note-item">2. 会员开通后，专属纸质礼盒将在 3 个工作日内寄出。</view>
+    <view class="note-item">2. 会员开通后，专属定制伴手礼将在 3 个工作日内寄出。</view>
     <view class="note-item">3. 报名若星空间全线整理营，系统将自动按 8.8 折特惠结算。</view>
   </view>
 
@@ -38,8 +39,8 @@
       <view class="total-price">¥{{ benefits.price }}</view>
       <view class="price-hint">支持微信支付 · 即时生效</view>
     </view>
-    <button class="starry-btn pay-btn" loading="{{ paying }}" bindtap="onTapPurchase">
-      立即开通星愿会员 ➔
+    <button class="vip-pay-btn" loading="{{ paying }}" bindtap="onTapPurchase">
+      开启星愿会员之旅 ➔
     </button>
   </view>
 </view>

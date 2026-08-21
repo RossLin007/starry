@@ -21,12 +21,11 @@
   position: absolute;
   top: 20rpx;
   left: 20rpx;
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(22, 48, 15, 0.75);
   color: #FFFFFF;
   font-size: 22rpx;
   padding: 6rpx 20rpx;
   border-radius: var(--starry-radius-full);
-  backdrop-filter: blur(8px);
 }
 
 .info-card {
@@ -41,37 +40,37 @@
 
 .price-main {
   font-size: 44rpx;
-  font-weight: 800;
-  color: var(--starry-primary);
+  font-weight: 700;
+  color: var(--starry-green);
   margin-right: 16rpx;
 }
 
 .price-orig {
   font-size: 26rpx;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
   text-decoration: line-through;
   margin-right: auto;
 }
 
 .quota-tip {
   font-size: 22rpx;
-  color: #92400E;
-  background: var(--starry-gold-light);
+  color: var(--starry-tea);
+  background: var(--starry-bud);
   padding: 4rpx 16rpx;
   border-radius: var(--starry-radius-sm);
 }
 
 .detail-title {
   font-size: 36rpx;
-  font-weight: 700;
-  color: var(--starry-text-main);
+  font-weight: 600;
+  color: var(--starry-green);
   line-height: 1.4;
   margin-bottom: 12rpx;
 }
 
 .detail-subtitle {
   font-size: 26rpx;
-  color: var(--starry-text-secondary);
+  color: var(--starry-tea);
   line-height: 1.5;
 }
 
@@ -95,19 +94,19 @@
 .service-label {
   font-size: 24rpx;
   font-weight: 600;
-  color: var(--starry-text-main);
+  color: var(--starry-ink);
 }
 
 .service-val {
   font-size: 22rpx;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
   margin-top: 4rpx;
 }
 
 .section-title {
   font-size: 32rpx;
-  font-weight: 700;
-  color: var(--starry-text-main);
+  font-weight: 600;
+  color: var(--starry-green);
   margin-bottom: 20rpx;
 }
 
@@ -121,55 +120,47 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx 32rpx;
+  padding: 24rpx 28rpx;
 }
 
 .lesson-left {
   display: flex;
   align-items: center;
   gap: 20rpx;
+  flex: 1;
 }
 
-.lesson-num {
-  width: 48rpx;
-  height: 48rpx;
-  border-radius: var(--starry-radius-full);
-  background: #F1F5F9;
-  color: var(--starry-text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24rpx;
-  font-weight: 700;
+.lesson-text-wrap {
+  flex: 1;
 }
 
 .lesson-title {
   font-size: 28rpx;
-  font-weight: 600;
-  color: var(--starry-text-main);
+  font-weight: 500;
+  color: var(--starry-ink);
 }
 
 .lesson-meta {
   font-size: 22rpx;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
   margin-top: 4rpx;
 }
 
 .lesson-status {
   font-size: 22rpx;
-  font-weight: 600;
+  font-weight: 500;
   padding: 6rpx 18rpx;
-  border-radius: var(--starry-radius-sm);
+  border-radius: var(--starry-radius-full);
 }
 
 .lesson-status.unlocked {
-  color: #065F46;
-  background: #D1FAE5;
+  color: var(--starry-green);
+  background: var(--starry-bud);
 }
 
 .lesson-status.locked {
-  color: var(--starry-text-muted);
-  background: #F1F5F9;
+  color: var(--starry-ash);
+  background: var(--starry-rice);
 }
 
 .bottom-bar {
@@ -178,25 +169,25 @@
   left: 0;
   right: 0;
   height: 130rpx;
-  background: #FFFFFF;
-  border-top: 1rpx solid var(--starry-muted-bg);
+  background: var(--starry-paper);
+  border-top: 1rpx solid var(--starry-rice);
   padding: 0 32rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.05);
+  box-shadow: 0 -4rpx 20rpx rgba(22,48,15,0.05);
   z-index: 100;
 }
 
 .bar-price {
   font-size: 38rpx;
-  font-weight: 800;
-  color: var(--starry-primary);
+  font-weight: 700;
+  color: var(--starry-green);
 }
 
 .bar-tip {
   font-size: 20rpx;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
 }
 
 .enroll-btn {
@@ -205,5 +196,5 @@
 
 .enter-btn {
   padding: 20rpx 48rpx;
-  background: #0F172A;
+  background: var(--starry-ink);
 }

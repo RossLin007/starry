@@ -44,8 +44,8 @@
       class="starry-card lesson-item"
     >
       <view class="lesson-left">
-        <view class="lesson-num">{{ index + 1 }}</view>
-        <view>
+        <view class="num-circle">{{ index + 1 }}</view>
+        <view class="lesson-text-wrap">
           <view class="lesson-title">{{ item.title }}</view>
           <view class="lesson-meta">{{ item.sectionName || '核心课节' }} · {{ item.unlockType === 'IMMEDIATE' ? '开营解锁' : '排期开放' }}</view>
         </view>
@@ -60,13 +60,13 @@
   <view class="bottom-bar">
     <view class="bar-left">
       <view class="bar-price">¥{{ course.price }}</view>
-      <view class="bar-tip">支持微信支付 / 积分抵扣</view>
+      <view class="bar-tip">包含全套实践资料与陪伴答疑</view>
     </view>
     <view wx:if="{{ course.isEnrolled }}" class="starry-btn enter-btn" bindtap="onTapEnterStudy">
       已报名 · 进入学习区
     </view>
     <view wx:else class="starry-btn enroll-btn" bindtap="onTapEnroll">
-      立即报名
+      报名课程
     </view>
   </view>
 </view>

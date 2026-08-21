@@ -1,65 +1,73 @@
 /* pages/member/index.wxss */
+/* 星夜世界专属样式：夜空蓝 #1F2A44 + 雾蓝 #3D4E73 + 星光金 #F0D9A8 + 米白 #E9E4D8 */
+
+page {
+  background-color: var(--starry-night);
+  color: var(--starry-cream);
+}
+
 .member-page {
   display: flex;
   flex-direction: column;
   gap: 24rpx;
-  padding-bottom: 160rpx;
+  padding-bottom: 180rpx;
+  background-color: var(--starry-night);
 }
 
 .vip-hero-card {
-  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
-  border-radius: 28rpx;
+  background: linear-gradient(150deg, #2A3859 0%, #1F2A44 60%, #172136 100%);
+  border-radius: var(--starry-radius-lg);
   padding: 48rpx 36rpx;
-  color: #FFFFFF;
-  box-shadow: 0 12rpx 36rpx rgba(49, 46, 129, 0.25);
-  border: 1rpx solid rgba(251, 191, 36, 0.3);
+  color: var(--starry-cream);
+  box-shadow: var(--starry-shadow-night);
+  border: 1rpx solid rgba(240, 217, 168, 0.35);
 }
 
 .vip-badge {
   font-size: 20rpx;
-  font-weight: 800;
-  color: #1E1B4B;
-  background: #FBBF24;
+  font-weight: 700;
+  color: var(--starry-night);
+  background: var(--starry-star);
   padding: 6rpx 20rpx;
   border-radius: var(--starry-radius-full);
   display: inline-block;
   letter-spacing: 2rpx;
-  margin-bottom: 16rpx;
+  margin-bottom: 18rpx;
 }
 
 .vip-title {
   font-size: 38rpx;
-  font-weight: 800;
+  font-weight: 600;
   color: #FFFFFF;
   margin-bottom: 8rpx;
 }
 
 .vip-slogan {
   font-size: 24rpx;
-  color: #CBD5E1;
+  color: rgba(233, 228, 216, 0.7);
   margin-bottom: 32rpx;
 }
 
 .vip-price-box {
   display: flex;
   align-items: baseline;
-  color: #FBBF24;
+  color: var(--starry-star);
 }
 
 .currency {
   font-size: 32rpx;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .price-val {
   font-size: 64rpx;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0 6rpx;
 }
 
 .duration {
   font-size: 24rpx;
-  color: #CBD5E1;
+  color: rgba(233, 228, 216, 0.65);
 }
 
 .benefits-card {
@@ -68,12 +76,12 @@
   gap: 24rpx;
 }
 
-.section-title {
+.section-title-night {
   font-size: 30rpx;
-  font-weight: 700;
-  color: var(--starry-text-main);
-  border-bottom: 1rpx solid var(--starry-muted-bg);
-  padding-bottom: 12rpx;
+  font-weight: 600;
+  color: var(--starry-star);
+  border-bottom: 1rpx solid rgba(240, 217, 168, 0.15);
+  padding-bottom: 16rpx;
 }
 
 .benefit-item {
@@ -86,13 +94,14 @@
   width: 60rpx;
   height: 60rpx;
   border-radius: 16rpx;
-  background: #FEF3C7;
-  color: #92400E;
+  background: rgba(240, 217, 168, 0.15);
+  color: var(--starry-star);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30rpx;
+  font-size: 28rpx;
   flex-shrink: 0;
+  border: 1rpx solid rgba(240, 217, 168, 0.25);
 }
 
 .b-text {
@@ -101,21 +110,21 @@
 
 .b-title {
   font-size: 28rpx;
-  font-weight: 700;
-  color: var(--starry-text-main);
+  font-weight: 600;
+  color: var(--starry-cream);
 }
 
 .b-desc {
   font-size: 22rpx;
-  color: var(--starry-text-muted);
+  color: rgba(233, 228, 216, 0.65);
   margin-top: 4rpx;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .note-card {
   font-size: 22rpx;
-  color: var(--starry-text-muted);
-  line-height: 1.6;
+  color: rgba(233, 228, 216, 0.65);
+  line-height: 1.7;
 }
 
 .note-item {
@@ -128,28 +137,34 @@
   left: 0;
   right: 0;
   height: 140rpx;
-  background: #FFFFFF;
-  border-top: 1rpx solid var(--starry-muted-bg);
+  background: #172136;
+  border-top: 1rpx solid rgba(240, 217, 168, 0.2);
   padding: 0 32rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.06);
+  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.3);
   z-index: 100;
 }
 
 .total-price {
   font-size: 40rpx;
-  font-weight: 800;
-  color: var(--starry-gold);
+  font-weight: 700;
+  color: var(--starry-star);
 }
 
 .price-hint {
   font-size: 20rpx;
-  color: var(--starry-text-muted);
+  color: rgba(233, 228, 216, 0.5);
 }
 
-.pay-btn {
-  padding: 24rpx 48rpx;
+.vip-pay-btn {
+  background: var(--starry-star);
+  color: var(--starry-night);
   font-size: 28rpx;
+  font-weight: 600;
+  border-radius: var(--starry-radius-full);
+  padding: 22rpx 44rpx;
+  border: none;
+  letter-spacing: 0.04em;
 }

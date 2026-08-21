@@ -8,10 +8,10 @@
 
 .tab-bar {
   display: flex;
-  background: #FFFFFF;
+  background: var(--starry-paper);
   border-radius: var(--starry-radius-md);
   padding: 8rpx;
-  border: 1rpx solid var(--starry-muted-bg);
+  border: 1rpx solid var(--starry-rice);
 }
 
 .tab-item {
@@ -19,14 +19,14 @@
   text-align: center;
   padding: 16rpx 0;
   font-size: 26rpx;
-  color: var(--starry-text-secondary);
+  color: var(--starry-ash);
   border-radius: var(--starry-radius-sm);
   font-weight: 500;
   transition: all 0.2s;
 }
 
 .tab-item.active {
-  background: var(--starry-primary);
+  background: var(--starry-green);
   color: #FFFFFF;
   font-weight: 600;
 }
@@ -40,7 +40,7 @@
 .empty-box {
   text-align: center;
   padding: 120rpx 0;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
 }
 
 .empty-icon {
@@ -62,36 +62,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1rpx solid var(--starry-muted-bg);
+  border-bottom: 1rpx solid var(--starry-rice);
   padding-bottom: 12rpx;
 }
 
 .order-no {
   font-size: 22rpx;
   font-family: monospace;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
 }
 
 .order-status-tag {
   font-size: 20rpx;
   padding: 4rpx 14rpx;
-  border-radius: 6rpx;
-  font-weight: 600;
+  border-radius: var(--starry-radius-full);
+  font-weight: 500;
 }
 
 .status-PAID {
-  background: #D1FAE5;
-  color: #065F46;
+  background: var(--starry-bud);
+  color: var(--starry-green);
 }
 
 .status-PENDING {
-  background: #FEF3C7;
-  color: #92400E;
+  background: rgba(240, 217, 168, 0.35);
+  color: var(--starry-tea);
 }
 
 .status-CLOSED {
-  background: #F1F5F9;
-  color: #64748B;
+  background: var(--starry-rice);
+  color: var(--starry-ash);
 }
 
 .order-body {
@@ -100,21 +100,21 @@
 
 .order-title {
   font-size: 28rpx;
-  font-weight: 700;
-  color: var(--starry-text-main);
+  font-weight: 600;
+  color: var(--starry-ink);
   margin-bottom: 8rpx;
 }
 
 .order-time {
   font-size: 20rpx;
-  color: var(--starry-text-muted);
+  color: var(--starry-ash);
 }
 
 .order-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1rpx solid var(--starry-muted-bg);
+  border-top: 1rpx solid var(--starry-rice);
   padding-top: 16rpx;
 }
 
@@ -125,13 +125,13 @@
 
 .amount-lbl {
   font-size: 22rpx;
-  color: var(--starry-text-secondary);
+  color: var(--starry-ash);
 }
 
 .amount-val {
   font-size: 32rpx;
-  font-weight: 800;
-  color: var(--starry-gold);
+  font-weight: 700;
+  color: var(--starry-green);
 }
 
 .action-btns {
@@ -142,16 +142,16 @@
 .cancel-btn {
   font-size: 22rpx;
   padding: 8rpx 24rpx;
-  background: #F1F5F9;
-  color: var(--starry-text-secondary);
+  background: var(--starry-rice);
+  color: var(--starry-ash);
   border-radius: var(--starry-radius-full);
 }
 
 .pay-btn {
   font-size: 22rpx;
   padding: 8rpx 28rpx;
-  background: var(--starry-primary);
+  background: var(--starry-green);
   color: #FFFFFF;
   border-radius: var(--starry-radius-full);
-  font-weight: 600;
+  font-weight: 500;
 }

@@ -8,9 +8,11 @@
     </view>
 
     <view class="quote-main">
-      <view class="quote-mark">“</view>
       <view class="quote-text">{{ daily.quote }}</view>
-      <view class="quote-author">—— {{ daily.author || '若星' }}</view>
+      <view class="quote-foot">
+        <text class="quote-author">—— {{ daily.author || '若星' }}</text>
+        <text class="seal">若星</text>
+      </view>
     </view>
 
     <!-- 伴读音频条 (若有) -->
