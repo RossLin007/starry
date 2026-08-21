@@ -1,28 +1,201 @@
 <!-- pages/home/index.wxml -->
-<view class="container">
-  <!-- 品牌引言区 (对应 docs/Design/prototype-v3/home.html) -->
-  <view class="hero-section starry-card">
-    <view class="brand-badge">✨ {{ brandName }}</view>
-    <view class="slogan-group">
-      <view class="slogan-line" wx:for="{{ slogans }}" wx:key="*this">{{ item }}</view>
+<!-- 100% 严格对齐 docs/Design/prototype-v3/home.html 原型规范 -->
+<view class="screen" wx:if="{{ homeData }}">
+
+  <!-- 1. 顶部引言区 -->
+  <view class="section fade-up hero-section">
+    <view class="brand-lockup">
+      <text class="bl-cn">{{ homeData.brandQuote.brandName || '若星空间' }}</text>
     </view>
-    <view class="sub-slogan">{{ subSlogan }}</view>
+    <view class="lede">
+      <view wx:for="{{ homeData.brandQuote.lede }}" wx:key="*this">{{ item }}</view>
+    </view>
+    <view class="meta hero-meta">
+      {{ homeData.brandQuote.meta }}
+    </view>
   </view>
 
-  <!-- 每日星语 -->
-  <view class="quote-card starry-card">
-    <view class="quote-header">
-      <text class="quote-title">每日星语</text>
-      <text class="quote-date">今日推荐</text>
+  <view class="star-divider">✦   ✦   ✦</view>
+
+  <!-- 2. 我正在进行 (进行中的学习与活动) -->
+  <view class="section fade-up">
+    <view class="section-head">
+      <text class="section-title bilingual">我正在进行</text>
+      <text class="btn-text" bindtap="onTapEnterStudy">进入学习区</text>
     </view>
-    <view class="quote-content">“{{ todayQuote }}”</view>
+    <view class="card progress-card">
+      <!-- 课程在修项目 -->
+      <view class="inline-row" bindtap="onTapEnterStudy">
+        <image
+          class="photo photo-food inline-photo"
+          src="{{ homeData.activeStudy ? homeData.activeStudy.coverUrl : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600' }}"
+          mode="aspectFill"
+        />
+        <view class="ir-text">
+          <view class="eyebrow">{{ homeData.activeStudy ? homeData.activeStudy.category : '生活料理 · 第 12 期' }}</view>
+          <view class="ir-title">{{ homeData.activeStudy ? homeData.activeStudy.title : '把一日三餐，过成修行' }}</view>
+          <view class="ir-sub">
+            {{ homeData.activeStudy ? '学习进度 ' + homeData.activeStudy.progressPercent + '%' : '已修 2 / 8 课 · 本周：一碗好米饭' }}
+          </view>
+        </view>
+        <text class="btn-text ir-action">继续</text>
+      </view>
+
+      <view class="hairline"></view>
+
+      <!-- 线下已预约活动 -->
+      <view class="inline-row" bindtap="onTapAllActivities">
+        <image
+          class="photo photo-tea inline-photo"
+          src="{{ homeData.activeActivity ? homeData.activeActivity.coverUrl : 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600' }}"
+          mode="aspectFill"
+        />
+        <view class="ir-text">
+          <view class="eyebrow">{{ homeData.activeActivity ? '已报名 · 线下雅集' : '已报名 · 线下茶会' }}</view>
+          <view class="ir-title">{{ homeData.activeActivity ? homeData.activeActivity.title : '初秋茶会' }}</view>
+          <view class="ir-sub">
+            {{ homeData.activeActivity ? (homeData.activeActivity.startTime + ' · ' + (homeData.activeActivity.location || '若星美学馆')) : '9 月 7 日（周日）14:00 · 若星莘庄空间' }}
+          </view>
+        </view>
+        <view class="tag">稍后赴约</view>
+      </view>
+    </view>
   </view>
 
-  <!-- 推荐模块占位 -->
-  <view class="section-title">课程与活动推荐</view>
-  <view class="starry-card demo-card">
-    <text class="card-tag">进行中</text>
-    <view class="course-title">21天空间生活整理营 · 第四期</view>
-    <view class="course-desc">从书桌到心念，建立温润秩序感的生活方式</view>
+  <!-- 3. 近期线上课程 -->
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title bilingual">近期线上课程</text>
+      <text class="btn-text" bindtap="onTapAllCourses">查看全部</text>
+    </view>
+    <view class="stack">
+      <view
+        wx:for="{{ homeData.onlineCourses }}"
+        wx:key="id"
+        class="card course-card"
+        data-id="{{ item.id }}"
+        bindtap="onTapCourse"
+      >
+        <view class="photo-box">
+          <image class="photo course-photo" src="{{ item.coverUrl }}" mode="aspectFill" />
+          <text class="photo-label">课程实景</text>
+        </view>
+        <view class="card-body">
+          <view class="eyebrow">{{ item.category }}</view>
+          <view class="theme">{{ item.title }}</view>
+          <view class="meta-line">{{ item.courseStartTime || '近期开营' }}</view>
+          <view class="meta-line">{{ item.subtitle || '每周直播与课后打卡共创' }}</view>
+          <view class="tag-box">
+            <text class="tag {{ item.tagClass === 'green' ? 'tag-green' : (item.tagClass === 'disabled' ? 'tag-disabled' : '') }}">
+              {{ item.tagText || '填写报名' }}
+            </text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 4. 近期线下课程 / 雅集 -->
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title bilingual">近期线下课程</text>
+      <text class="btn-text" bindtap="onTapAllActivities">查看全部</text>
+    </view>
+    <view class="card activity-card">
+      <block wx:for="{{ homeData.offlineActivities }}" wx:key="id">
+        <view class="activity-row" data-id="{{ item.id }}" bindtap="onTapActivity">
+          <view class="photo-box-sm">
+            <image class="photo act-photo" src="{{ item.coverUrl }}" mode="aspectFill" />
+            <text class="photo-label">{{ item.tag || '雅集' }}</text>
+          </view>
+          <view class="act-info">
+            <view class="micro">{{ item.micro || '线下 · 莘庄空间' }}</view>
+            <view class="act-name">{{ item.title }}</view>
+            <view class="meta">{{ item.timeStr || item.startTime || '近期开班' }}</view>
+          </view>
+        </view>
+        <view class="hairline" wx:if="{{ index < homeData.offlineActivities.length - 1 }}"></view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 5. 会员故事 -->
+  <view class="section" wx:if="{{ homeData.featuredStories && homeData.featuredStories.length > 0 }}">
+    <view class="section-head">
+      <text class="section-title bilingual">会员故事</text>
+    </view>
+    <view
+      wx:for="{{ homeData.featuredStories }}"
+      wx:key="id"
+      class="card story-card"
+      data-id="{{ item.id }}"
+      bindtap="onTapStory"
+    >
+      <view class="photo-box-story">
+        <image class="photo story-photo" src="{{ item.coverUrl }}" mode="aspectFill" />
+        <text class="photo-label">学员实践</text>
+      </view>
+      <view class="story-body">
+        <view class="story-title">{{ item.title }}</view>
+        <view class="meta story-text">{{ item.summary }}</view>
+        <view class="story-foot">
+          <text class="micro">{{ item.authorName }}</text>
+          <text class="seal">若星</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 6. 好物推荐 -->
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title bilingual">好物推荐</text>
+      <text class="btn-text" bindtap="onTapAllShop">更多好物</text>
+    </view>
+    <view class="goods-grid">
+      <view
+        wx:for="{{ homeData.featuredGoods }}"
+        wx:key="id"
+        class="goods-card"
+        data-item="{{ item }}"
+        bindtap="onTapGoods"
+      >
+        <view class="goods-photo-box">
+          <image class="goods-img" src="{{ item.coverUrl }}" mode="aspectFill" />
+        </view>
+        <view class="goods-body">
+          <text class="mini-tag">{{ item.category || '若心拾光' }}</text>
+          <view class="goods-name">{{ item.title }}</view>
+          <view class="goods-foot">
+            <view class="goods-price">¥{{ item.price }} <text class="unit-sub">{{ item.unit || '' }}</text></view>
+            <view class="goods-source">{{ item.sourceName || '若心拾光' }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 7. 会员入口 -->
+  <view class="section member-section">
+    <view class="section-title member-title">想和若星走得更近一些？</view>
+    <view class="btn-secondary" bindtap="onTapMember">了解会员</view>
+  </view>
+
+</view>
+
+<!-- 第三方小程序跳转对话框 (对齐原型 miniMask) -->
+<view class="share-mask {{ showGoodsModal ? 'open' : '' }}" bindtap="onCloseGoodsModal">
+  <view class="share-panel" catchtap="true">
+    <view class="mini-panel-title">{{ selectedGoods ? selectedGoods.title : '' }}</view>
+    <view class="mini-panel-sub">即将离开若星，前往第三方小程序购买。</view>
+    <view class="mini-app-row">
+      <view class="mini-app-ico">🛍️</view>
+      <view>
+        <view class="mini-app-name">{{ selectedGoods ? selectedGoods.sourceName : '若心拾光' }}</view>
+        <view class="mini-app-meta">第三方小程序 · 由商家独立运营</view>
+      </view>
+    </view>
+    <button class="mini-open" bindtap="onConfirmOpenMini">打开小程序</button>
+    <button class="share-cancel" bindtap="onCloseGoodsModal">取消</button>
   </view>
 </view>

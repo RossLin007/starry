@@ -1,12 +1,16 @@
 // pages/shop/index.ts
+// 100% 严格对齐 docs/Design/prototype-v3/shop.html 原型规范
 import { request } from '../../utils/request';
 
 Page({
   data: {
-    categories: ['全部', '生活器物', '收纳工具', '推荐好书', '若星周边'],
+    shopIntro: '认真挑选的素食好物，由合作店铺直供。下单将前往第三方小程序完成。',
+    categories: ['全部', '礼品订制', '豆制品', '谷物杂粮', '菌菇干货', '植物奶', '茶饮', '零食'],
     activeCategory: '全部',
     goods: [] as any[],
     loading: true,
+    showGoodsModal: false,
+    selectedGoods: null as any,
   },
 
   onLoad() {
@@ -31,33 +35,69 @@ Page({
           goods: [
             {
               id: 'g1',
-              title: '若星定制 · 天然亚麻衣物收纳盒（三件套）',
-              category: '收纳工具',
-              price: 128,
-              originalPrice: 158,
-              coverUrl: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=600',
+              title: '老豆腐 · 盐卤点浆',
+              desc: '清晨现做，豆香扎实，口感紧实有回甘',
+              category: '豆制品',
+              price: 8.8,
+              unit: '/ 400g',
+              sourceName: '若心拾光',
+              coverUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600',
               thirdPartyAppId: 'wx_mock_shop_appid',
-              thirdPartyPath: 'pages/goods/detail?id=1',
             },
             {
               id: 'g2',
-              title: '《整理的艺术与心念》主理人亲笔签名版',
-              category: '推荐好书',
-              price: 68,
-              originalPrice: 88,
-              coverUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600',
+              title: '有机糙米 · 五常产地',
+              desc: '带胚芽的糙米，慢慢咀嚼有淡淡麦香',
+              category: '谷物杂粮',
+              price: 19.9,
+              unit: '/ 1kg',
+              sourceName: '若心拾光',
+              coverUrl: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600',
               thirdPartyAppId: 'wx_mock_shop_appid',
-              thirdPartyPath: 'pages/goods/detail?id=2',
             },
             {
               id: 'g3',
-              title: '若星雅集 · 粗陶素烧品茗杯',
-              category: '生活器物',
-              price: 89,
-              originalPrice: 119,
-              coverUrl: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600',
+              title: '香菇 · 古田厚肉菇',
+              desc: '菇伞厚实，煲汤提鲜，半斤一袋',
+              category: '菌菇干货',
+              price: 29.9,
+              unit: '/ 250g',
+              sourceName: '若心拾光',
+              coverUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600',
               thirdPartyAppId: 'wx_mock_shop_appid',
-              thirdPartyPath: 'pages/goods/detail?id=3',
+            },
+            {
+              id: 'g4',
+              title: '纯燕麦奶 · 无糖原味',
+              desc: '只用水和燕麦，淡淡的谷物甜',
+              category: '植物奶',
+              price: 15.9,
+              unit: '/ 1L',
+              sourceName: '若心拾光',
+              coverUrl: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=600',
+              thirdPartyAppId: 'wx_mock_shop_appid',
+            },
+            {
+              id: 'g5',
+              title: '武夷肉桂 · 岩茶小罐',
+              desc: '桂皮香显，茶汤橙黄，一罐约十泡',
+              category: '茶饮',
+              price: 68,
+              unit: '/ 50g',
+              sourceName: '若心拾光',
+              coverUrl: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600',
+              thirdPartyAppId: 'wx_mock_shop_appid',
+            },
+            {
+              id: 'g6',
+              title: '黑芝麻丸 · 九蒸九晒',
+              desc: '黑芝麻与枣泥的紧实小丸，一天一颗',
+              category: '零食',
+              price: 39.9,
+              unit: '/ 15 颗',
+              sourceName: '若心拾光',
+              coverUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600',
+              thirdPartyAppId: 'wx_mock_shop_appid',
             },
           ],
         });
@@ -76,24 +116,53 @@ Page({
 
   onTapGoods(e: any) {
     const item = e.currentTarget.dataset.item;
+    this.setData({
+      selectedGoods: item,
+      showGoodsModal: true,
+    });
+  },
+
+  onCloseGoodsModal() {
+    this.setData({
+      showGoodsModal: false,
+      selectedGoods: null,
+    });
+  },
+
+  onConfirmOpenMini() {
+    const goods = this.data.selectedGoods;
+    this.onCloseGoodsModal();
+    if (goods?.thirdPartyAppId) {
+      wx.navigateToMiniProgram({
+        appId: goods.thirdPartyAppId,
+        path: goods.thirdPartyPath || '',
+        fail: () => {
+          wx.showToast({
+            title: `即将打开「${goods.sourceName || '第三方'}」小程序`,
+            icon: 'none',
+          });
+        },
+      });
+    } else {
+      wx.showToast({
+        title: `即将打开「${goods?.sourceName || '第三方'}」小程序`,
+        icon: 'none',
+      });
+    }
+  },
+
+  onTapGiftContact() {
     wx.showModal({
-      title: '甄选好物跳转',
-      content: `若星空间不做电商闭环交易。即将跳转至第三方合作小程序【${item.title}】选购。`,
-      confirmText: '前往选购',
-      cancelText: '再看看',
+      title: '伴手礼定制咨询',
+      content: '若星空间将为你一对一沟通定制方案，请点击确定联系客服。',
+      confirmText: '确定联系',
+      cancelText: '取消',
       success: (res) => {
         if (res.confirm) {
-          if (item.thirdPartyAppId) {
-            wx.navigateToMiniProgram({
-              appId: item.thirdPartyAppId,
-              path: item.thirdPartyPath || 'pages/index',
-              fail: () => {
-                wx.showToast({ title: '已模拟跳转第三方选购', icon: 'none' });
-              },
-            });
-          } else {
-            wx.showToast({ title: '已模拟跳转第三方选购', icon: 'none' });
-          }
+          wx.showToast({
+            title: '正在唤起官方客服…',
+            icon: 'none',
+          });
         }
       },
     });

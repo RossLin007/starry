@@ -1,42 +1,93 @@
 <!-- pages/courses/index.wxml -->
-<view class="container">
-  <!-- 分类筛选横滑栏 -->
-  <scroll-view scroll-x class="category-scroll" enable-flex>
+<!-- 100% 严格对齐 docs/Design/prototype-v3/courses.html 原型规范 -->
+<view class="screen">
+
+  <!-- 1. 线上课程 | 线下课程 切换 -->
+  <view class="mode-tabs">
     <view
-      wx:for="{{ categories }}"
-      wx:key="*this"
-      class="category-tab {{ activeCategory === item ? 'active' : '' }}"
-      data-category="{{ item }}"
-      bindtap="onSelectCategory"
+      class="mode-tab-item {{ activeMode === 'online' ? 'active' : '' }}"
+      data-mode="online"
+      bindtap="onSwitchMode"
     >
-      {{ item }}
+      线上课程
     </view>
-  </scroll-view>
-
-  <!-- 课程列表 -->
-  <view class="courses-list">
     <view
-      wx:for="{{ courses }}"
-      wx:key="id"
-      class="starry-card course-card"
-      data-id="{{ item.id }}"
-      bindtap="onTapCourse"
+      class="mode-tab-item {{ activeMode === 'offline' ? 'active' : '' }}"
+      data-mode="offline"
+      bindtap="onSwitchMode"
     >
-      <view class="course-header">
-        <view class="course-tag">{{ item.category }}</view>
-        <view class="course-price">{{ item.price === 0 ? '免费体验' : '¥' + item.price }}</view>
+      线下课程
+    </view>
+  </view>
+
+  <!-- 2. 线上课程视图 -->
+  <view wx:if="{{ activeMode === 'online' }}" class="mode-view">
+    <!-- 板块分类标签 -->
+    <scroll-view class="cat-tabs" scroll-x enable-flex>
+      <view
+        wx:for="{{ categories }}"
+        wx:key="*this"
+        class="cat-tab-item {{ activeCategory === item ? 'active' : '' }}"
+        data-category="{{ item }}"
+        bindtap="onSelectCategory"
+      >
+        {{ item }}
       </view>
+    </scroll-view>
 
-      <view class="course-title">{{ item.title }}</view>
-      <view class="course-subtitle">{{ item.subtitle }}</view>
+    <view class="cat-lede">{{ catLede }}</view>
 
-      <view class="course-footer">
-        <view class="course-date">
-          <text class="date-icon">🗓️</text>
-          <text>{{ item.courseStartTime ? item.courseStartTime : '近期开营' }}</text>
+    <!-- 课程卡片列表 -->
+    <view class="section" style="padding-top: 0;">
+      <view class="stack">
+        <view
+          wx:for="{{ courses }}"
+          wx:key="id"
+          class="card course-card"
+          data-id="{{ item.id }}"
+          bindtap="onTapCourse"
+        >
+          <view class="photo-box">
+            <image class="photo course-photo" src="{{ item.coverUrl }}" mode="aspectFill" />
+            <text class="photo-label">课程实景</text>
+          </view>
+          <view class="card-body">
+            <view class="eyebrow">{{ item.category }}</view>
+            <view class="theme">{{ item.title }}</view>
+            <view class="meta-line">{{ item.courseStartTime || '近期开班' }}</view>
+            <view class="meta-line">{{ item.subtitle || '每周直播与课后打卡共创' }}</view>
+            <view class="tag-box">
+              <text class="tag {{ item.tagClass === 'green' ? 'tag-green' : (item.tagClass === 'disabled' ? 'tag-disabled' : '') }}">
+                {{ item.tagText || '填写报名' }}
+              </text>
+            </view>
+          </view>
         </view>
-        <view class="course-btn">查看详情 ➔</view>
       </view>
     </view>
   </view>
+
+  <!-- 3. 线下课程 / 雅集视图 -->
+  <view wx:if="{{ activeMode === 'offline' }}" class="mode-view">
+    <view class="cat-lede">在静谧的空间里，相遇一盏茶、一炉香、一炉面包。</view>
+    <view class="section" style="padding-top: 0;">
+      <view class="card activity-card">
+        <block wx:for="{{ offlineActivities }}" wx:key="id">
+          <view class="activity-row" data-id="{{ item.id }}" bindtap="onTapActivity">
+            <view class="photo-box-sm">
+              <image class="photo act-photo" src="{{ item.coverUrl }}" mode="aspectFill" />
+              <text class="photo-label">{{ item.tag || '雅集' }}</text>
+            </view>
+            <view class="act-info">
+              <view class="micro">{{ item.micro || '线下 · 莘庄空间' }}</view>
+              <view class="act-name">{{ item.title }}</view>
+              <view class="meta">{{ item.timeStr || item.startTime || '近期举办' }}</view>
+            </view>
+          </view>
+          <view class="hairline" wx:if="{{ index < offlineActivities.length - 1 }}"></view>
+        </block>
+      </view>
+    </view>
+  </view>
+
 </view>

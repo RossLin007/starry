@@ -1,93 +1,214 @@
 /* pages/courses/index.wxss */
-.category-scroll {
+/* 100% 严格复刻 docs/Design/prototype-v3/courses.html 与 ruoxing.css */
+
+.screen {
+  min-height: 100vh;
+  background-color: var(--starry-bg);
+  padding: 12rpx 0 80rpx;
+  color: var(--starry-ink);
+  letter-spacing: 0.02em;
+}
+
+/* 模式切换 (线上课程 / 线下课程) */
+.mode-tabs {
+  display: flex;
+  gap: 56rpx;
+  justify-content: center;
+  padding: 12rpx 40rpx 28rpx;
+}
+
+.mode-tab-item {
+  flex-shrink: 0;
+  font-size: 28rpx;
+  color: var(--starry-ash);
+  padding-bottom: 12rpx;
+  border-bottom: 2rpx solid transparent;
+  letter-spacing: 0.06em;
+}
+
+.mode-tab-item.active {
+  font-weight: 600;
+  color: var(--starry-ink);
+  border-bottom-color: var(--starry-tea);
+}
+
+/* 分类标签横滑栏 */
+.cat-tabs {
   display: flex;
   white-space: nowrap;
-  margin-bottom: 24rpx;
-  padding: 8rpx 0;
+  padding: 8rpx 40rpx 24rpx;
+  gap: 40rpx;
 }
 
-.category-tab {
+.cat-tab-item {
   display: inline-block;
-  padding: 12rpx 28rpx;
-  margin-right: 16rpx;
-  background: #F1F5F9;
-  color: var(--starry-text-secondary);
   font-size: 26rpx;
-  border-radius: var(--starry-radius-full);
-  font-weight: 500;
-  transition: all 0.2s;
+  color: var(--starry-ash);
+  padding-bottom: 12rpx;
+  border-bottom: 2rpx solid transparent;
+  letter-spacing: 0.04em;
 }
 
-.category-tab.active {
-  background: var(--starry-primary);
-  color: #FFFFFF;
+.cat-tab-item.active {
+  font-weight: 600;
+  color: var(--starry-ink);
+  border-bottom-color: var(--starry-tea);
 }
 
-.courses-list {
+.cat-lede {
+  font-size: 30rpx;
+  color: var(--starry-ink);
+  padding: 24rpx 40rpx 36rpx;
+  line-height: 1.7;
+}
+
+/* 列表与卡片 */
+.section {
+  padding: 0 32rpx;
+  margin-bottom: 40rpx;
+}
+
+.stack {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
+  gap: 32rpx;
+}
+
+.card {
+  background: var(--starry-paper);
+  border: 1rpx solid var(--starry-rice);
+  border-radius: var(--starry-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--starry-shadow-sm);
 }
 
 .course-card {
-  padding: 32rpx;
+  display: block;
 }
 
-.course-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16rpx;
+.photo-box {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 14rpx;
+  margin: 20rpx 20rpx 0;
+  overflow: hidden;
 }
 
-.course-tag {
+.course-photo {
+  width: 100%;
+  height: 100%;
+}
+
+.photo-label {
+  position: absolute;
+  right: 16rpx;
+  bottom: 12rpx;
   font-size: 20rpx;
-  color: var(--starry-primary);
-  background: var(--starry-primary-light);
-  padding: 4rpx 16rpx;
-  border-radius: var(--starry-radius-sm);
-  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  letter-spacing: 0.1em;
+  text-shadow: 0 2rpx 8rpx rgba(0,0,0,.3);
 }
 
-.course-price {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: var(--starry-gold);
+.card-body {
+  padding: 24rpx 32rpx 32rpx;
 }
 
-.course-title {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: var(--starry-text-main);
-  margin-bottom: 10rpx;
-  line-height: 1.4;
+.eyebrow {
+  font-size: 22rpx;
+  color: var(--starry-tea);
+  letter-spacing: 0.08em;
+  margin-bottom: 6rpx;
 }
 
-.course-subtitle {
-  font-size: 24rpx;
-  color: var(--starry-text-muted);
+.theme {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: var(--starry-green);
+  margin: 10rpx 0 12rpx;
   line-height: 1.5;
-  margin-bottom: 24rpx;
 }
 
-.course-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1rpx solid var(--starry-muted-bg);
-  padding-top: 20rpx;
-}
-
-.course-date {
+.meta-line {
   font-size: 24rpx;
-  color: var(--starry-text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
+  color: var(--starry-ash);
+  line-height: 1.6;
 }
 
-.course-btn {
+.tag-box {
+  margin-top: 18rpx;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6rpx 22rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  letter-spacing: 0.05em;
+  background: var(--starry-bud);
+  color: var(--starry-tea);
+}
+
+.tag-green {
+  background: rgba(1, 154, 74, 0.16);
+  color: var(--starry-green);
+  font-weight: 500;
+}
+
+.tag-disabled {
+  background: var(--starry-rice);
+  color: var(--starry-ash);
+}
+
+/* 线下雅集卡片 */
+.activity-card {
+  padding: 8rpx 32rpx;
+}
+
+.activity-row {
+  display: flex;
+  gap: 24rpx;
+  align-items: center;
+  padding: 24rpx 0;
+}
+
+.photo-box-sm {
+  position: relative;
+  width: 156rpx;
+  height: 156rpx;
+  border-radius: 14rpx;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.act-photo {
+  width: 100%;
+  height: 100%;
+}
+
+.act-info {
+  flex: 1;
+}
+
+.micro {
+  font-size: 22rpx;
+  color: var(--starry-ash);
+}
+
+.act-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--starry-green);
+  margin: 4rpx 0 8rpx;
+}
+
+.meta {
   font-size: 24rpx;
-  color: var(--starry-primary);
-  font-weight: 600;
+  color: var(--starry-ash);
+  line-height: 1.5;
+}
+
+.hairline {
+  height: 1rpx;
+  background: var(--starry-rice);
+  width: 100%;
 }
