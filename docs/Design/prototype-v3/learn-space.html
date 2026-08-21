@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 空间管理 第 7 期</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  /* ===== 分区切换(两字标签,一行放下) ===== */
+  .mode-tabs {
+    display: flex; justify-content: space-between;
+    padding: 4px 20px 14px; scrollbar-width: none;
+  }
+  .mode-tabs::-webkit-scrollbar { display: none; }
+  .mode-tabs a {
+    flex-shrink: 0; text-decoration: none;
+    font-size: 13px; color: var(--ash);
+    padding-bottom: 6px; border-bottom: 1px solid transparent;
+    letter-spacing: 0.04em;
+  }
+  .mode-tabs a.active {
+    font-family: var(--serif); font-weight: 600; font-size: 14px;
+    color: var(--ink); border-bottom-color: var(--tea);
+  }
+  .zone { display: none; }
+  .zone.open { display: block; }
+
+  /* ===== 概要 · 课节 ===== */
+  .lesson-item { display: flex; align-items: baseline; justify-content: space-between; }
+  .lesson-status { font-size: 12px; color: var(--tea); flex-shrink: 0; margin-left: 12px; }
+  .lesson-meta { font-size: 13px; color: var(--ash); margin-top: 4px; }
+  a.lesson-link { display: block; text-decoration: none; color: var(--ink); }
+  .notice-rows { display: flex; flex-direction: column; }
+  .notice-rows .row { display: flex; padding: 10px 0; font-size: 14px; line-height: 1.6; }
+  .notice-rows .row + .row { border-top: 1px solid var(--rice); }
+  .notice-rows .k { flex-shrink: 0; width: 76px; color: var(--ash); font-size: 13px; padding-top: 1px; }
+  .notice-rows .v { color: var(--ink); }
+
+  /* ===== 日日新生(每天早上的引导内容) ===== */
+  .daily-card { padding: 0; overflow: hidden; margin-bottom: 20px; }
+  .daily-card .photo { height: 170px; }
+  .daily-card .d-body { padding: 14px 18px 16px; }
+  .daily-card .d-date { font-size: 12px; color: var(--tea); letter-spacing: 0.06em; margin-bottom: 8px; }
+  .daily-card .d-text { font-family: var(--serif); font-size: 15px; line-height: 1.8; color: var(--ink); }
+  .daily-card .d-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+  .daily-note { padding: 18px; margin-bottom: 20px; }
+  .daily-note .n-date { font-size: 12px; color: var(--tea); margin-bottom: 10px; }
+  .daily-note .n-quote { font-family: var(--kai); font-size: 16px; line-height: 1.9; color: var(--ink); }
+  .locked-day {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 26px 18px; color: var(--ash); font-size: 13px;
+    background: var(--rice); border-radius: 12px; margin-bottom: 20px;
+  }
+  .locked-day svg { color: var(--ash); }
+
+  /* ===== 实践 · 打卡动态流 ===== */
+  .checkin-entry { padding: 20px; text-align: center; }
+  .feed-card { padding: 18px; margin-bottom: 18px; }
+  .feed-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .feed-avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--rice);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tea); font-size: 15px; flex-shrink: 0;
+  }
+  .feed-name { font-size: 14px; font-weight: 500; }
+  .feed-sub { font-size: 11px; color: var(--ash); margin-top: 2px; }
+  .feed-text { font-size: 14px; line-height: 1.8; color: var(--ink); }
+  .feed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 12px; }
+  .feed-grid .photo { aspect-ratio: 1 / 1; height: auto; border-radius: 8px; }
+  .feed-tag { margin-top: 12px; font-size: 13px; color: var(--caramel); letter-spacing: 0.02em; }
+  .feed-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rice);
+    font-size: 12px; color: var(--ash);
+  }
+  .feed-actions { display: flex; gap: 18px; }
+  .feed-actions span { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .feed-actions svg { display: block; }
+
+  /* ===== 故事卡 ===== */
+  .story-grid { display: flex; flex-direction: column; gap: 18px; }
+  .story-card { display: block; text-decoration: none; color: var(--ink); overflow: hidden; }
+  .story-card .photo { height: 150px; }
+  .story-card .sc-body { padding: 14px 18px 18px; }
+  .story-card .sc-title { font-family: var(--serif); font-size: 15px; font-weight: 500; margin-bottom: 8px; line-height: 1.6; }
+  .story-card .sc-text { font-size: 13px; color: var(--ash); line-height: 1.7; margin-bottom: 12px; }
+  .story-card .sc-foot { display: flex; justify-content: space-between; align-items: center; }
+  .tag-chip {
+    display: inline-flex; font-size: 11px; color: var(--tea);
+    border: 1px solid var(--tea); border-radius: 4px; padding: 2px 8px;
+    letter-spacing: 0.03em; margin-right: 6px;
+  }
+  .sc-meta { font-size: 12px; color: var(--ash); }
+
+  /* ===== 资料行 ===== */
+  .form-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 2px; border-bottom: 1px solid var(--rice); font-size: 15px;
+  }
+  .form-row:last-child { border-bottom: none; }
+  .form-row .f-sub { font-size: 12px; color: var(--ash); margin-top: 3px; }
+  .dl-btn {
+    flex-shrink: 0; margin-left: 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--caramel); color: var(--caramel);
+    background: none; border-radius: 16px; padding: 6px 14px;
+    font-size: 12px; cursor: pointer; letter-spacing: 0.03em;
+  }
+  .dl-btn svg { display: block; }
+  .with-ico { display: flex; align-items: center; gap: 10px; }
+  .with-ico .r-icon { color: var(--tea); display: inline-flex; flex-shrink: 0; }
+  .with-ico .r-icon svg { display: block; }
+  .res-card { padding: 4px 18px; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="me.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">空间管理 · 第 7 期</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 分区切换 -->
+  <div class="mode-tabs" id="modeTabs">
+    <a href="#" data-zone="summary" class="active">概要</a>
+    <a href="#" data-zone="daily">日日新生</a>
+    <a href="#" data-zone="practice">实践</a>
+    <a href="#" data-zone="story">故事</a>
+    <a href="#" data-zone="forms">资料</a>
+  </div>
+
+  <!-- ============ 概要(详情+学练合并) ============ -->
+  <div class="zone open" id="zone-summary">
+    <div class="section fade-up" style="margin-bottom: 28px;">
+      <div class="eyebrow" style="margin-bottom: 10px;">空间管理 · 第 7 期</div>
+      <h1 class="page-title" style="margin-bottom: 14px;">整理的不是物品，是心的秩序</h1>
+      <p class="body-text" style="color: var(--ash);">八周的时间，我们从看见自己的家开始：盘点、断舍离、分区、归位。不是一次大扫除，而是慢慢建立你和物品、和空间的关系。课程结束后的一个月，每天清晨还有一段「日日新生」的引导语，陪你把整理带进日常。</p>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="section-title">课程须知</span></div>
+      <div class="card" style="padding: 6px 18px;">
+        <div class="notice-rows">
+        <div class="row"><span class="k">开课时间</span><span class="v">9 月 10 日起 · 每周三晚 20:00</span></div>
+        <div class="row"><span class="k">课程形式</span><span class="v">线上 · 腾讯会议直播（无视频回放）</span></div>
+        <div class="row"><span class="k">课后陪伴</span><span class="v">日日新生引导 30 天</span></div>
+        <div class="row"><span class="k">陪伴内容</span><span class="v">课程概要 · 课后作业 · 日日新生 · 实践打卡 · 空间故事 · 工具表单</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 课节信息:点击已开课节,可查看本节课的导读摘要、课后作业、课程金句 -->
+    <div class="section" style="margin-bottom: 0;">
+      <div class="section-head"><span class="section-title">课节信息</span></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <a class="lesson-link" href="lesson-space.html">
+            <div class="lesson-item">
+              <span class="tl-title">第 1 课 · 看见你的空间<svg class="lesson-eye" width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 6px; vertical-align: -2px; color: var(--tea);"><path d="M4 24C4 24 12 10 24 10C36 10 44 24 44 24C44 24 36 38 24 38C12 38 4 24 4 24Z"/><circle cx="24" cy="24" r="6"/></svg></span>
+              <span class="lesson-status">已结束</span>
+            </div>
+            <div class="lesson-meta">9 月 10 日</div>
+            <div class="micro" style="margin-top: 6px;">导读摘要 · 课后作业 · 课程金句</div>
+          </a>
+        </div>
+        <div class="timeline-item">
+          <a class="lesson-link" href="lesson-space.html">
+            <div class="lesson-item">
+              <span class="tl-title">第 2 课 · 盘点与断舍离<svg class="lesson-eye" width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 6px; vertical-align: -2px; color: var(--tea);"><path d="M4 24C4 24 12 10 24 10C36 10 44 24 44 24C44 24 36 38 24 38C12 38 4 24 4 24Z"/><circle cx="24" cy="24" r="6"/></svg></span>
+              <span class="lesson-status">进行中</span>
+            </div>
+            <div class="lesson-meta">9 月 17 日</div>
+            <div class="micro" style="margin-top: 6px;">导读摘要 · 课后作业 · 课程金句</div>
+          </a>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 3 课 · 分区与动线</div>
+          <div class="lesson-meta">将于 9 月 24 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 4 课 · 衣物的秩序</div>
+          <div class="lesson-meta">将于 10 月 1 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 5 课 · 厨房与餐桌</div>
+          <div class="lesson-meta">将于 10 月 8 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 6 课 · 文件与记忆</div>
+          <div class="lesson-meta">将于 10 月 15 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 7 课 · 清洁与维护</div>
+          <div class="lesson-meta">将于 10 月 22 日开启</div>
+        </div>
+        <div class="timeline-item pending" style="padding-bottom: 0;">
+          <div class="tl-title">第 8 课 · 日日新生</div>
+          <div class="lesson-meta">将于 10 月 29 日开启</div>
+        </div>
+      </div>
+      <p class="micro" style="margin-top: 14px; color: var(--ash);">点击已开课的课节，可查看本节课的导读摘要、课后作业与课程金句。</p>
+    </div>
+  </div>
+
+  <!-- ============ 日日新生(每天早上的引导内容) ============ -->
+  <div class="zone" id="zone-daily">
+    <div class="section fade-up" style="margin-bottom: 0;">
+      <div class="locked-day">
+        <svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z"/><path d="M24.0084 12.0001L24.0072 24.0089L32.4866 32.4883"/></svg>
+        <span>明日引导 · 明早 7:30 解锁</span>
+      </div>
+
+      <!-- 今日引导(文字形式) -->
+      <div class="card daily-card">
+        <div class="photo photo-read"><span class="photo-label">今日 · 日日新生</span></div>
+        <div class="d-body">
+          <div class="d-date">9 月 15 日 · 第 2 周</div>
+          <div class="d-text">今天整理一个抽屉就好。不需要整个房间，一个抽屉。把里面的东西都倒出来，只留下每天真的在用的。</div>
+          <div class="d-foot">
+            <span class="meta">安老师</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 昨日引导(PDF 文档形式,点开阅读) -->
+      <div class="card daily-note">
+        <div class="n-date">9 月 14 日</div>
+        <div class="n-quote">清理台面：把厨房台面上的东西都暂时收进柜子，只留三件最常用的。看一看，空间好像大了一倍。</div>
+      </div>
+
+      <div class="card daily-note">
+        <div class="n-date">9 月 13 日 · 文档</div>
+        <div class="res-row" style="border-bottom: none; padding: 4px 0 0;">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>玄关整理指南</div>
+            <div class="f-sub">PDF · 点开阅读</div>
+          </div>
+          <span class="r-right"><svg width="16" height="16" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12L31 24L19 36"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 实践(每日打卡) ============ -->
+  <div class="zone" id="zone-practice">
+
+    <div class="section fade-up">
+      <div class="card checkin-entry">
+        <p style="font-family: var(--serif); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">家不需要很大，够用就好。<br>不必完美，真实的一次，就很好。</p>
+        <a class="btn-secondary" href="checkin.html">记录本次实践</a>
+      </div>
+    </div>
+
+    <!-- 实践动态(上方文字、下方图片/视频,带标签) -->
+    <div class="section" style="margin-bottom: 0;">
+      <div class="section-head"><span class="section-title">大家的实践</span></div>
+
+      <div class="card feed-card">
+        <div class="feed-head">
+          <span class="feed-avatar">✧</span>
+          <div>
+            <div class="feed-name">小满</div>
+            <div class="feed-sub">第 5 天打卡 · 空间管理 · 第 2 课</div>
+          </div>
+        </div>
+        <p class="feed-text">把三年没打开的箱子都翻出来，一半捐了出去。玄关空出来，每天回家都觉得亮了一点。原来很多东西，留着不是因为需要，而是因为没来得及告别。</p>
+        <div class="feed-grid">
+          <div class="photo photo-space"></div>
+          <div class="photo photo-flower"></div>
+          <div class="photo photo-body"></div>
+        </div>
+        <div class="feed-tag">#断舍离 #整理</div>
+        <div class="feed-foot">
+          <span>9 月 12 日 20:42 · 北京</span>
+          <span class="feed-actions">
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8C8.92487 8 4 12.9249 4 19C4 30 17 40 24 42C31 40 44 30 44 19C44 12.9249 39.0751 8 33 8C29.2797 8 25.9907 9.8469 24 12.6738C22.0093 9.8469 18.7203 8 15 8Z"/></svg>18</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 6H4V36H13V44L23 36H44V6Z"/></svg>5</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6V30"/><path d="M14 16L24 6L34 16"/><path d="M8 26V42H40V26"/></svg></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="card feed-card">
+        <div class="feed-head">
+          <span class="feed-avatar">✦</span>
+          <div>
+            <div class="feed-name">阿禾</div>
+            <div class="feed-sub">第 3 天打卡 · 空间管理 · 第 1 课</div>
+          </div>
+        </div>
+        <p class="feed-text">衣柜按颜色排好后，早上少了很多纠结。找衣服变快了，也再没买过重复的款。</p>
+        <div class="feed-grid">
+          <div class="photo photo-kids"></div>
+        </div>
+        <div class="feed-tag">#盘点 #整理</div>
+        <div class="feed-foot">
+          <span>9 月 9 日 21:15 · 苏州</span>
+          <span class="feed-actions">
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8C8.92487 8 4 12.9249 4 19C4 30 17 40 24 42C31 40 44 30 44 19C44 12.9249 39.0751 8 33 8C29.2797 8 25.9907 9.8469 24 12.6738C22.0093 9.8469 18.7203 8 15 8Z"/></svg>11</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 6H4V36H13V44L23 36H44V6Z"/></svg>2</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6V30"/><path d="M14 16L24 6L34 16"/><path d="M8 26V42H40V26"/></svg></span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- [开发预留] 故事模块每篇故事应有独立详情页与ID,避免都跳转到读书会的同一故事页。目前原型共用 story-detail.html 仅为演示。
+  <!-- ============ 故事(课上大家文字梳理后的实践故事) ============ -->
+  <div class="zone" id="zone-story">
+    <div class="section" style="margin-bottom: 0;">
+      <div class="story-grid">
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-read"><span class="photo-label">空间故事</span></div>
+          <div class="sc-body">
+            <div class="sc-title">清空了玄关，进门的第一秒就松了口气</div>
+            <div class="sc-text">把三年没打开的箱子都翻出来，一半捐了出去。玄关空出来，每天回家都觉得亮了一点……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">断舍离</span><span class="tag-chip">整理</span></span>
+              <span class="sc-meta">小满 · 9 月 12 日</span>
+            </div>
+          </div>
+        </a>
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-tea"><span class="photo-label">空间故事</span></div>
+          <div class="sc-body">
+            <div class="sc-title">衣柜按颜色排好后，早上少了很多纠结</div>
+            <div class="sc-text">按照"一进一出"原则整理后，找衣服变快了，也再没买过重复的款……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">盘点</span><span class="tag-chip">整理</span></span>
+              <span class="sc-meta">阿禾 · 9 月 9 日</span>
+            </div>
+          </div>
+        </a>
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-space"><span class="photo-label">空间故事</span></div>
+          <div class="sc-body">
+            <div class="sc-title">三天线下课，重新认识了我的家</div>
+            <div class="sc-text">三天里我们把整个家摊开来看。原来很多东西，留着不是因为需要，而是因为没来得及告别……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">断舍离</span></span>
+              <span class="sc-meta">若星整理 · 9 月 6 日</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 资料 ============ -->
+  <div class="zone" id="zone-forms">
+    <div class="section fade-up" style="margin-bottom: 0;">
+      <div class="section-head"><span class="section-title">工具表单</span></div>
+      <div class="card res-card">
+        <div class="form-row">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>物品盘点表</div>
+            <div class="f-sub">Excel · 全屋物品清单</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="物品盘点表.xlsx"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </div>
+        <div class="form-row">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>断舍离三箱清单</div>
+            <div class="f-sub">PDF · 留下/捐赠/丢弃</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="断舍离三箱清单.pdf"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </div>
+        <div class="form-row">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>收纳分区规划表</div>
+            <div class="f-sub">Excel · 按房间规划收纳</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="收纳分区规划表.xlsx"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('#modeTabs a');
+  var zones = document.querySelectorAll('.zone');
+  function show(name) {
+    tabs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-zone') === name); });
+    zones.forEach(function (z) { z.classList.toggle('open', z.id === 'zone-' + name); });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function (e) { e.preventDefault(); show(t.getAttribute('data-zone')); });
+  });
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  document.querySelectorAll('.dl-btn').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      showToast('已开始下载 ' + b.getAttribute('data-dl'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

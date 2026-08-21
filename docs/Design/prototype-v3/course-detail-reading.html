@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 拾光读书</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .fit-list { padding: 0; }
+  .fit-list li {
+    list-style: none; position: relative;
+    font-size: 15px; line-height: 1.7;
+    padding: 0 0 14px 22px; color: var(--ink);
+  }
+  .fit-list li::before {
+    content: "✦"; position: absolute; left: 0; top: 2px;
+    font-size: 8px; color: var(--tea); opacity: .8;
+  }
+  .notice-rows { display: flex; flex-direction: column; }
+  .notice-rows .row { display: flex; padding: 10px 0; font-size: 14px; line-height: 1.6; }
+  .notice-rows .row + .row { border-top: 1px solid var(--rice); }
+  .notice-rows .k { flex-shrink: 0; width: 76px; color: var(--ash); font-size: 13px; padding-top: 1px; }
+  .notice-rows .v { color: var(--ink); }
+  .book-card { display: flex; gap: 16px; padding: 18px; align-items: flex-start; }
+  .book-cover {
+    flex-shrink: 0; width: 76px; height: 104px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(250,246,232,.95);
+  }
+  .book-cover svg { width: 30px; height: 30px; }
+  .book-info .b-name { font-family: var(--serif); font-size: 16px; font-weight: 600; }
+  .book-info .b-author { font-size: 13px; color: var(--ash); margin-top: 5px; }
+  .book-info .b-note { font-size: 12px; color: var(--tea); margin-top: 10px; line-height: 1.6; }
+  .flow-card { padding: 18px; }
+  .flow-row { display: flex; align-items: baseline; gap: 12px; padding: 9px 0; font-size: 14px; color: var(--ink); }
+  .flow-row + .flow-row { border-top: 1px solid var(--rice); }
+  .flow-row .f-time { flex-shrink: 0; width: 68px; font-size: 13px; color: var(--tea); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<!-- [开发预留] 读书会后续为推荐制课程:仅被推荐的特定会员可见可报名,基础会员不可见。报名前需校验会员推荐资格。
+<div class="screen">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="courses.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">拾光读书</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 头图 -->
+  <div class="section" style="margin-bottom: 26px;">
+    <div class="photo photo-read" style="aspect-ratio: 4/3; border-radius: 12px;"><span class="photo-label">共读实景</span></div>
+  </div>
+
+  <!-- 眉题 + 主题句 -->
+  <div class="section" style="margin-bottom: 30px;">
+    <div class="eyebrow" style="margin-bottom: 10px;">拾光读书 · 第 3 期</div>
+    <h1 class="page-title" style="margin-bottom: 18px;">在书里，遇见同频的人</h1>
+    <p class="body-text" style="color: var(--ash);">
+      八周的时间，我们共读一本书。每周一个晚上，线上相聚两小时：书友分享一周里的实践故事，主讲人带领大家走进文字深处。课后留一份轻轻的作业，也鼓励你每天写下几行心得。不赶路，只慢慢读。
+    </p>
+  </div>
+
+  <!-- 本期书目 -->
+  <div class="section">
+    <div class="section-head"><span class="section-title bilingual">本期书目</span></div>
+    <div class="card book-card">
+      <div class="book-cover photo-read"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7H16C20.4183 7 24 10.5817 24 15V42C24 38.6863 21.3137 36 18 36H5V7Z"/><path d="M43 7H32C27.5817 7 24 10.5817 24 15V42C24 38.6863 26.6863 36 30 36H43V7Z"/></svg></div>
+      <div class="book-info">
+        <div class="b-name">《瓦尔登湖》</div>
+        <div class="b-author">亨利 · 戴维 · 梭罗（美）· 徐迟 译</div>
+        <div class="b-note">关于独处、自然与简朴生活的经典。这一期，我们一起在湖边住八周。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 这门课适合谁 -->
+  <div class="section">
+    <div class="section-head"><span class="section-title bilingual">这门课适合谁</span></div>
+    <ul class="fit-list">
+      <li>如果你想读完一本一直想读却放下的书</li>
+      <li>如果你希望有人陪你一起，把阅读变成每周的仪式</li>
+      <li>如果你愿意把书里的句子，带进每天的生活里试一试</li>
+      <li>如果你想在分享里，听见别人的故事，也讲出自己的</li>
+    </ul>
+  </div>
+
+  <!-- 八周阅读计划 -->
+  <div class="section">
+    <div class="section-head"><span class="section-title bilingual">八周阅读计划</span></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-title">第 1 周 · 走进瓦尔登</div>
+        <div class="meta">9 月 6 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">经济篇（上）：为什么梭罗要去湖边？</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 2 周 · 独处的意义</div>
+        <div class="meta">9 月 13 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">经济篇（下）+ 独处：一个人也可以很满。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 3 周 · 简单生活</div>
+        <div class="meta">9 月 20 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">居所与生计："简单些，再简单些"。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 4 周 · 阅读与沉思</div>
+        <div class="meta">9 月 27 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">阅读篇：怎样读一本真正的好书。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 5 周 · 自然的馈赠</div>
+        <div class="meta">10 月 4 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">声音与访客：自然如何安慰一个人。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 6 周 · 种豆与劳作</div>
+        <div class="meta">10 月 11 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">豆田篇：手上有土，心里才踏实。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 7 周 · 冬日的湖</div>
+        <div class="meta">10 月 18 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">湖与冬：在最安静处看见自己。</div>
+      </div>
+      <div class="timeline-item" style="padding-bottom: 4px;">
+        <div class="tl-title">第 8 周 · 告别与归来</div>
+        <div class="meta">10 月 25 日（周六）20:00</div>
+        <div class="meta" style="margin-top: 4px;">结业茶话：把瓦尔登带回日常。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 每周相聚的形式 -->
+  <div class="section">
+    <div class="section-head"><span class="section-title bilingual">每周相聚的形式</span></div>
+    <div class="card flow-card">
+      <div class="flow-row"><span class="f-time">前 40 分钟</span><span>书友实践故事分享 · 2-3 位书友讲述一周里的尝试</span></div>
+      <div class="flow-row"><span class="f-time">中 60 分钟</span><span>主讲人导读 · 走进本周章节的深处</span></div>
+      <div class="flow-row"><span class="f-time">后 20 分钟</span><span>故事研讨 · 参悟与本周内容相关的 1-2 个故事</span></div>
+      <div class="flow-row"><span class="f-time">课后</span><span>导读摘要（思维导图 + 作业 + 金句）更新至学习区</span></div>
+    </div>
+  </div>
+
+  <!-- 课程须知 -->
+  <div class="section" style="margin-bottom: 120px;">
+    <div class="section-head"><span class="section-title bilingual">课程须知</span></div>
+    <div class="notice-rows">
+      <div class="row"><span class="k">开课时间</span><span class="v">9 月 6 日起 · 每周六晚 20:00</span></div>
+      <div class="row"><span class="k">课程形式</span><span class="v">线上 · 腾讯会议直播（每次 2 小时）</span></div>
+      <div class="row"><span class="k">阅读书目</span><span class="v">《瓦尔登湖》· 自备或代购</span></div>
+      <div class="row"><span class="k">课程费用</span><span class="v">¥680（含 8 次相聚与全部导读资料）</span></div>
+      <div class="row"><span class="k">报名方式</span><span class="v">填写报名信息后在线支付</span></div>
+    </div>
+  </div>
+
+  <!-- 底部行动条 -->
+  <div class="action-bar split">
+    <button type="button" class="share-fab" id="shareTrigger" aria-label="分享课程给好友"><svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M35 16C37.7614 16 40 13.7614 40 11C40 8.23858 37.7614 6 35 6C32.2386 6 30 8.23858 30 11C30 13.7614 32.2386 16 35 16Z"/><path d="M13 29C15.7614 29 18 26.7614 18 24C18 21.2386 15.7614 19 13 19C10.2386 19 8 21.2386 8 24C8 26.7614 10.2386 29 13 29Z"/><path d="M30.0004 13.5745L17.3393 21.2454"/><path d="M17.3385 26.5639L30.6789 34.4469"/><path d="M35 32C37.7614 32 40 34.2386 40 37C40 39.7614 37.7614 42 35 42C32.2386 42 30 39.7614 30 37C30 34.2386 32.2386 32 35 32Z"/></svg></button>
+    <a class="btn-primary" href="enroll-reading.html">填写报名</a>
+  </div>
+
+</div>
+
+<!-- 分享面板 -->
+<div class="share-mask" id="shareMask" role="dialog" aria-modal="true" aria-label="分享课程">
+  <div class="share-panel">
+    <div class="sp-title">把这期读书会分享给朋友</div>
+    <div class="share-grid">
+      <button type="button" data-share="朋友">
+        <span class="sg-ico" style="background: var(--caramel);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20C22.866 20 26 16.866 26 13C26 9.13401 22.866 6 19 6C15.134 6 12 9.13401 12 13C12 16.866 15.134 20 19 20Z"/><path d="M32.6077 7C34.6405 8.2249 36.0001 10.4537 36.0001 13C36.0001 15.5463 34.6405 17.7751 32.6077 19"/><path d="M4 40.8V42H34V40.8C34 36.3196 34 34.0794 33.1281 32.3681C32.3611 30.8628 31.1372 29.6389 29.6319 28.8719C27.9206 28 25.6804 28 21.2 28H16.8C12.3196 28 10.0794 28 8.36808 28.8719C6.86278 29.6389 5.63893 30.8628 4.87195 32.3681C4 34.0794 4 36.3196 4 40.8Z"/><path d="M43.9999 42.0001V40.8001C43.9999 36.3197 43.9999 34.0795 43.128 32.3682C42.361 30.8629 41.1371 29.6391 39.6318 28.8721"/></svg></span>
+        <span class="sg-label">发送给好友</span>
+      </button>
+      <button type="button" data-share="群聊">
+        <span class="sg-ico" style="background: var(--bamboo);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20C22.866 20 26 16.866 26 13C26 9.13401 22.866 6 19 6C15.134 6 12 9.13401 12 13C12 16.866 15.134 20 19 20Z"/><path d="M32.6077 7C34.6405 8.2249 36.0001 10.4537 36.0001 13C36.0001 15.5463 34.6405 17.7751 32.6077 19"/><path d="M4 40.8V42H34V40.8C34 36.3196 34 34.0794 33.1281 32.3681C32.3611 30.8628 31.1372 29.6389 29.6319 28.8719C27.9206 28 25.6804 28 21.2 28H16.8C12.3196 28 10.0794 28 8.36808 28.8719C6.86278 29.6389 5.63893 30.8628 4.87195 32.3681C4 34.0794 4 36.3196 4 40.8Z"/><path d="M43.9999 42.0001V40.8001C43.9999 36.3197 43.9999 34.0795 43.128 32.3682C42.361 30.8629 41.1371 29.6391 39.6318 28.8721"/></svg></span>
+        <span class="sg-label">分享到群聊</span>
+      </button>
+      <button type="button" data-share="海报">
+        <span class="sg-ico" style="background: var(--ink);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M39 6H9C7.34315 6 6 7.34315 6 9V39C6 40.6569 7.34315 42 9 42H39C40.6569 42 42 40.6569 42 39V9C42 7.34315 40.6569 6 39 6Z"/><path d="M18 23C20.7614 23 23 20.7614 23 18C23 15.2386 20.7614 13 18 13C15.2386 13 13 15.2386 13 18C13 20.7614 15.2386 23 18 23Z"/><path d="M27.7901 26.2194C28.6064 25.1269 30.2528 25.1538 31.0329 26.2725L39.8077 38.8561C40.7322 40.182 39.7835 42.0001 38.1671 42.0001H16L27.7901 26.2194Z"/></svg></span>
+        <span class="sg-label">生成分享图</span>
+      </button>
+    </div>
+    <button type="button" class="share-cancel" id="shareCancel">取消</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var mask = document.getElementById('shareMask');
+  var toast = document.getElementById('toast');
+  var trigger = document.getElementById('shareTrigger');
+  var cancel = document.getElementById('shareCancel');
+
+  function open() { mask.classList.add('open'); }
+  function close() { mask.classList.remove('open'); }
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  if (trigger) trigger.addEventListener('click', open);
+  if (cancel) cancel.addEventListener('click', close);
+  if (mask) mask.addEventListener('click', function (e) {
+    if (e.target === mask) close();
+  });
+  if (mask) mask.querySelectorAll('[data-share]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      close();
+      showToast('已准备好，把这期读书会分享给' + btn.getAttribute('data-share'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

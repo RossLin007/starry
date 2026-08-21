@@ -1,0 +1,90 @@
+<!-- pages/learn/index.wxml -->
+<view class="container learn-page">
+  <!-- 顶部无课程状态 -->
+  <view wx:if="{{ !currentCourse && !loading }}" class="empty-box">
+    <view class="empty-icon">✨</view>
+    <view class="empty-title">当前暂无在学课程</view>
+    <view class="empty-desc">前往课程广场挑选适合您的生活整理与读书共创营</view>
+    <button class="starry-btn explore-btn" bindtap="onTapExploreCourses">去选课 ➔</button>
+  </view>
+
+  <view wx:if="{{ currentCourse }}">
+    <!-- 正在学习的课程卡片 -->
+    <view class="starry-card course-progress-card">
+      <view class="progress-tag">{{ currentCourse.category }}</view>
+      <view class="progress-title">{{ currentCourse.title }}</view>
+
+      <view class="progress-bar-box">
+        <view class="bar-track">
+          <view class="bar-fill" style="width: {{ currentCourse.progressPercent }}%;"></view>
+        </view>
+        <view class="progress-text">学习进度 {{ currentCourse.progressPercent }}% (已学 {{ currentCourse.completedLessons }}/{{ currentCourse.totalLessons }} 节)</view>
+      </view>
+
+      <!-- 物料寄送提醒 (若有) -->
+      <view wx:if="{{ currentCourse.shippingTrackingNo }}" class="shipping-notice">
+        <text class="notice-icon">📦</text>
+        <text class="notice-text">配套物料已发货：顺丰速运 ({{ currentCourse.shippingTrackingNo }})</text>
+      </view>
+    </view>
+
+    <!-- 课节阶段列表 -->
+    <view wx:if="{{ courseDetail }}">
+      <view
+        wx:for="{{ courseDetail.sections }}"
+        wx:key="sectionName"
+        class="section-block"
+      >
+        <view class="section-header">
+          <text class="section-star">✦</text>
+          <text class="section-name">{{ item.sectionName }}</text>
+        </view>
+
+        <view class="lessons-group">
+          <view
+            wx:for="{{ item.lessons }}"
+            wx:for-item="lesson"
+            wx:key="id"
+            class="starry-card lesson-card {{ lesson.isUnlocked ? '' : 'locked' }}"
+            data-lesson="{{ lesson }}"
+            bindtap="onTapLesson"
+          >
+            <view class="lesson-info">
+              <view class="lesson-order">第 {{ index + 1 }} 节</view>
+              <view class="lesson-title">{{ lesson.title }}</view>
+            </view>
+            <view class="lesson-badge {{ lesson.isUnlocked ? 'badge-unlock' : 'badge-lock' }}">
+              {{ lesson.isUnlocked ? '开始学习 ➔' : '🔒 待解锁' }}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 课节学习弹窗 -->
+  <view wx:if="{{ showLessonModal }}" class="lesson-modal-mask" bindtap="onCloseModal">
+    <view class="lesson-modal-content" catchtap="true">
+      <view class="modal-head">
+        <view class="modal-tag">{{ activeLesson.sectionName }}</view>
+        <view class="modal-title">{{ activeLesson.title }}</view>
+      </view>
+
+      <scroll-view scroll-y class="modal-body">
+        <view class="content-text">
+          {{ activeLesson.content || '暂无图文说明，请跟随社群导师指引开始今日的整理实践与反思。' }}
+        </view>
+      </scroll-view>
+
+      <view class="modal-foot">
+        <button
+          class="starry-btn complete-btn"
+          loading="{{ completing }}"
+          bindtap="onCompleteLesson"
+        >
+          ✓ 完成今日课节打卡
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

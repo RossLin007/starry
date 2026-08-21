@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 课程管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .table th.course-col, .table td.course-col { min-width: 240px; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html" class="active">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>课程管理</h1>
+      </div>
+      <a class="btn" href="course-detail.html">新建课程</a>
+    </div>
+
+    <!-- 筛选与搜索 -->
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <a href="courses.html" class="active">全部</a>
+        <a href="#">进行中</a>
+        <a href="#">未开课</a>
+        <a href="#">已结课</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="search-box">
+        <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+        <input type="text" placeholder="搜索课程">
+      </div>
+    </div>
+
+    <!-- 课程列表 -->
+    <div class="panel" style="padding-top:14px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="course-col">课程</th>
+            <th>分类</th>
+            <th>开课时间</th>
+            <th>学员数</th>
+            <th>内容进度</th>
+            <th>状态</th>
+            <th style="text-align:right;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="course-col">
+              <div class="id-cell">
+                <div class="photo photo-read thumb"></div>
+                <div><div class="td-main">拾光读书</div><div class="td-sub">第 3 期 · 《瓦尔登湖》· 每周六晚 · 线上</div></div>
+              </div>
+            </td>
+            <td><span class="tag green">拾光读书</span></td>
+            <td>9 月 6 日起</td>
+            <td class="num">24</td>
+            <td><span class="td-sub">导读 2/8 · 研讨 1 · 书友故事 8</span></td>
+            <td><span class="tag green">进行中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="course-detail-reading.html">管理</a></td>
+          </tr>
+          <tr>
+            <td class="course-col">
+              <div class="id-cell">
+                <div class="photo photo-space thumb"></div>
+                <div><div class="td-main">空间管理</div><div class="td-sub">第 7 期 · 每周三晚 · 线上</div></div>
+              </div>
+            </td>
+            <td><span class="tag green">空间管理</span></td>
+            <td>9 月 10 日起</td>
+            <td class="num">28</td>
+            <td><span class="td-sub">概要 2/8 · 日日新生 18 · 故事 2 · 表单 3</span></td>
+            <td><span class="tag green">进行中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="course-detail-space.html">管理</a></td>
+          </tr>
+          <tr>
+            <td class="course-col">
+              <div class="id-cell">
+                <div class="photo photo-food thumb"></div>
+                <div><div class="td-main">生活料理</div><div class="td-sub">第 12 期 · 每周四晚 · 线上</div></div>
+              </div>
+            </td>
+            <td><span class="tag green">生活料理</span></td>
+            <td>9 月 3 日起</td>
+            <td class="num">32</td>
+            <td><span class="td-sub">概要 2/8 · 金句 6 · 食谱 3 · 故事 3</span></td>
+            <td><span class="tag green">进行中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="course-detail.html">管理</a></td>
+          </tr>
+          <tr>
+            <td class="course-col">
+              <div class="id-cell">
+                <div class="photo photo-food thumb"></div>
+                <div><div class="td-main">生活料理</div><div class="td-sub">第 11 期 · 每周四晚 · 线上</div></div>
+              </div>
+            </td>
+            <td><span class="tag">生活料理</span></td>
+            <td>5 月 8 日 - 6 月 26 日</td>
+            <td class="num">35</td>
+            <td><span class="td-sub">概要 6/6 · 已汇总导出</span></td>
+            <td><span class="tag gray">已结课</span></td>
+            <td style="text-align:right;"><a class="row-link" href="course-detail.html">管理</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span>共 4 门课程</span>
+        <div class="pages">
+          <a href="#" class="cur">1</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

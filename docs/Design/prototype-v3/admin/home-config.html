@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 首页配置</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .cfg-form { max-width: 720px; }
+  .field label { display: block; font-size: 13px; color: var(--ash); margin: 14px 0 8px; }
+  .field input[type="text"], .field textarea {
+    width: 100%; border: 1px solid var(--rice); border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; font-family: inherit;
+    background: var(--card); color: var(--ink);
+  }
+  .field textarea { resize: vertical; }
+  .help-note { font-size: 12px; color: var(--ash); margin-top: 6px; line-height: 1.6; }
+  .preview-box {
+    margin-top: 8px; border: 1px solid var(--rice); border-radius: 12px;
+    padding: 22px; background: var(--card);
+  }
+  .preview-box .pv-brand { font-size: 16px; font-weight: 600; letter-spacing: 0.32em; color: var(--ink); }
+  .preview-box .pv-lede { font-family: var(--serif); font-size: 17px; line-height: 1.9; margin-top: 16px; color: var(--ink); }
+  .preview-box .pv-meta { font-size: 12px; color: var(--ash); margin-top: 14px; line-height: 1.8; }
+  .form-actions { display: flex; gap: 12px; margin-top: 26px; align-items: center; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html" class="active">首页配置<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>首页配置</h1>
+      </div>
+      <span class="head-note">小程序首页「若星空间」介绍文案</span>
+    </div>
+
+    <div class="panel cfg-form">
+      <div class="field">
+        <label>品牌名称</label>
+        <input type="text" value="若星空间" id="fBrand">
+        <div class="help-note">显示在首页引言区顶部与导航栏。</div>
+      </div>
+
+      <div class="field">
+        <label>主标语（每行一句，逐行显示）</label>
+        <textarea rows="4" id="fLede">在一餐一饭、
+一桌一椅之间，
+回到更健康、更清明、
+更有觉知的生活。</textarea>
+        <div class="help-note">首页引言区大字号标语，每行一句。</div>
+      </div>
+
+      <div class="field">
+        <label>副标语（星语）</label>
+        <textarea rows="2" id="fMeta">每一个心灵觉醒的人，都是一颗星。一颗星不耀眼，但很多星，就是黑夜里的光。</textarea>
+        <div class="help-note">主标语下方的小字说明。</div>
+      </div>
+
+      <div class="field">
+        <label>实时预览</label>
+        <div class="preview-box">
+          <div class="pv-brand" id="pvBrand">若星空间</div>
+          <div class="pv-lede" id="pvLede">在一餐一饭、<br>一桌一椅之间，<br>回到更健康、更清明、<br>更有觉知的生活。</div>
+          <div class="pv-meta" id="pvMeta">每一个心灵觉醒的人，都是一颗星。一颗星不耀眼，但很多星，就是黑夜里的光。</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a class="btn" href="#" id="saveBtn">保存并发布</a>
+        <a class="btn-outline" href="#">恢复默认</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  var fBrand = document.getElementById('fBrand');
+  var fLede = document.getElementById('fLede');
+  var fMeta = document.getElementById('fMeta');
+  function sync() {
+    document.getElementById('pvBrand').textContent = fBrand.value;
+    document.getElementById('pvLede').innerHTML = fLede.value.split('\n').filter(function (s) { return s.trim(); }).join('<br>');
+    document.getElementById('pvMeta').textContent = fMeta.value;
+  }
+  [fBrand, fLede, fMeta].forEach(function (el) { el.addEventListener('input', sync); });
+  document.getElementById('saveBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    showToast('首页介绍已更新，小程序端即时生效');
+  });
+})();
+</script>
+</body>
+</html>

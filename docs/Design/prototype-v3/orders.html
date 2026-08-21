@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 我的订单</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .order-card { padding: 18px; }
+  .order-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .order-status { font-size: 13px; color: var(--bamboo); }
+  .order-status.done { color: var(--ash); }
+  .order-name { font-family: var(--serif); font-size: 16px; font-weight: 500; margin: 10px 0 6px; }
+  .order-price { text-align: right; font-size: 15px; color: var(--ink); margin-top: 14px; }
+  .order-gap { height: 16px; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="me.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">我的订单</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <div class="section fade-up" style="margin-top: 8px;">
+    <div class="card order-card">
+      <div class="order-head">
+        <span class="micro">2026 年 7 月 20 日</span>
+        <span class="order-status">已支付</span>
+      </div>
+      <div class="order-name">生活料理 · 第 12 期</div>
+      <div class="meta">9 月 3 日起 · 线上</div>
+      <div class="order-price">¥1,280</div>
+    </div>
+
+    <div class="order-gap"></div>
+
+    <div class="card order-card">
+      <div class="order-head">
+        <span class="micro">2026 年 7 月 18 日</span>
+        <span class="order-status">已支付</span>
+      </div>
+      <div class="order-name">初秋茶会</div>
+      <div class="meta">9 月 7 日 · 线下 · 莘庄空间</div>
+      <div class="order-price">¥168</div>
+    </div>
+
+    <div class="order-gap"></div>
+
+    <div class="card order-card">
+      <div class="order-head">
+        <span class="micro">2026 年 5 月 9 日</span>
+        <span class="order-status done">已完成</span>
+      </div>
+      <div class="order-name">纯素烘焙 · 第 4 期</div>
+      <div class="meta">5 月 20 日起 · 线上</div>
+      <div class="order-price">¥980</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

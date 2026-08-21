@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 林小满</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .page-head .id-cell .avatar { width: 56px; height: 56px; font-size: 22px; }
+  .page-head .id-cell h1 { margin-top: 0; }
+  .profile-tags { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .profile-tags .btn-text { margin-left: 6px; }
+  .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start; }
+  .meta-list { display: flex; flex-direction: column; }
+  .meta-item { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--rice); font-size: 13px; }
+  .meta-item:last-child { border-bottom: none; }
+  .meta-item .meta-label { color: var(--ash); font-size: 12px; }
+  .checkin { padding: 14px 0; border-bottom: 1px solid var(--rice); }
+  .checkin:last-child { border-bottom: none; }
+  .checkin .checkin-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .checkin .checkin-date { font-size: 12px; color: var(--ash); }
+  .checkin .checkin-text { font-size: 13px; line-height: 1.7; }
+  .keeper-note { font-family: var(--kai); color: var(--ash); font-size: 13px; margin: 12px 0 14px; }
+  .memo-text { font-size: 12px; color: var(--ash); line-height: 1.8; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html" class="active">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="breadcrumb"><a href="students.html">学员管理</a> / 林小满</div>
+
+    <div class="page-head">
+      <div class="id-cell">
+        <span class="avatar">满</span>
+        <div>
+          <h1>林小满</h1>
+          <div class="head-note">上海 · 加入若星 486 天</div>
+        </div>
+      </div>
+      <a class="btn-outline" href="#">记录陪伴</a>
+    </div>
+
+    <div class="profile-tags">
+      <span class="tag green">料理积极实践者</span>
+      <span class="tag">亲子家庭</span>
+      <span class="tag">纯素饮食</span>
+      <button class="btn-text">编辑标签</button>
+    </div>
+
+    <div class="detail-grid">
+      <!-- 左栏 -->
+      <div>
+        <div class="panel">
+          <div class="panel-title">参加的课程</div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><div class="td-main">生活料理 · 第 12 期</div></td>
+                <td><span class="tag green">进行中</span></td>
+                <td style="text-align:right;"><span class="tag green">本周作业已交</span></td>
+              </tr>
+              <tr>
+                <td><div class="td-main">空间管理 · 第 6 期</div></td>
+                <td><span class="tag gray">已结课</span></td>
+                <td class="td-sub" style="text-align:right;"></td>
+              </tr>
+              <tr>
+                <td><div class="td-main">亲子厨房 · 第 1 期</div></td>
+                <td><span class="tag gray">已结课</span></td>
+                <td class="td-sub" style="text-align:right;"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">打卡与作业</div>
+          <div class="checkin">
+            <div class="checkin-head">
+              <span class="checkin-date">7月24日</span>
+              <span class="seal">精选</span>
+              <span class="tag green">被精选</span>
+            </div>
+            <div class="checkin-text">今晚做了山药栗子粥，女儿喝了两碗，说比外面的甜。</div>
+          </div>
+          <div class="checkin">
+            <div class="checkin-head">
+              <span class="checkin-date">7月20日</span>
+              <span class="tag gray">已回复</span>
+            </div>
+            <div class="checkin-text">跟着第 2 课试了清炒时蔬，火候还是不太稳，下次再慢一点。</div>
+          </div>
+          <div class="checkin">
+            <div class="checkin-head">
+              <span class="checkin-date">7月15日</span>
+              <span class="tag gray">已回复</span>
+            </div>
+            <div class="checkin-text">第一次交作业，有点紧张。做了最简单的拌豆腐。</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">陪伴记录</div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="td-sub">7月25日 · 小周</div>
+              <div>小满提到孩子最近愿意进厨房了，下次可以推荐亲子活动。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="td-sub">7月10日 · 小周</div>
+              <div>报名料理课，聊起想改变家里的饮食习惯。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="td-sub">6月2日 · 系统</div>
+              <div>第一次参加若星课程。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右栏 -->
+      <div>
+        <div class="panel">
+          <div class="panel-title">基础信息</div>
+          <div class="meta-list">
+            <div class="meta-item"><span class="meta-label">手机号</span><span>138****6231</span></div>
+            <div class="meta-item"><span class="meta-label">微信号</span><span>linxiaoman</span></div>
+            <div class="meta-item"><span class="meta-label">城市</span><span>上海</span></div>
+            <div class="meta-item"><span class="meta-label">家庭情况</span><span>有一个 6 岁女儿</span></div>
+            <div class="meta-item"><span class="meta-label">职业</span><span>自由插画师</span></div>
+            <div class="meta-item"><span class="meta-label">饮食状态</span><span>纯素</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">陪伴人</div>
+          <div class="id-cell">
+            <span class="avatar">周</span>
+            <div><div class="td-main">小周</div></div>
+          </div>
+          <div class="keeper-note">"这个孩子妈妈很有耐心，值得多聊聊。"</div>
+          <button class="btn-text">转交陪伴人</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">备注</div>
+          <div class="memo-text">对茶会也感兴趣，但担心女儿没人照看，可以在周末活动时留意亲子名额。</div>
+          <button class="btn-text">编辑</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

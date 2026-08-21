@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 学员管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html" class="active">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>学员管理</h1>
+      </div>
+      <span class="head-note">共 217 位学员</span>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <a href="#" class="active">全部</a>
+        <a href="#">本月新增</a>
+        <a href="#">持续活跃</a>
+        <a href="#">需要关注</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="search-box">
+        <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+        <input type="text" placeholder="搜索姓名或手机号">
+      </div>
+    </div>
+
+    <div class="panel">
+      <table class="table">
+        <thead>
+          <tr><th>学员</th><th>标签</th><th>参加课程</th><th>最近参与</th><th>陪伴人</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">满</span><div><div class="td-main">林小满</div><div class="td-sub">上海</div></div></div></td>
+            <td><span class="tag green">料理积极实践者</span> <span class="tag">亲子家庭</span></td>
+            <td class="num">3 门</td>
+            <td class="td-sub">今天 · 提交打卡</td>
+            <td>小周</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">玲</span><div><div class="td-main">阿玲</div><div class="td-sub">上海</div></div></div></td>
+            <td><span class="tag green">深度同频用户</span> <span class="tag">有传播意愿</span></td>
+            <td class="num">5 门</td>
+            <td class="td-sub">7月24日 · 打卡被精选</td>
+            <td>小周</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">晴</span><div><div class="td-main">苏晚晴</div><div class="td-sub">杭州</div></div></div></td>
+            <td><span class="tag">素食初学者</span></td>
+            <td class="num">2 门</td>
+            <td class="td-sub">昨天 · 报名茶会</td>
+            <td>小敏</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">禾</span><div><div class="td-main">陈禾禾</div><div class="td-sub">苏州</div></div></div></td>
+            <td><span class="tag">烘焙爱好者</span></td>
+            <td class="num">2 门</td>
+            <td class="td-sub">昨天 · 报名烘焙课</td>
+            <td>小敏</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">芝</span><div><div class="td-main">王雅芝</div><div class="td-sub">北京</div></div></div></td>
+            <td><span class="tag">空间管理需求强</span> <span class="tag">职场女性</span></td>
+            <td class="num">4 门</td>
+            <td class="td-sub">3 天前 · 完成作业</td>
+            <td>小蔡</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">姝</span><div><div class="td-main">李静姝</div><div class="td-sub">成都</div></div></div></td>
+            <td><span class="tag green">有开工作室意向</span> <span class="tag">潜在会员</span></td>
+            <td class="num">6 门</td>
+            <td class="td-sub">1 周前 · 参加茶会</td>
+            <td>小蔡</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span>共 217 位学员</span>
+        <div class="pages">
+          <a href="#" class="cur">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">…</a>
+          <a href="#">9</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

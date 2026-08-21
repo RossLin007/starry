@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 生活料理 第 12 期</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  /* ===== 分区切换(两字标签,一行放下不滑动) ===== */
+  .mode-tabs {
+    display: flex; gap: 22px; justify-content: space-between;
+    padding: 4px 20px 14px; scrollbar-width: none;
+  }
+  .mode-tabs::-webkit-scrollbar { display: none; }
+  .mode-tabs a {
+    flex-shrink: 0; text-decoration: none;
+    font-size: 13px; color: var(--ash);
+    padding-bottom: 6px; border-bottom: 1px solid transparent;
+    letter-spacing: 0.04em;
+  }
+  .mode-tabs a.active {
+    font-family: var(--serif); font-weight: 600; font-size: 14px;
+    color: var(--ink); border-bottom-color: var(--tea);
+  }
+  .zone { display: none; }
+  .zone.open { display: block; }
+
+  /* ===== 概要 · 课节 ===== */
+  .lesson-item { display: flex; align-items: baseline; justify-content: space-between; }
+  .lesson-status { font-size: 12px; color: var(--tea); flex-shrink: 0; margin-left: 12px; }
+  .lesson-meta { font-size: 13px; color: var(--ash); margin-top: 4px; }
+  a.lesson-link { display: block; text-decoration: none; color: var(--ink); }
+  .notice-rows { display: flex; flex-direction: column; }
+  .notice-rows .row { display: flex; padding: 10px 0; font-size: 14px; line-height: 1.6; }
+  .notice-rows .row + .row { border-top: 1px solid var(--rice); }
+  .notice-rows .k { flex-shrink: 0; width: 76px; color: var(--ash); font-size: 13px; padding-top: 1px; }
+  .notice-rows .v { color: var(--ink); }
+
+  /* ===== 实践 · 打卡动态流(参考鹅打卡) ===== */
+  .checkin-entry { padding: 20px; text-align: center; }
+  .feed-card { padding: 18px; margin-bottom: 18px; }
+  .feed-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .feed-avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--rice);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tea); font-size: 15px; flex-shrink: 0;
+  }
+  .feed-name { font-size: 14px; font-weight: 500; }
+  .feed-sub { font-size: 11px; color: var(--ash); margin-top: 2px; }
+  .feed-text { font-size: 14px; line-height: 1.8; color: var(--ink); }
+  .feed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 12px; }
+  .feed-grid .photo { aspect-ratio: 1 / 1; height: auto; border-radius: 8px; }
+  .feed-tag { margin-top: 12px; font-size: 13px; color: var(--caramel); letter-spacing: 0.02em; }
+  .feed-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rice);
+    font-size: 12px; color: var(--ash);
+  }
+  .feed-actions { display: flex; gap: 18px; }
+  .feed-actions span { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .feed-actions svg { display: block; }
+
+  /* ===== 食谱 ===== */
+  .recipe-card { overflow: hidden; margin-bottom: 22px; }
+  .recipe-card .photo { height: 150px; }
+  .recipe-body { padding: 16px 18px 18px; }
+  .recipe-title { font-family: var(--serif); font-size: 17px; font-weight: 500; margin-bottom: 4px; }
+  .recipe-sec { margin-top: 16px; }
+  .rs-title { font-size: 13px; color: var(--tea); letter-spacing: 0.14em; margin-bottom: 8px; }
+  .ing-list { font-size: 14px; line-height: 2; color: var(--ink); }
+  .step-list { counter-reset: step; padding: 0; }
+  .step-list li {
+    list-style: none; position: relative;
+    font-size: 14px; line-height: 1.8; color: var(--ink);
+    padding-left: 28px; margin-bottom: 8px;
+  }
+  .step-list li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: 4px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--apricot-light); color: var(--tea);
+    font-size: 11px; display: flex; align-items: center; justify-content: center;
+  }
+  .tip-box {
+    background: var(--apricot-light); border-radius: 10px;
+    padding: 12px 14px; font-size: 13px; line-height: 1.75; color: var(--ink);
+  }
+  .recipe-dl {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rice);
+    font-size: 13px; color: var(--ash);
+  }
+  .dl-btn {
+    flex-shrink: 0; margin-left: 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--caramel); color: var(--caramel);
+    background: none; border-radius: 16px; padding: 6px 14px;
+    font-size: 12px; cursor: pointer; letter-spacing: 0.03em;
+  }
+  .dl-btn svg { display: block; }
+
+  /* ===== 金句(每天早上更新一张,后台上传图片) ===== */
+  .quote-card { overflow: hidden; margin-bottom: 20px; }
+  .quote-inner {
+    aspect-ratio: 4 / 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 36px 30px;
+  }
+  .quote-inner .q-date { font-size: 12px; letter-spacing: 0.12em; color: rgba(255,255,255,.88); margin-bottom: 20px; }
+  .quote-inner .q-text { font-family: var(--kai); font-size: 21px; line-height: 2.1; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.18); }
+  .quote-inner .q-from { margin-top: 20px; font-size: 12px; color: rgba(255,255,255,.85); letter-spacing: 0.06em; }
+  .quote-inner.small { aspect-ratio: 16 / 10; padding: 24px 22px; }
+  .quote-inner.small .q-text { font-size: 16px; line-height: 1.9; }
+  .quote-inner.small .q-date { margin-bottom: 12px; }
+  .quote-inner.small .q-from { margin-top: 12px; }
+  .q-old { display: none; }
+  .q-old.show { display: block; }
+
+  /* ===== 故事卡 ===== */
+  .story-grid { display: flex; flex-direction: column; gap: 18px; }
+  .story-card { display: block; text-decoration: none; color: var(--ink); overflow: hidden; }
+  .story-card .photo { height: 150px; }
+  .story-card .sc-body { padding: 14px 18px 18px; }
+  .story-card .sc-title { font-family: var(--serif); font-size: 15px; font-weight: 500; margin-bottom: 8px; line-height: 1.6; }
+  .story-card .sc-text { font-size: 13px; color: var(--ash); line-height: 1.7; margin-bottom: 12px; }
+  .story-card .sc-foot { display: flex; justify-content: space-between; align-items: center; }
+  .tag-chip {
+    display: inline-flex; font-size: 11px; color: var(--tea);
+    border: 1px solid var(--tea); border-radius: 4px; padding: 2px 8px;
+    letter-spacing: 0.03em; margin-right: 6px;
+  }
+  .sc-meta { font-size: 12px; color: var(--ash); }
+
+  
+  /* ===== 食谱预览模式 ===== */
+  .recipe-search {
+    display: flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid var(--rice); border-radius: 12px;
+    padding: 11px 14px; color: var(--ash); margin-bottom: 12px;
+  }
+  .recipe-search input {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-size: 14px; font-family: var(--sans); color: var(--ink);
+  }
+  .recipe-tags { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .recipe-tags::-webkit-scrollbar { display: none; }
+  .rt-chip {
+    flex-shrink: 0; font-size: 12px; color: var(--tea);
+    background: var(--apricot-light); border-radius: 14px;
+    padding: 5px 14px; cursor: pointer; letter-spacing: 0.03em;
+  }
+  .rt-chip.active { background: var(--caramel); color: var(--cream-text); }
+  .recipe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .recipe-prev {
+    display: block; text-decoration: none; color: var(--ink);
+    background: #fff; border: 1px solid var(--rice); border-radius: 12px; overflow: hidden;
+  }
+  .recipe-prev .rp-photo { aspect-ratio: 4/3; }
+  .recipe-prev .rp-body { padding: 12px 14px 14px; }
+  .recipe-prev .rp-name { font-family: var(--serif); font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+  .recipe-prev .rp-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .rt-mini {
+    font-size: 11px; color: var(--tea); background: var(--apricot-light);
+    border-radius: 4px; padding: 2px 8px; letter-spacing: 0.03em;
+  }
+  /* ===== 图文评论 ===== */
+  .comment-box { padding: 16px 18px; }
+  .comment-input { display: flex; gap: 10px; }
+  .comment-input textarea {
+    flex: 1; border: 1px solid var(--rice); border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; font-family: inherit;
+    resize: none; background: #fff; color: var(--ink);
+  }
+  .comment-input .send-btn {
+    flex-shrink: 0; width: 44px; border-radius: 10px;
+    background: var(--caramel); color: var(--cream-text); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .comment-list { margin-top: 16px; }
+  .comment-item { padding: 12px 0; border-top: 1px solid var(--rice); }
+  .comment-item .c-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .comment-item .c-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .comment-item .c-time { font-size: 11px; color: var(--ash); }
+  .comment-item .c-text { font-size: 14px; color: var(--ink); line-height: 1.7; margin-top: 6px; }
+  .comment-item .c-photos { display: flex; gap: 8px; margin-top: 10px; }
+  .comment-item .c-photo { width: 72px; height: 72px; border-radius: 8px; display: inline-block; }
+  /* ===== 金句缩略图 ===== */
+  .quote-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .qt-item {
+    aspect-ratio: 3/4; border-radius: 10px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 12px 10px;
+  }
+  .qt-item .qt-date { font-size: 9px; letter-spacing: 0.1em; color: rgba(255,255,255,.85); margin-bottom: 8px; }
+  .qt-item .qt-text { font-family: var(--kai); font-size: 12px; line-height: 1.8; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.18); }
+  /* 金句大图查看层 */
+  .quote-view .share-panel { background: transparent; box-shadow: none; padding: 0 18px; }
+  .quote-view .qv-card { border-radius: 14px; overflow: hidden; }
+  .quote-view .qv-actions { display: flex; gap: 12px; margin-top: 16px; }
+  .quote-view .qv-actions button {
+    flex: 1; height: 46px; border-radius: 23px; font-size: 14px; cursor: pointer;
+    border: 1px solid var(--caramel); background: var(--caramel); color: var(--cream-text); letter-spacing: 0.05em;
+  }
+  .quote-view .qv-actions button.ghost { background: rgba(255,255,255,.9); color: var(--ink); border-color: var(--rice); }
+
+  /* ===== 资料行 ===== */
+  .res-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 2px; text-decoration: none; color: var(--ink);
+    border-bottom: 1px solid var(--rice); font-size: 15px;
+  }
+  .res-row:last-child { border-bottom: none; }
+  .res-row .r-sub { font-size: 12px; color: var(--ash); margin-top: 3px; }
+  .res-row .r-right { display: inline-flex; align-items: center; gap: 10px; color: var(--ash); flex-shrink: 0; margin-left: 12px; }
+  .res-row .r-right svg { display: block; }
+  .with-ico { display: flex; align-items: center; gap: 10px; }
+  .with-ico .r-icon { color: var(--tea); display: inline-flex; flex-shrink: 0; }
+  .with-ico .r-icon svg { display: block; }
+  .res-card { padding: 4px 18px; }
+  .group-title { font-size: 13px; color: var(--tea); letter-spacing: 0.14em; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="me.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">生活料理 · 第 12 期</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 分区切换 -->
+  <div class="mode-tabs" id="modeTabs">
+    <a href="#" data-zone="summary" class="active">概要</a>
+    <a href="#" data-zone="practice">实践</a>
+    <a href="#" data-zone="recipe">食谱</a>
+    <a href="#" data-zone="quote">金句</a>
+    <a href="#" data-zone="story">故事</a>
+    <a href="#" data-zone="forms">资料</a>
+  </div>
+
+  <!-- ============ 概要(详情+学练合并) ============ -->
+  <div class="zone open" id="zone-summary">
+    <div class="section fade-up" style="margin-bottom: 28px;">
+      <div class="eyebrow" style="margin-bottom: 10px;">生活料理 · 第 12 期</div>
+      <h1 class="page-title" style="margin-bottom: 14px;">把一日三餐，过成修行</h1>
+      <p class="body-text" style="color: var(--ash);">八周的时间，我们不去追求高超的厨艺，只是回到自己的厨房，重新认识一口锅、一把米、一餐饭。每周四晚线上相聚：实践故事分享、理论知识与实操演示。课后有作业，也鼓励你每天记录「生活家 · 践行」的心得。</p>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="section-title">课程须知</span></div>
+      <div class="card" style="padding: 6px 18px;">
+        <div class="notice-rows">
+        <div class="row"><span class="k">开课时间</span><span class="v">9 月 3 日起 · 每周四晚 20:00</span></div>
+        <div class="row"><span class="k">课程形式</span><span class="v">线上 · 腾讯会议直播</span></div>
+        <div class="row"><span class="k">配套</span><span class="v">含 8 节课与配套食材包</span></div>
+        <div class="row"><span class="k">陪伴内容</span><span class="v">课程概要 · 课后作业 · 生活家 · 践行 · 生活金句 · 若星食谱 · 料理故事 · 工具表单</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 课节信息:点击已开课节,可查看本节课的导读摘要、课后作业、课程金句 -->
+    <div class="section" style="margin-bottom: 0;">
+      <div class="section-head"><span class="section-title">课节信息</span></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <a class="lesson-link" href="lesson.html">
+            <div class="lesson-item">
+              <span class="tl-title">第 1 课 · 认识你的厨房<svg class="lesson-eye" width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 6px; vertical-align: -2px; color: var(--tea);"><path d="M4 24C4 24 12 10 24 10C36 10 44 24 44 24C44 24 36 38 24 38C12 38 4 24 4 24Z"/><circle cx="24" cy="24" r="6"/></svg></span>
+              <span class="lesson-status">已结束</span>
+            </div>
+            <div class="lesson-meta">9 月 3 日</div>
+            <div class="micro" style="margin-top: 6px;">导读摘要 · 课后作业 · 课程金句</div>
+          </a>
+        </div>
+        <div class="timeline-item">
+          <a class="lesson-link" href="lesson.html">
+            <div class="lesson-item">
+              <span class="tl-title">第 2 课 · 一餐一饭的秩序<svg class="lesson-eye" width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 6px; vertical-align: -2px; color: var(--tea);"><path d="M4 24C4 24 12 10 24 10C36 10 44 24 44 24C44 24 36 38 24 38C12 38 4 24 4 24Z"/><circle cx="24" cy="24" r="6"/></svg></span>
+              <span class="lesson-status">进行中</span>
+            </div>
+            <div class="lesson-meta">9 月 10 日</div>
+            <div class="micro" style="margin-top: 6px;">导读摘要 · 课后作业 · 课程金句</div>
+          </a>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 3 课 · 买菜与备菜</div>
+          <div class="lesson-meta">将于 9 月 17 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 4 课 · 火与水的分寸</div>
+          <div class="lesson-meta">将于 9 月 24 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 5 课 · 一日三餐的节奏</div>
+          <div class="lesson-meta">将于 10 月 1 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 6 课 · 与家人同桌</div>
+          <div class="lesson-meta">将于 10 月 8 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 7 课 · 四季餐桌</div>
+          <div class="lesson-meta">将于 10 月 15 日开启</div>
+        </div>
+        <div class="timeline-item pending" style="padding-bottom: 0;">
+          <div class="tl-title">第 8 课 · 把日子过成味道</div>
+          <div class="lesson-meta">将于 10 月 22 日开启</div>
+        </div>
+      </div>
+      <p class="micro" style="margin-top: 14px; color: var(--ash);">点击已开课的课节，可查看本节课的导读摘要、课后作业与课程金句。</p>
+    </div>
+  </div>
+
+  <!-- ============ 实践(每日打卡) ============ -->
+  <div class="zone" id="zone-practice">
+
+    <div class="section fade-up">
+      <div class="card checkin-entry">
+        <p style="font-family: var(--serif); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">今天，也认真做一顿饭了吗？<br>不必完美，真实的一次，就很好。</p>
+        <a class="btn-secondary" href="checkin.html">记录本次实践</a>
+      </div>
+    </div>
+
+    <!-- 实践动态(上方文字、下方图片/视频,带标签) -->
+    <div class="section" style="margin-bottom: 0;">
+      <div class="section-head"><span class="section-title">大家的实践</span></div>
+
+      <div class="card feed-card">
+        <div class="feed-head">
+          <span class="feed-avatar">✧</span>
+          <div>
+            <div class="feed-name">阿玲</div>
+            <div class="feed-sub">第 9 天打卡 · 生活料理 · 第 2 课</div>
+          </div>
+        </div>
+        <p class="feed-text">跟着课里说的，先把一周的食材做了预处理：洗好、切好、分装。今天做饭只花了二十分钟，灶台也不再手忙脚乱了。原来"准备好"本身，就是一种安心。</p>
+        <div class="feed-grid">
+          <div class="photo photo-food"></div>
+          <div class="photo photo-baking"></div>
+          <div class="photo photo-kids"></div>
+        </div>
+        <div class="feed-tag">#食材预处理 #动线设计</div>
+        <div class="feed-foot">
+          <span>9 月 12 日 21:08 · 上海</span>
+          <span class="feed-actions">
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8C8.92487 8 4 12.9249 4 19C4 30 17 40 24 42C31 40 44 30 44 19C44 12.9249 39.0751 8 33 8C29.2797 8 25.9907 9.8469 24 12.6738C22.0093 9.8469 18.7203 8 15 8Z"/></svg>12</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 6H4V36H13V44L23 36H44V6Z"/></svg>3</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6V30"/><path d="M14 16L24 6L34 16"/><path d="M8 26V42H40V26"/></svg></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="card feed-card">
+        <div class="feed-head">
+          <span class="feed-avatar">✦</span>
+          <div>
+            <div class="feed-name">小满</div>
+            <div class="feed-sub">第 6 天打卡 · 生活料理 · 第 1 课</div>
+          </div>
+        </div>
+        <p class="feed-text">擦了三遍灶台，才发现边角积了那么久的油。擦完的那一刻，像是把心里一个角落也擦亮了。</p>
+        <div class="feed-grid">
+          <div class="photo photo-space"></div>
+        </div>
+        <div class="feed-tag">#冰箱管理</div>
+        <div class="feed-foot">
+          <span>9 月 10 日 22:31 · 杭州</span>
+          <span class="feed-actions">
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8C8.92487 8 4 12.9249 4 19C4 30 17 40 24 42C31 40 44 30 44 19C44 12.9249 39.0751 8 33 8C29.2797 8 25.9907 9.8469 24 12.6738C22.0093 9.8469 18.7203 8 15 8Z"/></svg>8</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 6H4V36H13V44L23 36H44V6Z"/></svg>1</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6V30"/><path d="M14 16L24 6L34 16"/><path d="M8 26V42H40V26"/></svg></span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 食谱(预览模式:图片+名称+标签+搜索,点开看详情) ============ -->
+  <div class="zone" id="zone-recipe">
+
+    <!-- 食谱列表(预览) -->
+    <div id="recipeList">
+      <div class="section fade-up" style="padding-top: 2px; margin-bottom: 14px;">
+        <div class="recipe-search">
+          <svg width="16" height="16" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="16"/><path d="M33 33L44 44"/></svg>
+          <input type="text" id="recipeSearch" placeholder="搜索食材、菜名或场景">
+        </div>
+        <div class="recipe-tags" id="recipeTags">
+          <span class="rt-chip active" data-tag="all">全部</span>
+          <span class="rt-chip" data-tag="时令">立秋时令</span>
+          <span class="rt-chip" data-tag="莲藕">莲藕食谱</span>
+          <span class="rt-chip" data-tag="烘焙">面点烘焙</span>
+          <span class="rt-chip" data-tag="高蛋白">高蛋白</span>
+          <span class="rt-chip" data-tag="汤羹">汤羹</span>
+        </div>
+      </div>
+
+      <div class="section" style="padding-top: 0; margin-bottom: 0;">
+        <div class="recipe-grid" id="recipeGrid">
+          <a class="recipe-prev" href="#" data-recipe="doufu" data-name="秋日时蔬豆腐煲" data-tags="时令 莲藕 汤羹 煮制">
+            <div class="rp-photo photo-food"></div>
+            <div class="rp-body">
+              <div class="rp-name">秋日时蔬豆腐煲</div>
+              <div class="rp-tags"><span class="rt-mini">汤羹</span><span class="rt-mini">煮制</span><span class="rt-mini">清淡口</span></div>
+            </div>
+          </a>
+          <a class="recipe-prev" href="#" data-recipe="xiangjian" data-name="香煎豆腐配时蔬" data-tags="高蛋白 煎制 一人餐">
+            <div class="rp-photo photo-baking"></div>
+            <div class="rp-body">
+              <div class="rp-name">香煎豆腐配时蔬</div>
+              <div class="rp-tags"><span class="rt-mini">高蛋白</span><span class="rt-mini">煎制</span><span class="rt-mini">一人餐</span></div>
+            </div>
+          </a>
+          <a class="recipe-prev" href="#" data-recipe="doufu" data-name="莲藕山药素汤" data-tags="时令 莲藕 汤羹 煮制">
+            <div class="rp-photo photo-tea"></div>
+            <div class="rp-body">
+              <div class="rp-name">莲藕山药素汤</div>
+              <div class="rp-tags"><span class="rt-mini">汤羹</span><span class="rt-mini">煮制</span><span class="rt-mini">时令</span></div>
+            </div>
+          </a>
+          <a class="recipe-prev" href="#" data-recipe="xiangjian" data-name="全麦乡村面包" data-tags="烘焙 烤制 早餐">
+            <div class="rp-photo photo-kids"></div>
+            <div class="rp-body">
+              <div class="rp-name">全麦乡村面包</div>
+              <div class="rp-tags"><span class="rt-mini">烘焙</span><span class="rt-mini">烤制</span><span class="rt-mini">早餐</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 食谱详情(点击预览卡进入) -->
+    <div id="recipeDetail" style="display: none;">
+      <div class="section" style="padding-top: 2px; margin-bottom: 12px;">
+        <a class="btn-text" href="#" id="recipeBack" style="min-height: 36px;">&larr; 返回食谱列表</a>
+      </div>
+
+      <!-- 详情 A:秋日时蔬豆腐煲 -->
+      <div class="recipe-detail" id="rd-doufu">
+        <div class="card recipe-card">
+          <div class="photo photo-food"><span class="photo-label">若星食谱</span></div>
+          <div class="recipe-body">
+            <div class="recipe-title">秋日时蔬豆腐煲</div>
+            <div class="micro">第 2 课配套食谱 · 2 人份</div>
+            <div class="recipe-sec">
+              <div class="rs-title">配 料</div>
+              <div class="ing-list">老豆腐 1 块（约 300g）<br>莲藕 1 节 · 山药 半根 · 胡萝卜 半根<br>干香菇 3 朵（提前泡发）<br>姜片 2 片 · 盐 少许 · 香油 几滴</div>
+            </div>
+            <div class="recipe-sec">
+              <div class="rs-title">步 骤</div>
+              <ol class="step-list">
+                <li>莲藕、山药、胡萝卜去皮切滚刀块；豆腐切厚片备用。</li>
+                <li>砂锅中加泡香菇的水和适量清水，放入姜片与香菇，大火煮开。</li>
+                <li>下莲藕、山药、胡萝卜，转小火慢炖 20 分钟。</li>
+                <li>放入豆腐，再炖 10 分钟，加盐调味，出锅前滴几滴香油。</li>
+              </ol>
+            </div>
+            <div class="recipe-sec">
+              <div class="rs-title">小 贴 士</div>
+              <div class="tip-box">豆腐最后放，保持完整不散；泡香菇的水别倒，是汤的鲜底。只加一点点盐，汤本身就是甜的。</div>
+            </div>
+            <div class="recipe-dl">
+              <span>完整食谱图 · PNG（后台上传）</span>
+              <button type="button" class="dl-btn" data-dl="秋日时蔬豆腐煲·食谱图.png"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 图文评论区(晒图+留言) -->
+        <div class="card comment-box" style="margin-top: 18px;">
+          <div class="rs-title" style="margin-bottom: 12px;">大家的复刻 · 图文评论</div>
+          <div class="comment-input">
+            <textarea rows="2" placeholder="分享你的试做体会，也可以晒图…" id="cmtInput-doufu"></textarea>
+            <button class="send-btn" type="button" data-cmt="doufu" aria-label="发表"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 4L22 26"/><path d="M44 4L30 44L22 26L4 18L44 4Z"/></svg></button>
+          </div>
+          <div class="comment-list">
+            <div class="comment-item">
+              <div class="c-head"><span class="c-name">阿玲</span><span class="c-time">9 月 13 日</span></div>
+              <div class="c-text">照着做了一次，汤真的是甜的！孩子连喝两碗。</div>
+              <div class="c-photos"><span class="c-photo photo-food"></span><span class="c-photo photo-tea"></span></div>
+            </div>
+            <div class="comment-item">
+              <div class="c-head"><span class="c-name">知远</span><span class="c-time">9 月 12 日</span></div>
+              <div class="c-text">没有砂锅用的铸铁锅，也很鲜。香菇水确实是关键。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 详情 B:香煎豆腐配时蔬 -->
+      <div class="recipe-detail" id="rd-xiangjian" style="display: none;">
+        <div class="card recipe-card">
+          <div class="photo photo-baking"><span class="photo-label">若星食谱</span></div>
+          <div class="recipe-body">
+            <div class="recipe-title">香煎豆腐配时蔬</div>
+            <div class="micro">第 1 课配套食谱 · 1 人份</div>
+            <div class="recipe-sec">
+              <div class="rs-title">配 料</div>
+              <div class="ing-list">老豆腐 半块 · 西兰花 半颗<br>生抽 1 小勺 · 黑胡椒 少许 · 食用油 适量</div>
+            </div>
+            <div class="recipe-sec">
+              <div class="rs-title">步 骤</div>
+              <ol class="step-list">
+                <li>豆腐切厚片，用厨房纸吸干表面水分。</li>
+                <li>平底锅少油，小火慢煎至两面金黄。</li>
+                <li>西兰花焯水 1 分钟，摆在豆腐旁，淋生抽、撒黑胡椒即可。</li>
+              </ol>
+            </div>
+            <div class="recipe-sec">
+              <div class="rs-title">小 贴 士</div>
+              <div class="tip-box">煎豆腐不急着翻面，等底面定型再动，就不容易碎。</div>
+            </div>
+            <div class="recipe-dl">
+              <span>完整食谱图 · PNG（后台上传）</span>
+              <button type="button" class="dl-btn" data-dl="香煎豆腐配时蔬·食谱图.png"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card comment-box" style="margin-top: 18px;">
+          <div class="rs-title" style="margin-bottom: 12px;">大家的复刻 · 图文评论</div>
+          <div class="comment-input">
+            <textarea rows="2" placeholder="分享你的试做体会，也可以晒图…" id="cmtInput-xiangjian"></textarea>
+            <button class="send-btn" type="button" data-cmt="xiangjian" aria-label="发表"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 4L22 26"/><path d="M44 4L30 44L22 26L4 18L44 4Z"/></svg></button>
+          </div>
+          <div class="comment-list">
+            <div class="comment-item">
+              <div class="c-head"><span class="c-name">小满</span><span class="c-time">9 月 11 日</span></div>
+              <div class="c-text">第一次煎出完整的豆腐！吸干水分真的有用。</div>
+              <div class="c-photos"><span class="c-photo photo-baking"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 金句(缩略图模式:今日大图 + 往日缩略图,点击看大图/下载) ============ -->
+  <div class="zone" id="zone-quote">
+    <div class="section fade-up" style="margin-bottom: 0;">
+      <div class="section-head">
+        <span class="section-title">每日金句</span>
+        <span class="micro" style="color: var(--ash);">每天一张 · 点击看大图</span>
+      </div>
+
+      <!-- 今日最新一张(大图) -->
+      <div class="card quote-card">
+        <div class="quote-inner photo-tea" data-qv="一餐一饭，<br>都是开始。|9 月 15 日 · 今日|—— 蔡老师 · 第 2 课|photo-tea" role="button">
+          <div class="q-date">9 月 15 日 · 今日</div>
+          <div class="q-text">一餐一饭，<br>都是开始。</div>
+          <div class="q-from">—— 蔡老师 · 第 2 课</div>
+        </div>
+      </div>
+
+      <!-- 往日金句(缩略图网格,上下滑动浏览) -->
+      <div class="quote-thumbs">
+        <div class="qt-item photo-food" data-qv="切菜的时候，只是切菜。|9 月 14 日|—— 蔡老师 · 第 2 课|photo-food" role="button">
+          <div class="qt-date">9 月 14 日</div>
+          <div class="qt-text">切菜的时候，只是切菜。</div>
+        </div>
+        <div class="qt-item photo-baking" data-qv="灶台干净，心就亮了一半。|9 月 13 日|—— 蔡老师 · 第 1 课|photo-baking" role="button">
+          <div class="qt-date">9 月 13 日</div>
+          <div class="qt-text">灶台干净，心就亮了一半。</div>
+        </div>
+        <div class="qt-item photo-space" data-qv="好好吃饭，是生活的起点。|9 月 12 日|—— 蔡老师 · 第 1 课|photo-space" role="button">
+          <div class="qt-date">9 月 12 日</div>
+          <div class="qt-text">好好吃饭，是生活的起点。</div>
+        </div>
+        <div class="qt-item photo-read" data-qv="厨房，是家里最温暖的修行场。|9 月 11 日|—— 蔡老师 · 开课寄语|photo-read" role="button">
+          <div class="qt-date">9 月 11 日</div>
+          <div class="qt-text">厨房，是家里最温暖的修行场。</div>
+        </div>
+        <div class="qt-item photo-kids" data-qv="一餐一饭里，藏着日子的秩序。|9 月 10 日|—— 蔡老师 · 第 1 课|photo-kids" role="button">
+          <div class="qt-date">9 月 10 日</div>
+          <div class="qt-text">一餐一饭里，藏着日子的秩序。</div>
+        </div>
+        <div class="qt-item photo-body" data-qv="慢慢来，饭要一口一口吃。|9 月 9 日|—— 蔡老师 · 开课寄语|photo-body" role="button">
+          <div class="qt-date">9 月 9 日</div>
+          <div class="qt-text">慢慢来，饭要一口一口吃。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [开发预留] 故事模块每篇故事应有独立详情页与ID,避免都跳转到读书会的同一故事页。目前原型共用 story-detail.html 仅为演示。
+  <!-- ============ 故事 ============ -->
+  <div class="zone" id="zone-story">
+    <div class="section" style="margin-bottom: 0;">
+      <div class="story-grid">
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-read"><span class="photo-label">学员故事</span></div>
+          <div class="sc-body">
+            <div class="sc-title">第一次为家人做了一桌全素的晚餐</div>
+            <div class="sc-text">孩子吃素后总担心营养不够。这周跟着课做了豆腐丸子汤和糙米饭，家人都吃得很香……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">食材预处理</span><span class="tag-chip">动线设计</span></span>
+              <span class="sc-meta">阿玲 · 9 月 12 日</span>
+            </div>
+          </div>
+        </a>
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-tea"><span class="photo-label">学员故事</span></div>
+          <div class="sc-body">
+            <div class="sc-title">冰箱重新分区后，食材再也不浪费了</div>
+            <div class="sc-text">学了"先进先出"原则，把冰箱分成即食区、备菜区、储物区，一周下来几乎没扔过食材……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">冰箱管理</span></span>
+              <span class="sc-meta">小满 · 9 月 10 日</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 资料(每节课文档资料的集合) ============ -->
+  <div class="zone" id="zone-forms">
+
+    <div class="section fade-up">
+      <div class="group-title">第 1 课 · 认识你的厨房</div>
+      <div class="card res-card">
+        <a class="res-row" href="#">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>图文讲义《厨房的能量场》</div>
+            <div class="r-sub">PDF · 第 1 课讲义</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="第1课·图文讲义.pdf"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </a>
+        <a class="res-row" href="#">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>食材预处理清单</div>
+            <div class="r-sub">PDF · 常见食材保存法</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="食材预处理清单.pdf"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="group-title">第 2 课 · 一餐一饭的秩序</div>
+      <div class="card res-card">
+        <a class="res-row" href="#">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>图文讲义《一餐一饭的秩序》</div>
+            <div class="r-sub">PDF · 第 2 课讲义</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="第2课·图文讲义.pdf"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </a>
+        <a class="res-row" href="#">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>每周菜谱计划表</div>
+            <div class="r-sub">Excel · 一周三餐规划</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="每周菜谱计划表.xlsx"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </a>
+      </div>
+    </div>
+
+    <div class="section" style="margin-bottom: 0;">
+      <div class="group-title">通 用 工 具</div>
+      <div class="card res-card">
+        <a class="res-row" href="#">
+          <div>
+            <div class="with-ico"><span class="r-icon"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/></svg></span>动线设计自测表</div>
+            <div class="r-sub">Word · 厨房动线评估</div>
+          </div>
+          <button type="button" class="dl-btn" data-dl="动线设计自测表.docx"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('#modeTabs a');
+  var zones = document.querySelectorAll('.zone');
+  function show(name) {
+    tabs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-zone') === name); });
+    zones.forEach(function (z) { z.classList.toggle('open', z.id === 'zone-' + name); });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function (e) { e.preventDefault(); show(t.getAttribute('data-zone')); });
+  });
+  // 下载
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  document.querySelectorAll('.dl-btn').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      showToast('已开始下载 ' + b.getAttribute('data-dl'));
+    });
+  });
+
+  // 食谱:预览 → 详情切换
+  var recipeList = document.getElementById('recipeList');
+  var recipeDetail = document.getElementById('recipeDetail');
+  function openRecipe(key) {
+    document.querySelectorAll('.recipe-detail').forEach(function (d) { d.style.display = 'none'; });
+    var target = document.getElementById('rd-' + key);
+    if (target) target.style.display = 'block';
+    recipeList.style.display = 'none';
+    recipeDetail.style.display = 'block';
+  }
+  document.querySelectorAll('.recipe-prev').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      e.preventDefault();
+      openRecipe(card.getAttribute('data-recipe'));
+    });
+  });
+  document.getElementById('recipeBack').addEventListener('click', function (e) {
+    e.preventDefault();
+    recipeDetail.style.display = 'none';
+    recipeList.style.display = 'block';
+  });
+  // 食谱:搜索过滤
+  document.getElementById('recipeSearch').addEventListener('input', function () {
+    var kw = this.value.trim();
+    document.querySelectorAll('#recipeGrid .recipe-prev').forEach(function (card) {
+      var hay = card.getAttribute('data-name') + ' ' + card.getAttribute('data-tags');
+      card.style.display = (!kw || hay.indexOf(kw) >= 0) ? '' : 'none';
+    });
+  });
+  // 食谱:标签过滤
+  document.querySelectorAll('#recipeTags .rt-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      document.querySelectorAll('#recipeTags .rt-chip').forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var tag = chip.getAttribute('data-tag');
+      document.querySelectorAll('#recipeGrid .recipe-prev').forEach(function (card) {
+        card.style.display = (tag === 'all' || card.getAttribute('data-tags').indexOf(tag) >= 0) ? '' : 'none';
+      });
+    });
+  });
+  // 食谱:发表评论(原型模拟,可追加一条文字评论)
+  document.querySelectorAll('[data-cmt]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.getAttribute('data-cmt');
+      var input = document.getElementById('cmtInput-' + key);
+      var text = input.value.trim();
+      if (!text) { showToast('先写点内容再发表'); return; }
+      var list = btn.closest('.comment-box').querySelector('.comment-list');
+      var item = document.createElement('div');
+      item.className = 'comment-item';
+      item.innerHTML = '<div class="c-head"><span class="c-name">我</span><span class="c-time">刚刚</span></div><div class="c-text"></div>';
+      item.querySelector('.c-text').textContent = text;
+      list.insertBefore(item, list.firstChild);
+      input.value = '';
+      showToast('已发表');
+    });
+  });
+
+  // 金句:点击看大图(含下载)
+  var qvMask = document.createElement('div');
+  qvMask.className = 'share-mask quote-view';
+  qvMask.innerHTML = '<div class="share-panel"><div class="card qv-card"><div class="quote-inner" id="qvInner"><div class="q-date" id="qvDate"></div><div class="q-text" id="qvText"></div><div class="q-from" id="qvFrom"></div></div></div><div class="qv-actions"><button type="button" class="ghost" id="qvClose">关闭</button><button type="button" id="qvDl">下载图片</button></div></div>';
+  document.body.appendChild(qvMask);
+  var qvInner = document.getElementById('qvInner');
+  document.querySelectorAll('[data-qv]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var parts = el.getAttribute('data-qv').split('|');
+      document.getElementById('qvText').innerHTML = parts[0];
+      document.getElementById('qvDate').textContent = parts[1];
+      document.getElementById('qvFrom').textContent = parts[2];
+      qvInner.className = 'quote-inner ' + parts[3];
+      qvMask.classList.add('open');
+    });
+  });
+  document.getElementById('qvClose').addEventListener('click', function () { qvMask.classList.remove('open'); });
+  document.getElementById('qvDl').addEventListener('click', function () {
+    qvMask.classList.remove('open');
+    showToast('已开始下载金句图（后台上传原图）');
+  });
+  qvMask.addEventListener('click', function (e) { if (e.target === qvMask) qvMask.classList.remove('open'); });
+
+})();
+</script>
+</body>
+</html>

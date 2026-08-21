@@ -1,0 +1,49 @@
+<!-- pages/orders/index.wxml -->
+<view class="container orders-page">
+  <!-- 顶部状态选项卡 -->
+  <view class="tab-bar">
+    <view
+      wx:for="{{ tabs }}"
+      wx:key="key"
+      class="tab-item {{ activeTab === item.key ? 'active' : '' }}"
+      data-tab="{{ item.key }}"
+      bindtap="onSelectTab"
+    >
+      {{ item.label }}
+    </view>
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="orders-list">
+    <view wx:if="{{ orders.length === 0 && !loading }}" class="empty-box">
+      <view class="empty-icon">🧾</view>
+      <view class="empty-text">暂无相关订单记录</view>
+    </view>
+
+    <view wx:for="{{ orders }}" wx:key="id" class="starry-card order-card">
+      <view class="order-header">
+        <view class="order-no">单号：{{ item.orderNo }}</view>
+        <view class="order-status-tag status-{{ item.status }}">
+          {{ item.status === 'PAID' ? '已支付' : (item.status === 'PENDING' ? '待支付' : '已关闭') }}
+        </view>
+      </view>
+
+      <view class="order-body">
+        <view class="order-title">{{ item.targetTitle }}</view>
+        <view class="order-time">{{ item.createdAt ? item.createdAt.slice(0, 16).replace('T', ' ') : '' }}</view>
+      </view>
+
+      <view class="order-footer">
+        <view class="amount-box">
+          <text class="amount-lbl">实付：</text>
+          <text class="amount-val">¥{{ item.amount }}</text>
+        </view>
+
+        <view class="action-btns" wx:if="{{ item.status === 'PENDING' }}">
+          <button class="cancel-btn" data-id="{{ item.id }}" bindtap="onCancelOrder">取消</button>
+          <button class="pay-btn" data-id="{{ item.id }}" bindtap="onPayOrder">立即支付</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

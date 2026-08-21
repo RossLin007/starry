@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 初秋茶会</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .memo-text { font-family: var(--kai); color: var(--ash); font-size: 14px; line-height: 2; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html" class="active">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="breadcrumb"><a href="activities.html">活动管理</a> / 初秋茶会</div>
+    <div class="page-head">
+      <div>
+        <h1>初秋茶会</h1>
+      </div>
+      <span class="head-note">9 月 7 日（周日）14:00 – 16:00 · 若星 · 莘庄空间</span>
+    </div>
+
+    <!-- 概要 -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">8</div>
+        <div class="stat-label">已报名</div>
+        <div class="stat-note">限 12 人</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">¥168<span style="font-size:14px;">/人</span></div>
+        <div class="stat-label">费用</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="font-size:20px;">9月5日</div>
+        <div class="stat-label">报名截止</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">已签到</div>
+        <div class="stat-note">活动当天使用</div>
+      </div>
+    </div>
+
+    <div class="inner-tabs" id="detailTabs">
+      <a href="#" data-tab="roster" class="active">报名名单</a>
+      <a href="#" data-tab="info">活动信息</a>
+      <a href="#" data-tab="signin">签到</a>
+      <a href="#" data-tab="feedback">活动反馈</a>
+    </div>
+
+    <!-- 活动信息 -->
+    <div class="tab-zone" data-zone="info" style="display:none;">
+      <div class="panel">
+        <div class="panel-title">活动信息<span class="title-note">名称 / 时间 / 地点 / 人数 / 费用</span></div>
+        <div class="form-grid">
+          <div class="a-field full"><label>活动名称</label><input type="text" value="初秋茶会"></div>
+          <div class="a-field"><label>活动时间</label><input type="text" value="9 月 7 日（周日）14:00 – 16:00"></div>
+          <div class="a-field"><label>活动地点</label><input type="text" value="若星 · 莘庄空间"></div>
+          <div class="a-field"><label>人数上限</label><input type="text" value="12 人"></div>
+          <div class="a-field"><label>报名截止</label><input type="text" value="9 月 5 日"></div>
+          <div class="a-field"><label>活动费用</label><input type="text" value="¥168 / 人（带孩子免费）"></div>
+          <div class="a-field full"><label>活动介绍</label><textarea rows="3" placeholder="活动简介…"></textarea></div>
+          <div class="a-field full"><label>流程步骤</label><textarea rows="3" placeholder="每一步做什么，学员端会逐步展示…"></textarea></div>
+        </div>
+        <div class="quiet-actions" style="margin-top:18px;">
+          <a class="btn" href="#" data-save-tab>保存活动信息</a>
+          <span style="flex:1;"></span>
+          <a class="btn-text" href="enroll-config.html">报名表单设置</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 签到 -->
+    <div class="tab-zone" data-zone="signin" style="display:none;">
+      <div class="panel">
+        <div class="toolbar" style="margin-bottom:12px;">
+          <div class="filter-tabs">
+            <a href="#" class="active">全部</a>
+            <a href="#">已签到</a>
+            <a href="#">未签到</a>
+          </div>
+          <div class="spacer"></div>
+          <a class="btn-outline" href="#" data-export>导出签到表</a>
+        </div>
+        <table class="table">
+          <thead><tr><th>报名人</th><th>手机号</th><th>签到状态</th><th style="text-align:right;">登记</th></tr></thead>
+          <tbody>
+            <tr data-signed="0">
+              <td><div class="id-cell"><span class="avatar">晴</span><div><div class="td-main">苏晚晴</div><div class="td-sub">杭州</div></div></div></td>
+              <td class="num">139****4472</td>
+              <td><span class="tag gray">未签到</span></td>
+              <td style="text-align:right;"><a class="row-link" href="#" data-sign>标记签到</a></td>
+            </tr>
+            <tr data-signed="0">
+              <td><div class="id-cell"><span class="avatar">玲</span><div><div class="td-main">阿玲</div><div class="td-sub">上海</div></div></div></td>
+              <td class="num">136****8810</td>
+              <td><span class="tag gray">未签到</span></td>
+              <td style="text-align:right;"><a class="row-link" href="#" data-sign>标记签到</a></td>
+            </tr>
+            <tr data-signed="0">
+              <td><div class="id-cell"><span class="avatar">满</span><div><div class="td-main">林小满</div><div class="td-sub">上海</div></div></div></td>
+              <td class="num">138****6231</td>
+              <td><span class="tag gray">未签到</span></td>
+              <td style="text-align:right;"><a class="row-link" href="#" data-sign>标记签到</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--ash);margin-top:14px;">现场扫码或手动登记，签到后学员端「待赴约」活动自动更新为已参加。</p>
+      </div>
+    </div>
+
+    <!-- 活动反馈 -->
+    <div class="tab-zone" data-zone="feedback" style="display:none;">
+      <div class="panel">
+        <div class="panel-title">活动反馈<span class="title-note">活动结束后学员提交</span></div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="feedback-item" style="padding:16px 0;border-bottom:1px solid var(--rice);">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+              <span style="font-weight:500;">阿玲</span>
+              <span style="font-size:12px;color:var(--ash);">9 月 7 日 · 五星</span>
+            </div>
+            <p style="font-size:13px;color:var(--ink);margin-top:6px;line-height:1.7;">茶点很用心，第一次来空间，感觉被照顾得很好。下次想带妈妈一起来。</p>
+            <div style="display:flex;gap:14px;margin-top:10px;font-size:12px;color:var(--ash);"><span>有收获 8</span><span>留言 2</span></div>
+          </div>
+          <div class="feedback-item" style="padding:16px 0;border-bottom:1px solid var(--rice);">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+              <span style="font-weight:500;">林小满</span>
+              <span style="font-size:12px;color:var(--ash);">9 月 7 日 · 四星</span>
+            </div>
+            <p style="font-size:13px;color:var(--ink);margin-top:6px;line-height:1.7;">节奏很舒服，唯一的建议是结束时可以留 10 分钟给大家互加微信。</p>
+          </div>
+          <div class="feedback-item" style="padding:16px 0;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+              <span style="font-weight:500;">苏晚晴</span>
+              <span style="font-size:12px;color:var(--ash);">9 月 7 日 · 五星</span>
+            </div>
+            <p style="font-size:13px;color:var(--ink);margin-top:6px;line-height:1.7;">听茶的时候心很静，希望以后多办这类安静的活动。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="tab-zone" data-zone="roster">
+    <!-- 报名名单 -->
+    <div class="panel">
+      <div class="toolbar" style="margin-bottom:12px;">
+        <div class="search-box">
+          <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+          <input type="text" placeholder="搜索报名人">
+        </div>
+        <div class="spacer"></div>
+        <a class="btn-outline" href="#">导出名单</a>
+      </div>
+      <table class="table">
+        <thead>
+          <tr><th>报名人</th><th>手机号</th><th>报名时间</th><th>状态</th><th>备注</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">晴</span><div><div class="td-main">苏晚晴</div><div class="td-sub">杭州</div></div></div></td>
+            <td class="num">139****4472</td>
+            <td class="td-sub">7月27日 21:07</td>
+            <td><span class="tag green">已支付</span></td>
+            <td class="td-sub">—</td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">玲</span><div><div class="td-main">阿玲</div><div class="td-sub">上海</div></div></div></td>
+            <td class="num">136****8810</td>
+            <td class="td-sub">7月26日 15:33</td>
+            <td><span class="tag green">已支付</span></td>
+            <td class="td-sub">带一位朋友</td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">满</span><div><div class="td-main">林小满</div><div class="td-sub">上海</div></div></div></td>
+            <td class="num">138****6231</td>
+            <td class="td-sub">7月25日 09:18</td>
+            <td><span class="tag green">已支付</span></td>
+            <td class="td-sub">—</td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">芝</span><div><div class="td-main">王雅芝</div><div class="td-sub">北京</div></div></div></td>
+            <td class="num">135****2209</td>
+            <td class="td-sub">7月24日 20:45</td>
+            <td><span class="tag green">已支付</span></td>
+            <td class="td-sub">对茶过敏，备白开水</td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">姝</span><div><div class="td-main">李静姝</div><div class="td-sub">成都</div></div></div></td>
+            <td class="num">137****5546</td>
+            <td class="td-sub">7月22日 11:02</td>
+            <td><span class="tag green">已支付</span></td>
+            <td class="td-sub">—</td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">蕙</span><div><div class="td-main">周明蕙</div><div class="td-sub">广州</div></div></div></td>
+            <td class="num">150****9938</td>
+            <td class="td-sub">7月20日 14:51</td>
+            <td><span class="tag green">已支付</span></td>
+            <td class="td-sub">第一次来空间</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 温馨备忘 -->
+    <div class="panel">
+      <div class="panel-title">温馨备忘</div>
+      <p class="memo-text">这次活动有两位新朋友第一次来空间，签到时记得多一句问候。茶点按 12 人份准备即可。</p>
+    </div>
+
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  var tabs = document.querySelectorAll('#detailTabs a');
+  tabs.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var tab = a.getAttribute('data-tab');
+      if (!tab) return;
+      e.preventDefault();
+      tabs.forEach(function (x) { x.classList.remove('active'); });
+      a.classList.add('active');
+      document.querySelectorAll('.tab-zone').forEach(function (z) {
+        z.style.display = z.getAttribute('data-zone') === tab ? '' : 'none';
+      });
+    });
+  });
+  document.querySelectorAll('[data-save-tab]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); showToast('活动信息已保存，小程序端即时生效'); });
+  });
+  document.querySelectorAll('[data-export]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); showToast('已导出签到表'); });
+  });
+  document.querySelectorAll('[data-sign]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      var tr = b.closest('tr');
+      tr.querySelectorAll('td')[2].innerHTML = '<span class="tag green">已签到</span>';
+      b.textContent = '已签到 ✓';
+      b.style.color = 'var(--ash)';
+      showToast('已登记签到');
+    });
+  });
+})();
+</script>
+</body>
+</html>

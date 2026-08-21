@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星小程序 · 页面导航（V2 森林绿）</title>
+<style>
+  :root {
+    --paper: #F7F3EA; --ink: #2B4420; --tea: #5A5F52; --caramel: #3F6B2E; --rice: #E7E4D5;
+    --ash: #6E6B5E; --night: #1F2A44; --starlight: #F0D9A8;
+    --serif: "PingFang SC", "Microsoft YaHei", sans-serif;
+    --sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 64px 32px 96px; }
+  .eyebrow { font-size: 13px; color: var(--tea); letter-spacing: .3em; }
+  h1 { font-family: var(--serif); font-size: 30px; font-weight: 600; margin: 14px 0 10px; }
+  .sub { color: var(--ash); font-size: 14px; max-width: 560px; }
+  .divider { text-align: center; color: var(--tea); letter-spacing: 14px; font-size: 10px; margin: 44px 0; }
+  h2 { font-family: var(--serif); font-size: 18px; font-weight: 500; margin: 40px 0 14px; }
+  h2 .en { font-family: var(--sans); font-size: 12px; color: var(--ash); font-weight: 400; margin-left: 10px; letter-spacing: .18em; text-transform: uppercase; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  a.page {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 18px; background: #FDFAF3; border: 1px solid var(--rice);
+    border-radius: 10px; text-decoration: none; color: var(--ink); font-size: 14px;
+    transition: border-color .25s ease-out;
+  }
+  a.page:hover { border-color: var(--caramel); }
+  a.page .file { font-size: 11px; color: var(--ash); }
+  a.page.night { background: var(--night); color: #E9E4D8; border-color: rgba(61,78,115,.6); }
+  a.page.night .file { color: rgba(233,228,216,.5); }
+  a.page.night:hover { border-color: var(--starlight); }
+  .note { margin-top: 48px; padding: 18px 22px; border: 1px dashed var(--rice); border-radius: 10px; font-size: 13px; color: var(--ash); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">若 星 小 程 序</div>
+  <h1>高保真原型 · 页面导航</h1>
+  <p class="sub">第一阶段前台全部 15 个页面 · V2 森林绿配色（若星·食光料理）。设计依据《设计/DESIGN-V2.MD》——纸上日常，夜里微光。建议使用 375–420px 宽度窗口预览（移动端尺寸）。</p>
+
+  <div class="divider">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+  <h2>品牌视觉<span class="en">VI SYSTEM</span></h2>
+  <div class="grid">
+    <a class="page" href="vi.html">视觉识别系统 VI<span class="file">vi.html</span></a>
+  </div>
+
+  <h2>主页干<span class="en">TABS</span></h2>
+  <div class="grid">
+    <a class="page" href="home.html">首页<span class="file">home.html</span></a>
+    <a class="page" href="courses.html">课程中心<span class="file">courses.html</span></a>
+    <a class="page" href="activities.html">活动中心<span class="file">activities.html</span></a>
+    <a class="page" href="me.html">我的<span class="file">me.html</span></a>
+  </div>
+
+  <h2>课程线<span class="en">COURSE FLOW</span></h2>
+  <div class="grid">
+    <a class="page" href="course-detail.html">课程详情<span class="file">course-detail.html</span></a>
+    <a class="page" href="enroll.html">课程报名<span class="file">enroll.html</span></a>
+    <a class="page night" href="enroll-success.html">报名成功 · 星夜<span class="file">enroll-success.html</span></a>
+  </div>
+
+  <h2>学习线<span class="en">LEARNING</span></h2>
+  <div class="grid">
+    <a class="page" href="learn.html">课程学习区<span class="file">learn.html</span></a>
+    <a class="page" href="lesson.html">课节详情<span class="file">lesson.html</span></a>
+    <a class="page" href="checkin.html">打卡提交<span class="file">checkin.html</span></a>
+    <a class="page" href="my-checkins.html">我的打卡 · 手账<span class="file">my-checkins.html</span></a>
+  </div>
+
+  <h2>活动线<span class="en">ACTIVITY</span></h2>
+  <div class="grid">
+    <a class="page" href="activity-detail.html">活动详情 · 请柬<span class="file">activity-detail.html</span></a>
+  </div>
+
+  <h2>星夜世界<span class="en">NIGHT WORLD</span></h2>
+  <div class="grid">
+    <a class="page night" href="member.html">会员中心<span class="file">member.html</span></a>
+    <a class="page night" href="growth.html">我的成长 · 星图<span class="file">growth.html</span></a>
+  </div>
+
+  <h2>其他<span class="en">MISC</span></h2>
+  <div class="grid">
+    <a class="page" href="orders.html">我的订单<span class="file">orders.html</span></a>
+  </div>
+
+  <h2>管理后台 · 团队端<span class="en">ADMIN（桌面端，1440px 预览）</span></h2>
+  <div class="grid">
+    <a class="page" href="admin/index.html">工作台<span class="file">admin/index.html</span></a>
+    <a class="page" href="admin/courses.html">课程管理<span class="file">admin/courses.html</span></a>
+    <a class="page" href="admin/course-detail.html">课程管理详情<span class="file">admin/course-detail.html</span></a>
+    <a class="page" href="admin/activities.html">活动管理<span class="file">admin/activities.html</span></a>
+    <a class="page" href="admin/activity-detail.html">活动管理详情<span class="file">admin/activity-detail.html</span></a>
+    <a class="page" href="admin/orders.html">订单管理<span class="file">admin/orders.html</span></a>
+    <a class="page" href="admin/students.html">学员管理<span class="file">admin/students.html</span></a>
+    <a class="page" href="admin/student-detail.html">学员档案<span class="file">admin/student-detail.html</span></a>
+    <a class="page" href="admin/members.html">会员管理<span class="file">admin/members.html</span></a>
+  </div>
+
+  <div class="note">
+    预览提示：页面间已按真实流程互相链接（首页 → 课程详情 → 报名 → 报名成功 → 学习区 → 课节 → 打卡），可直接点击跳转体验完整动线。管理后台通过左侧边栏在各模块间切换。
+  </div>
+</div>
+</body>
+</html>

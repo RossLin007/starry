@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 视觉识别系统 VI SYSTEM</title>
+<style>
+:root{
+  --paper:#F7F3EA; --ink:#16300F; --tea:#38502E; --green:rgb(2,88,43);
+  --olive:#7BAF42; --bud:#F0F8E4; --rice:#F0F2E9; --ash:#4F5345;
+  --crimson:#B04A33; --night:#1F2A44; --mist:#3D4E73; --star:#F0D9A8; --cream:#E9E4D8;
+  --sans:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --kai:"Kaiti SC","STKaiti","KaiTi","PingFang SC",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:#F1F0E8;color:var(--ink);line-height:1.7;letter-spacing:.02em}
+.page{max-width:960px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(22,48,15,.06)}
+section{padding:72px 64px;border-top:1px solid var(--rice)}
+@media(max-width:720px){section{padding:48px 24px}}
+
+/* ---------- 章节头 ---------- */
+.sec-no{font-size:13px;color:var(--green);letter-spacing:.3em;font-weight:600}
+.sec-title{display:flex;align-items:baseline;gap:14px;margin:10px 0 8px}
+.sec-title h2{font-size:26px;font-weight:600;color:var(--green)}
+.sec-title .en{font-size:12px;letter-spacing:.22em;color:var(--ash);text-transform:uppercase}
+.sec-desc{font-size:14px;color:var(--ash);max-width:600px;margin-bottom:40px}
+.star-div{text-align:center;color:var(--tea);font-size:9px;letter-spacing:14px;padding:28px 0 28px 14px;opacity:.85}
+h3{font-size:16px;font-weight:600;color:var(--green);margin:36px 0 14px;display:flex;align-items:baseline;gap:10px}
+h3 .en{font-size:11px;font-weight:400;letter-spacing:.2em;color:var(--ash);text-transform:uppercase}
+p.note{font-size:13px;color:var(--ash);line-height:1.8}
+ul.rules{list-style:none;font-size:13px;color:var(--ink)}
+ul.rules li{padding:7px 0 7px 22px;position:relative;border-bottom:1px solid var(--rice)}
+ul.rules li::before{content:"✦";position:absolute;left:0;top:8px;font-size:9px;color:var(--green)}
+table.spec{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+table.spec th{text-align:left;font-weight:500;color:var(--tea);font-size:12px;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--tea)}
+table.spec td{padding:11px 12px;border-bottom:1px solid var(--rice);vertical-align:middle}
+.chip{display:inline-block;padding:2px 10px;border-radius:10px;background:var(--bud);color:var(--tea);font-size:11px;letter-spacing:.04em}
+
+/* ---------- 封面 ---------- */
+.cover{background:var(--night);color:var(--cream);min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;padding:80px 40px;text-align:center}
+.cover .st{position:absolute;border-radius:50%;background:var(--star)}
+@keyframes br{0%,100%{opacity:.3}50%{opacity:.9}}
+.cover .st{animation:br 3.2s ease-in-out infinite}
+.cover .cv-star{width:56px;height:56px;margin-bottom:34px}
+.cover h1{font-size:34px;font-weight:600;letter-spacing:.34em;color:var(--cream);text-indent:.34em}
+.cover .cv-en{font-size:13px;letter-spacing:.42em;color:rgba(233,228,216,.55);margin-top:14px;text-indent:.42em}
+.cover .cv-sub{font-size:15px;color:var(--star);margin-top:44px;letter-spacing:.12em}
+.cover .cv-meta{position:absolute;bottom:40px;font-size:12px;color:rgba(233,228,216,.45);letter-spacing:.2em}
+
+/* ---------- 标识锁定 ---------- */
+.lockup-demo{background:#fff;border:1px solid var(--rice);border-radius:14px;padding:56px;display:flex;gap:64px;flex-wrap:wrap;align-items:center;justify-content:center}
+.bl{display:inline-flex;flex-direction:column}
+.bl .c{font-size:22px;font-weight:600;letter-spacing:.32em;color:var(--green)}
+.bl .e{font-size:11px;letter-spacing:.24em;color:var(--ash);margin-top:4px}
+.bl-row{display:inline-flex;align-items:center;gap:14px}
+.bl.sm .c{font-size:16px}
+.bl.sm .e{font-size:10px}
+.markbox{text-align:center}
+.markbox .mname{font-size:12px;color:var(--ash);margin-top:14px;letter-spacing:.1em}
+
+/* 反白 */
+.invert{background:var(--night);border-radius:14px;padding:48px;display:flex;gap:56px;flex-wrap:wrap;align-items:center;justify-content:center;border:none}
+.invert .bl .c{color:var(--cream)}
+.invert .bl .e{color:rgba(233,228,216,.55)}
+.invert .on-green{background:var(--green);padding:28px 34px;border-radius:12px}
+.invert .on-green .bl .c{color:#fff}
+.invert .on-green .bl .e{color:rgba(255,255,255,.7)}
+
+/* 安全空间 */
+.safe{background:#fff;border:1px solid var(--rice);border-radius:14px;padding:56px;text-align:center}
+.safe-inner{display:inline-block;position:relative;padding:34px}
+.safe-inner::before{content:"";position:absolute;inset:0;border:1px dashed var(--olive);border-radius:6px}
+.safe-inner .dim{position:absolute;font-size:10px;color:var(--olive);letter-spacing:.05em}
+.safe-inner .dim.t{top:6px;left:50%;transform:translateX(-50%)}
+.safe-inner .dim.b{bottom:6px;left:50%;transform:translateX(-50%)}
+.safe-inner .dim.l{left:8px;top:50%;transform:translateY(-50%)}
+.safe-inner .dim.r{right:8px;top:50%;transform:translateY(-50%)}
+
+/* 最小尺寸 */
+.minsize{display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap;background:#fff;border:1px solid var(--rice);border-radius:14px;padding:44px}
+.minsize .it{text-align:center}
+.minsize .it .lab{font-size:11px;color:var(--ash);margin-top:10px}
+
+/* 错误用法 */
+.donts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.dont{background:#fff;border:1px solid var(--rice);border-radius:12px;padding:26px 18px;text-align:center;position:relative;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.dont::after{content:"✕";position:absolute;top:10px;right:12px;color:var(--crimson);font-size:14px}
+.dont .dlab{font-size:11px;color:var(--ash);margin-top:8px}
+
+/* ---------- 色彩 ---------- */
+.swgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.sw{border-radius:12px;overflow:hidden;border:1px solid var(--rice);background:#fff}
+.sw .cbox{height:96px}
+.sw .cinfo{padding:12px 14px}
+.sw .cn{font-size:14px;font-weight:600}
+.sw .cv{font-size:12px;color:var(--ash);font-family:"SF Mono",Consolas,monospace;margin-top:2px}
+.sw .cu{font-size:11px;color:var(--tea);margin-top:6px;line-height:1.6}
+.ratio{margin-top:20px}
+.ratio .bar{display:flex;height:44px;border-radius:10px;overflow:hidden;border:1px solid var(--rice)}
+.ratio .bar span{display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.05em}
+.ratio .rlab{font-size:13px;font-weight:500;margin:18px 0 8px}
+
+/* ---------- 字体 ---------- */
+.type-spec{background:#fff;border:1px solid var(--rice);border-radius:14px;padding:8px 32px}
+.trow{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid var(--rice)}
+.trow:last-child{border-bottom:none}
+.trow .tsample{flex:1;min-width:0}
+.trow .tmeta{font-size:11px;color:var(--ash);text-align:right;flex-shrink:0;line-height:1.8}
+.kai-demo{font-family:var(--kai);font-size:19px;color:var(--ink);line-height:2}
+
+/* ---------- 符号 ---------- */
+.sym-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.sym-card{background:#fff;border:1px solid var(--rice);border-radius:12px;padding:34px 20px;text-align:center}
+.sym-card .slab{font-size:12px;color:var(--ash);margin-top:16px;line-height:1.7}
+.seal-demo{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1.6px solid var(--crimson);border-radius:7px;color:var(--crimson);font-family:var(--kai);font-size:15px;line-height:1.15;opacity:.9;transform:rotate(-4deg)}
+.num-demo{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;font-size:15px;font-weight:500}
+
+/* 星图签名示意 */
+.starmap{background:var(--night);border-radius:14px;padding:56px 40px;position:relative;overflow:hidden;text-align:center}
+.starmap svg{display:block;margin:0 auto}
+.starmap .sline{font-size:16px;color:var(--cream);margin-top:26px;letter-spacing:.06em}
+
+/* ---------- 影像 ---------- */
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.ph{border-radius:10px;aspect-ratio:4/3;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.ph::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(248,246,233,.35),transparent 60%)}
+.ph .pl{position:relative;font-size:11px;color:rgba(255,255,255,.9);padding:10px 12px;letter-spacing:.08em;text-shadow:0 1px 4px rgba(0,0,0,.25)}
+.ph1{background:linear-gradient(150deg,#CDE0A0,#8FC44E 55%,#5FA428)}
+.ph2{background:linear-gradient(150deg,#C2DC9E,#86BC52 55%,#589A2E)}
+.ph3{background:linear-gradient(150deg,#D8E8BC,#A8CC72 55%,#6FA840)}
+.ph4{background:linear-gradient(150deg,#DCE4A6,#A8BE5E 55%,#7AA034)}
+
+/* ---------- 应用 ---------- */
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.app-card{background:#fff;border:1px solid var(--rice);border-radius:14px;padding:30px}
+.app-card .alab{font-size:13px;font-weight:600;color:var(--green);margin-bottom:18px;display:flex;align-items:baseline;gap:8px}
+.app-card .alab .en{font-size:10px;font-weight:400;color:var(--ash);letter-spacing:.18em;text-transform:uppercase}
+/* 名片 */
+.bizcard{width:100%;aspect-ratio:1.75;border-radius:8px;background:var(--paper);border:1px solid var(--rice);padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between}
+.bizcard .b-foot{display:flex;justify-content:space-between;align-items:flex-end;font-size:9px;color:var(--ash);letter-spacing:.08em;line-height:1.7}
+/* 请柬 */
+.invite{width:78%;margin:0 auto;aspect-ratio:.72;border-radius:6px;background:#fff;border:1px solid var(--rice);padding:26px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.invite .i-t{font-size:15px;font-weight:600;color:var(--green);letter-spacing:.2em}
+.invite .i-line{width:36px;height:1px;background:var(--rice)}
+.invite .i-txt{font-size:10px;color:var(--ash);line-height:2}
+/* 头像 */
+.avatar-row{display:flex;gap:20px;align-items:flex-end}
+.avatar{border-radius:22%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.avatar .alab2{font-size:10px;color:var(--ash);text-align:center;margin-top:8px}
+.av-wrap{text-align:center}
+/* 徽章 */
+.badges{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.badge{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ============ 封面 ============ -->
+<div class="cover">
+  <i class="st" style="width:3px;height:3px;top:18%;left:22%"></i>
+  <i class="st" style="width:2px;height:2px;top:30%;left:74%;animation-delay:.8s"></i>
+  <i class="st" style="width:4px;height:4px;top:64%;left:16%;animation-delay:1.6s"></i>
+  <i class="st" style="width:2px;height:2px;top:74%;left:68%;animation-delay:.4s"></i>
+  <i class="st" style="width:3px;height:3px;top:12%;left:52%;animation-delay:2s"></i>
+  <i class="st" style="width:2px;height:2px;top:44%;left:86%;animation-delay:1.2s"></i>
+  <svg class="cv-star" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="#F0D9A8"/></svg>
+  <h1>若星空间</h1>
+  <div class="cv-en">STARRY SPACE</div>
+  <div class="cv-sub">视觉识别系统 · VISUAL IDENTITY SYSTEM</div>
+  <div class="cv-meta">V1.0 · 2026-08 · 依据《DESIGN.MD》《DESIGN-V2.MD》与 prototype-v3 提炼</div>
+</div>
+
+<!-- ============ 01 品牌内核 ============ -->
+<section>
+  <div class="sec-no">01</div>
+  <div class="sec-title"><h2>品牌内核</h2><span class="en">Brand Core</span></div>
+  <p class="sec-desc">VI 系统的一切规则，都从品牌的发心推导而来。先理解"为什么"，再执行"怎么做"。</p>
+
+  <h3>品牌含义<span class="en">Meaning</span></h3>
+  <p style="font-size:19px;font-weight:500;line-height:2;max-width:560px">每一个心灵觉醒的人都像一颗星星。<br>一颗星星可能不耀眼，但十颗、五十颗、一百颗，<br>就能在黑夜中形成光。</p>
+
+  <h3>品牌主张<span class="en">Mission</span></h3>
+  <p class="note" style="font-size:14px;color:var(--ink);max-width:600px">通过饮食、空间、说话、家庭关系、读书、茶、运动、审美等日常生活方式，帮助现代人回到更健康、更清明、更有觉知、更有爱的生活状态。</p>
+
+  <h3>核心视觉概念<span class="en">Concept</span></h3>
+  <div class="lockup-demo" style="justify-content:flex-start;gap:24px">
+    <div style="flex:1;min-width:260px;background:var(--paper);border:1px solid var(--rice);border-radius:12px;padding:30px">
+      <div style="font-size:15px;font-weight:600;color:var(--green)">白昼世界 · 纸上日常</div>
+      <p class="note" style="margin-top:8px">约 90% 的视觉场景。近白纸底上的日常生活：课程、打卡、活动、物料印刷。安静、明亮、有序，像一页排版讲究的杂志。</p>
+    </div>
+    <div style="flex:1;min-width:260px;background:var(--night);border-radius:12px;padding:30px">
+      <div style="font-size:15px;font-weight:600;color:var(--cream)">星夜世界 · 夜里微光</div>
+      <p class="note" style="margin-top:8px;color:rgba(233,228,216,.65)">约 10% 的视觉场景。深邃夜空蓝上的微光时刻：会员、成长、年报、仪式感物料。若星的精神意象，只在"向内看"的时刻出现。</p>
+    </div>
+  </div>
+
+  <h3>品牌关键词 → 视觉翻译<span class="en">Translation</span></h3>
+  <table class="spec">
+    <tr><th style="width:30%">品牌语言</th><th>视觉语言</th></tr>
+    <tr><td>清净</td><td>大量留白、信息克制、一次只说一件事</td></tr>
+    <tr><td>温暖</td><td>纸感底色、柔和圆角与边界、暖光点缀</td></tr>
+    <tr><td>有秩序</td><td>严谨网格与节奏、时间轴式结构</td></tr>
+    <tr><td>有觉知</td><td>慢动效、呼吸感、不催促</td></tr>
+    <tr><td>星星与光</td><td>四角星点 ✦、夜空蓝时刻、微光渐变</td></tr>
+    <tr><td>日常修行</td><td>真实生活摄影、手作质感、不过度精修</td></tr>
+  </table>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 02 标识系统 ============ -->
+<section>
+  <div class="sec-no">02</div>
+  <div class="sec-title"><h2>标识系统</h2><span class="en">Logo System</span></div>
+  <p class="sec-desc">若星标识由「四角星标 ✦」与「中英文标准字」构成。标识安静、纤细，不喧哗。</p>
+
+  <h3>标识构成<span class="en">Construction</span></h3>
+  <div class="lockup-demo">
+    <div class="markbox">
+      <svg width="72" height="72" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg>
+      <div class="mname">星标 STAR MARK</div>
+    </div>
+    <div class="markbox">
+      <div class="bl"><span class="c">若星空间</span><span class="e">STARRY SPACE</span></div>
+      <div class="mname">标准字竖排锁定 PRIMARY LOCKUP</div>
+    </div>
+    <div class="markbox">
+      <div class="bl-row">
+        <svg width="30" height="30" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg>
+        <div class="bl sm"><span class="c">若星空间</span><span class="e">STARRY SPACE</span></div>
+      </div>
+      <div class="mname">横排组合 HORIZONTAL</div>
+    </div>
+  </div>
+  <table class="spec">
+    <tr><th style="width:28%">元素</th><th>规范</th></tr>
+    <tr><td>星标 ✦</td><td>四角星（非五角星），上下角略长，纤细安静。标准色为若星绿，星夜场景用星光金</td></tr>
+    <tr><td>中文「若星空间」</td><td>PingFang SC Semibold，字距 +32%，若星绿</td></tr>
+    <tr><td>英文「STARRY SPACE」</td><td>全大写，字距 +24%，灰褐，装饰性品牌字</td></tr>
+    <tr><td>组合关系</td><td>竖排锁定为主标识；横排用于页眉、信封、横幅等狭长空间；星标可单独作为图形记号使用</td></tr>
+  </table>
+
+  <h3>反白与深色应用<span class="en">Reversed</span></h3>
+  <div class="invert">
+    <div class="bl"><span class="c">若星空间</span><span class="e">STARRY SPACE</span></div>
+    <div class="on-green"><div class="bl"><span class="c">若星空间</span><span class="e">STARRY SPACE</span></div></div>
+    <svg width="56" height="56" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="#F0D9A8"/></svg>
+  </div>
+  <ul class="rules" style="margin-top:14px">
+    <li>夜空蓝底上：标准字反白（米白 #E9E4D8），星标用星光金</li>
+    <li>若星绿底上：标准字纯白，英文 70% 透明度白</li>
+    <li>摄影图上：仅在浅色、低干扰区域放置反白标识，深色复杂底图禁止直接压字</li>
+  </ul>
+
+  <h3>安全空间<span class="en">Clear Space</span></h3>
+  <div class="safe">
+    <div class="safe-inner">
+      <span class="dim t">1✦</span><span class="dim b">1✦</span><span class="dim l">1✦</span><span class="dim r">1✦</span>
+      <div class="bl"><span class="c">若星空间</span><span class="e">STARRY SPACE</span></div>
+    </div>
+    <p class="note" style="margin-top:22px">以星标高度（1✦）为度量单位，标识四周须保留不小于 1✦ 的净空，<br>净空内不出现任何文字、图形与图片边缘。</p>
+  </div>
+
+  <h3>最小尺寸<span class="en">Minimum Size</span></h3>
+  <div class="minsize">
+    <div class="it">
+      <div class="bl"><span class="c" style="font-size:16px">若星空间</span><span class="e" style="font-size:10px">STARRY SPACE</span></div>
+      <div class="lab">数字端最小：中文 16px</div>
+    </div>
+    <div class="it">
+      <div class="bl"><span class="c" style="font-size:12px;letter-spacing:.28em">若星空间</span><span class="e" style="font-size:8px;letter-spacing:.2em">STARRY SPACE</span></div>
+      <div class="lab">印刷最小：中文 5mm（英文可省略）</div>
+    </div>
+    <div class="it">
+      <svg width="16" height="16" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg>
+      <div class="lab">星标单独使用最小 16px / 4mm</div>
+    </div>
+  </div>
+
+  <h3>印章标识<span class="en">Seal</span></h3>
+  <div class="lockup-demo" style="justify-content:flex-start;gap:40px">
+    <div class="markbox"><span class="seal-demo">若星</span><div class="mname">朱文印章 · 绯红 #B04A33</div></div>
+    <div style="flex:1;min-width:280px;align-self:center">
+      <p class="note">借鉴中式手账的「钤印」。仅用于：精选学员故事落款、共创伙伴专区、证书与感谢卡——代表"被若星认真盖章确认过的人和事"。<b>这是全品牌唯一允许以绯红做装饰的场景</b>，楷体、微倾 -4°、不放大超过 16mm。</p>
+    </div>
+  </div>
+
+  <h3>错误用法<span class="en">Don'ts</span></h3>
+  <div class="donts">
+    <div class="dont"><div class="bl"><span class="c" style="font-size:18px;color:var(--crimson)">若星空间</span><span class="e" style="font-size:9px">STARRY SPACE</span></div><div class="dlab">改变标准字颜色</div></div>
+    <div class="dont"><div class="bl"><span class="c" style="font-size:18px;letter-spacing:0">若星空间</span><span class="e" style="font-size:9px">STARRY SPACE</span></div><div class="dlab">压缩字距</div></div>
+    <div class="dont"><div class="bl"><span class="c" style="font-size:18px;transform:skewX(-12deg);display:inline-block">若星空间</span><span class="e" style="font-size:9px">STARRY SPACE</span></div><div class="dlab">倾斜 / 变形</div></div>
+    <div class="dont"><div class="bl"><span class="c" style="font-size:18px;text-shadow:2px 2px 4px rgba(0,0,0,.35)">若星空间</span><span class="e" style="font-size:9px">STARRY SPACE</span></div><div class="dlab">加阴影 / 描边 / 特效</div></div>
+    <div class="dont"><svg width="34" height="34" viewBox="0 0 100 100"><path d="M50 2 L61 39 98 39 68 60 79 98 50 74 21 98 32 60 2 39 39 39Z" fill="rgb(2,88,43)"/></svg><div class="dlab">换成五角星或其他星形</div></div>
+    <div class="dont"><div class="bl-row"><div class="bl sm"><span class="c">若星空间</span><span class="e">STARRY SPACE</span></div><svg width="26" height="26" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg></div><div class="dlab">改变既定组合位置关系</div></div>
+  </div>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 03 色彩系统 ============ -->
+<section>
+  <div class="sec-no">03</div>
+  <div class="sec-title"><h2>色彩系统</h2><span class="en">Color System</span></div>
+  <p class="sec-desc">以 prototype-v3「V3 活力绿」为准：鲜绿行动色 + 近白纸底 + 高对比文字。两个世界各自成色，互不混杂。</p>
+
+  <h3>白昼世界 · 主色板<span class="en">Day Palette</span></h3>
+  <div class="swgrid">
+    <div class="sw"><div class="cbox" style="background:rgb(2,88,43)"></div><div class="cinfo"><div class="cn" style="color:rgb(2,88,43)">若星绿</div><div class="cv">#02582B · R2 G88 B43</div><div class="cu">品牌主色 · 唯一行动色：标识、标题、主按钮、行动链接、序号圆</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#16300F"></div><div class="cinfo"><div class="cn">深林绿</div><div class="cv">#16300F</div><div class="cu">主要文字（对比度 14.0:1）</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#38502E"></div><div class="cinfo"><div class="cn">橄榄绿</div><div class="cv">#38502E</div><div class="cu">辅助文字、眉题（8.7:1）</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#7BAF42"></div><div class="cinfo"><div class="cn">橄榄黄绿</div><div class="cv">#7BAF42</div><div class="cu">点缀过渡、插画与影像辅助</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#F7F3EA;border-bottom:1px solid var(--rice)"></div><div class="cinfo"><div class="cn">暖纸米</div><div class="cv">#F7F3EA</div><div class="cu">全局页面与印刷底色，暖纸米色（同 prototype-v2）</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#F0F8E4"></div><div class="cinfo"><div class="cn">浅芽绿</div><div class="cv">#F0F8E4</div><div class="cu">标签底、提示条底、浅色块</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#F0F2E9"></div><div class="cinfo"><div class="cn">暖米灰</div><div class="cv">#F0F2E9</div><div class="cu">分隔线、卡片描边、占位底</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#4F5345"></div><div class="cinfo"><div class="cn">灰褐</div><div class="cv">#4F5345</div><div class="cu">次要文字、英文小字（7.7:1）</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#B04A33"></div><div class="cinfo"><div class="cn">绯红</div><div class="cv">#B04A33</div><div class="cu">极少量：必要提示与印章，不作装饰</div></div></div>
+  </div>
+
+  <h3>星夜世界 · 色板<span class="en">Night Palette</span></h3>
+  <div class="swgrid">
+    <div class="sw"><div class="cbox" style="background:#1F2A44"></div><div class="cinfo"><div class="cn">夜空蓝</div><div class="cv">#1F2A44</div><div class="cu">星夜世界底色：会员、成长、年报、仪式物料</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#3D4E73"></div><div class="cinfo"><div class="cn">雾蓝</div><div class="cv">#3D4E73</div><div class="cu">夜空蓝上的层级过渡、面板</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#F0D9A8"></div><div class="cinfo"><div class="cn">星光金</div><div class="cv">#F0D9A8</div><div class="cu">星夜世界中的点亮元素：星标、星点、关键句</div></div></div>
+    <div class="sw"><div class="cbox" style="background:#E9E4D8"></div><div class="cinfo"><div class="cn">星夜米白</div><div class="cv">#E9E4D8</div><div class="cu">星夜世界文字（对夜空蓝 9.6:1）</div></div></div>
+  </div>
+
+  <h3>使用比例<span class="en">Ratio</span></h3>
+  <div class="ratio">
+    <div class="rlab">白昼世界（约 90% 的场景）</div>
+    <div class="bar">
+      <span style="flex:70;background:#F7F3EA;color:var(--ash)">暖纸米 70%</span>
+      <span style="flex:15;background:#16300F;color:#fff">深林绿 15%</span>
+      <span style="flex:10;background:#38502E;color:#fff">橄榄绿 10%</span>
+      <span style="flex:5;background:rgb(2,88,43);color:#fff">若星绿 5%</span>
+    </div>
+    <div class="rlab">星夜世界（约 10% 的场景）</div>
+    <div class="bar">
+      <span style="flex:75;background:#1F2A44;color:var(--cream)">夜空蓝 75%</span>
+      <span style="flex:10;background:#3D4E73;color:var(--cream)">雾蓝 10%</span>
+      <span style="flex:10;background:#F0D9A8;color:var(--night)">星光金 10%</span>
+      <span style="flex:5;background:#E9E4D8;color:var(--night)">米白 5%</span>
+    </div>
+  </div>
+
+  <h3>色彩规则<span class="en">Rules</span></h3>
+  <ul class="rules">
+    <li>若星绿是全品牌唯一行动色：一屏内只出现在主要行动点上（序号圆等功能性重复除外）</li>
+    <li>两个世界不混色：白昼界面不出现夜空蓝色块；星夜界面不使用纸白大底（用雾蓝分层）</li>
+    <li>成功状态用若星绿系；危险操作只用绯红文字，不用红底按钮</li>
+    <li>禁用：高饱和色、荧光色、电商红橙色、纯黑 #000、渐变按钮</li>
+    <li>所有文字与底色对比度 ≥ 4.5:1；装饰性星点不承担信息传达</li>
+  </ul>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 04 字体系统 ============ -->
+<section>
+  <div class="sec-no">04</div>
+  <div class="sec-title"><h2>字体系统</h2><span class="en">Typography</span></div>
+  <p class="sec-desc">全品牌统一使用 PingFang SC 字体族，不加载网络字体。层级靠字重与字号区分，不靠字体花样。</p>
+
+  <h3>字体选型<span class="en">Typeface</span></h3>
+  <table class="spec">
+    <tr><th style="width:24%">角色</th><th style="width:36%">字体</th><th>使用场景</th></tr>
+    <tr><td>全局字体</td><td>PingFang SC / Noto Sans SC / Microsoft YaHei</td><td>全部界面与物料文字</td></tr>
+    <tr><td>标题处理</td><td>PingFang SC Medium / Semibold</td><td>页面标题、主题句、引言</td></tr>
+    <tr><td>装饰点缀</td><td>系统楷体（Kaiti SC，其他平台回退）</td><td>极少量：寄语、心得引用、印章</td></tr>
+  </table>
+
+  <h3>字号阶梯<span class="en">Scale</span></h3>
+  <div class="type-spec">
+    <div class="trow"><div class="tsample" style="font-size:24px;font-weight:500;color:var(--green)">把一日三餐，过成修行</div><div class="tmeta">引言 · 24pt Medium · 行高 1.6</div></div>
+    <div class="trow"><div class="tsample" style="font-size:20px;font-weight:600;color:var(--green)">生活料理 · 第 12 期</div><div class="tmeta">页标题 · 20pt Semibold · 1.5</div></div>
+    <div class="trow"><div class="tsample" style="font-size:18px;font-weight:500;color:var(--green)">近期课程</div><div class="tmeta">节标题 · 18pt Medium · 1.5</div></div>
+    <div class="trow"><div class="tsample" style="font-size:16px;font-weight:500">今晚的读书会，从一杯茶开始</div><div class="tmeta">正文强调 · 16pt Medium · 1.6</div></div>
+    <div class="trow"><div class="tsample" style="font-size:15px">整理的不是物品，是心的秩序。我们从最容易够得着的那一个抽屉开始。</div><div class="tmeta">正文 · 15pt Regular · 1.7</div></div>
+    <div class="trow"><div class="tsample" style="font-size:13px;color:var(--ash)">9 月 3 日起 · 共 8 课 · 线上每周四晚</div><div class="tmeta">辅助 · 13pt Regular · 1.5</div></div>
+    <div class="trow"><div class="tsample" style="font-size:12px;color:var(--ash)">素食 · 亲子 · 空间管理</div><div class="tmeta">微信息 · 12pt Regular · 1.4（全品牌最小字号）</div></div>
+    <div class="trow"><div class="tsample kai-demo">"这一课的实践，记得留一点时间给自己。"</div><div class="tmeta">楷体寄语 · 每页至多一处</div></div>
+    <div class="trow"><div class="tsample"><span style="font-size:18px;font-weight:500;color:var(--green)">你会经历</span><span style="font-size:12px;letter-spacing:.18em;color:var(--ash);margin-left:10px">FLOW</span></div><div class="tmeta">中英双语栏目标题 · 英文全大写 +18% 字距</div></div>
+  </div>
+
+  <ul class="rules" style="margin-top:16px">
+    <li>中文正文字间距 +2%，行高不小于 1.6；长文段落之间空一行，不首行缩进</li>
+    <li>数字与英文在中文语境中前后留四分之一空格（如"共 8 节课"）</li>
+    <li>同一行不超过两种字重；英文仅用于栏目标题与品牌字，操作界面纯中文</li>
+  </ul>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 05 视觉符号 ============ -->
+<section>
+  <div class="sec-no">05</div>
+  <div class="sec-title"><h2>视觉符号</h2><span class="en">Symbols</span></div>
+  <p class="sec-desc">星点、印章、序号圆、个人星图——若星的四个签名符号。限量使用，不泛滥。</p>
+
+  <div class="sym-grid">
+    <div class="sym-card">
+      <svg width="32" height="32" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg>
+      <div class="slab"><b>星点 ✦</b><br>唯一装饰符号。三档尺寸：6pt 点缀 / 12pt 标识 / 32pt 仪式时刻。不出现在按钮、表单、信息密集处。</div>
+    </div>
+    <div class="sym-card">
+      <span style="color:var(--tea);font-size:11px;letter-spacing:14px">✦&nbsp;✦&nbsp;✦</span>
+      <div class="slab"><b>签名分隔符</b><br>三颗星点横向排列，仅用于章节过渡与引言之后。这是若星的标点符号。</div>
+    </div>
+    <div class="sym-card">
+      <span class="seal-demo">若星</span>
+      <div class="slab"><b>朱文印章</b><br>绯红、楷体、微倾。仅用于精选故事、共创伙伴与证书的落款。</div>
+    </div>
+    <div class="sym-card">
+      <span class="num-demo">1</span>&nbsp;&nbsp;<span class="num-demo">2</span>&nbsp;&nbsp;<span class="num-demo">3</span>
+      <div class="slab"><b>若星绿序号圆</b><br>24–34px 实心圆 + 白字。用于步骤、流程、清单。功能性重复不违反"一屏一处绿"规则。</div>
+    </div>
+  </div>
+
+  <h3>设计签名 · 个人星图<span class="en">Signature</span></h3>
+  <div class="starmap">
+    <svg width="320" height="180" viewBox="0 0 320 180">
+      <g stroke="rgba(240,217,168,.35)" stroke-width=".6">
+        <line x1="52" y1="120" x2="110" y2="70"/><line x1="110" y1="70" x2="172" y2="96"/>
+        <line x1="172" y1="96" x2="228" y2="48"/><line x1="228" y1="48" x2="272" y2="100"/>
+      </g>
+      <path d="M52 113 C54 119 55 120 61 122 C55 124 54 125 52 131 C50 125 49 124 43 122 C49 120 50 119 52 113Z" fill="#F0D9A8"/>
+      <path d="M110 60 C112 68 114 70 122 72 C114 74 112 76 110 84 C108 76 106 74 98 72 C106 70 108 68 110 60Z" fill="#F0D9A8"/>
+      <path d="M172 89 C174 95 175 96 181 98 C175 100 174 101 172 107 C170 101 169 100 163 98 C169 96 170 95 172 89Z" fill="#F0D9A8"/>
+      <path d="M228 37 C230 46 232 48 241 50 C232 52 230 54 228 63 C226 54 224 52 215 50 C224 48 226 46 228 37Z" fill="#F0D9A8"/>
+      <circle cx="272" cy="100" r="2.4" fill="rgba(233,228,216,.3)"/>
+      <circle cx="140" cy="140" r="1.8" fill="rgba(233,228,216,.3)"/>
+      <circle cx="80" cy="42" r="1.6" fill="rgba(233,228,216,.3)"/>
+    </svg>
+    <div class="sline">你已经在若星点亮了 12 颗星。</div>
+  </div>
+  <ul class="rules" style="margin-top:16px">
+    <li>成长不是进度条，是一片慢慢点亮的星空：完成一门课亮一颗大星，累计七次实践亮一颗小星</li>
+    <li>星图不标数值、不做精确坐标——它是一幅渐渐变亮的画，不是数据图表</li>
+    <li>星点之间以极细金线相连，逐渐形成属于这个人的星座</li>
+    <li>全品牌仅此一处浓墨重彩，其余界面保持安静</li>
+  </ul>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 06 影像风格 ============ -->
+<section>
+  <div class="sec-no">06</div>
+  <div class="sec-title"><h2>影像风格</h2><span class="en">Photography</span></div>
+  <p class="sec-desc">若星的画面由真实摄影与排版构成，不画装饰插画、不用图库摆拍。</p>
+
+  <div class="photo-grid">
+    <div class="ph ph1"><span class="pl">真实 · 若星空间实景与真实的饭菜器物</span></div>
+    <div class="ph ph2"><span class="pl">自然光 · 上午或傍晚侧光，暖调</span></div>
+    <div class="ph ph3"><span class="pl">留白构图 · 桌面茶席的"一角"优于全景</span></div>
+    <div class="ph ph4"><span class="pl">人物 · 多是手、侧影、背影，不看镜头摆拍</span></div>
+  </div>
+
+  <h3>影像规则<span class="en">Rules</span></h3>
+  <ul class="rules">
+    <li>色调向纸白与若星绿靠拢，降饱和 10–15%，高光偏暖，允许轻微过曝与阴影</li>
+    <li>图片比例：课程头图 4:3，活动卡片 1:1，故事头图 16:10</li>
+    <li>图片不加滤镜边框、不加文字压图——文字永远在图下方留白处</li>
+    <li>学员打卡照片原样呈现，不做美化模板</li>
+  </ul>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 07 应用系统 ============ -->
+<section>
+  <div class="sec-no">07</div>
+  <div class="sec-title"><h2>应用系统</h2><span class="en">Applications</span></div>
+  <p class="sec-desc">标识、色彩与符号在核心触点上的标准应用。所有物料遵循同一原则：像一页排版讲究的杂志。</p>
+
+  <div class="app-grid">
+    <div class="app-card">
+      <div class="alab">名片<span class="en">Business Card</span></div>
+      <div class="bizcard">
+        <div class="bl sm"><span class="c">若星空间</span><span class="e">STARRY SPACE</span></div>
+        <div class="b-foot">
+          <span>陪伴人 · 某某<br>hello@starryspace.example</span>
+          <svg width="18" height="18" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="alab">活动请柬<span class="en">Invitation</span></div>
+      <div class="invite">
+        <svg width="20" height="20" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg>
+        <div class="i-t">秋日茶会</div>
+        <div class="i-line"></div>
+        <div class="i-txt">九月初三 · 午后三时<br>若星空间 · 二楼茶室<br>已为你留好位置</div>
+        <span class="seal-demo" style="width:26px;height:26px;font-size:9px;border-width:1.1px;margin-top:4px">若星</span>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="alab">小程序头像 / 应用图标<span class="en">App Icon</span></div>
+      <div class="avatar-row">
+        <div class="av-wrap"><div class="avatar" style="width:72px;height:72px;background:rgb(2,88,43)"><svg width="34" height="34" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="#fff"/></svg></div><div class="alab2">绿底白星 · 主用</div></div>
+        <div class="av-wrap"><div class="avatar" style="width:72px;height:72px;background:var(--night)"><svg width="34" height="34" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="#F0D9A8"/></svg></div><div class="alab2">夜底金星 · 星夜场景</div></div>
+        <div class="av-wrap"><div class="avatar" style="width:72px;height:72px;background:#fff;border:1px solid var(--rice)"><svg width="34" height="34" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="rgb(2,88,43)"/></svg></div><div class="alab2">白底绿星 · 浅色场景</div></div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="alab">徽章 / 贴纸<span class="en">Badge</span></div>
+      <div class="badges">
+        <div class="badge" style="background:var(--night)"><svg width="24" height="24" viewBox="0 0 100 100"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="#F0D9A8"/></svg></div>
+        <div class="badge" style="background:rgb(2,88,43)"><span style="color:#fff;font-size:13px;font-weight:600;letter-spacing:.2em">若星</span></div>
+        <div class="badge" style="background:#fff;border:1.4px solid var(--crimson);transform:rotate(-4deg)"><span style="color:var(--crimson);font-family:var(--kai);font-size:14px">若星</span></div>
+        <p class="note" style="flex:1;min-width:140px">会员徽章用夜底金星；行动徽章用绿底白字；印章贴仅用于被精选的人与故事。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>数字端速查<span class="en">Quick Reference</span></h3>
+  <table class="spec">
+    <tr><th style="width:30%">触点</th><th>规范</th></tr>
+    <tr><td>小程序头像</td><td>绿底白星（主用），正方形安全区内星标占 47%</td></tr>
+    <tr><td>公众号 / 社交头像</td><td>同小程序头像；星夜主题活动期可换夜底金星</td></tr>
+    <tr><td>启动页 / 年报页</td><td>星夜世界：夜空蓝底 + 呼吸星点 + 竖排标准字 + 印章</td></tr>
+    <tr><td>分享卡片</td><td>白昼世界：纸白底、左上竖排标准字、右下小星标</td></tr>
+    <tr><td>印刷纸张</td><td>未涂布米白纸（如刚古/大地纸），不用高光铜版纸</td></tr>
+  </table>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 08 品牌语调 ============ -->
+<section>
+  <div class="sec-no">08</div>
+  <div class="sec-title"><h2>品牌语调</h2><span class="en">Voice</span></div>
+  <p class="sec-desc">VI 不只是图形。温暖而不煽情，清晰而不生硬，有指引而不说教——像一位安静的朋友在说话。</p>
+
+  <table class="spec">
+    <tr><th style="width:22%">场景</th><th style="width:36%">不写 ✕</th><th>写 ✓</th></tr>
+    <tr><td>报名按钮</td><td>"立即抢购""马上报名"</td><td>"报名课程""我想参加"</td></tr>
+    <tr><td>报名成功</td><td>"支付成功！"</td><td>"已为你留好位置。"</td></tr>
+    <tr><td>课程满员</td><td>"手慢了！名额已抢光"</td><td>"本期已满，下一期正在准备中。"</td></tr>
+    <tr><td>会员到期</td><td>"会员即将过期，立即续费！"</td><td>"你的会员将在 9 月底到期，随时欢迎回来。"</td></tr>
+    <tr><td>加载失败</td><td>"网络错误，请重试"</td><td>"刚才没有加载出来，再试一次吧。"</td></tr>
+  </table>
+
+  <ul class="rules" style="margin-top:16px">
+    <li>对用户称"你"，不用"亲""宝子""家人们"</li>
+    <li>课程参与者称"学员"或"同学"，不用"用户""客户"</li>
+    <li>团队与学员的关系是"陪伴"，不用"服务""跟进""转化"</li>
+    <li>不说"赋能""打造""爆款"，说"一起""慢慢""可以"</li>
+  </ul>
+</section>
+
+<div class="star-div">✦&nbsp;&nbsp;✦&nbsp;&nbsp;✦</div>
+
+<!-- ============ 09 禁忌清单 ============ -->
+<section>
+  <div class="sec-no">09</div>
+  <div class="sec-title"><h2>品牌禁忌</h2><span class="en">Red Lines</span></div>
+  <p class="sec-desc">任何物料、页面、文案交付前，逐条对照。守住这些线，若星就还是若星。</p>
+  <ul class="rules">
+    <li>不出现轮播 Banner、功能宫格、弹窗广告、浮标</li>
+    <li>不出现倒计时、库存紧张、已抢 XX 件、XX 人正在看</li>
+    <li>不出现积分、金币、排行榜、签到日历、连续打卡奖励徽章</li>
+    <li>不出现裂变引导："分享给好友""邀请有礼""砍价"</li>
+    <li>不使用高饱和色、渐变色块按钮、投影卡片</li>
+    <li>不使用表情包式插画、夸张 IP 形象</li>
+    <li>星点与印章限量使用，不泛滥</li>
+    <li>任何新设计先问：这一屏 / 这一页，能不能再少一样东西？</li>
+    <li>遮住标识后，这件物料是否仍然像若星，而不是任何一个电商 / 教育品牌？</li>
+  </ul>
+
+  <div style="margin-top:64px;text-align:center;padding:40px 0 8px;border-top:1px solid var(--rice)">
+    <svg width="26" height="26" viewBox="0 0 100 100" style="display:inline-block"><path d="M50 2 C54 36 64 46 98 50 C64 54 54 64 50 98 C46 64 36 54 2 50 C36 46 46 36 50 2 Z" fill="#F0D9A8"/></svg>
+    <p class="note" style="margin-top:14px">每一个心灵觉醒的人，都是一颗星。</p>
+    <p class="note" style="margin-top:6px;font-size:11px;letter-spacing:.2em">若星空间 STARRY SPACE · VI SYSTEM V1.0 · 2026-08</p>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

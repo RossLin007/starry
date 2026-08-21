@@ -1,0 +1,13 @@
+{
+  "name": "starry-space-miniprogram",
+  "version": "1.0.0",
+  "description": "Starry Space Native WeChat Mini Program",
+  "scripts": {
+    "build:ts": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.12.3",
+    "typescript": "^5.5.4"
+  }
+}

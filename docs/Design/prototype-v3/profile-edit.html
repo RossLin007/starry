@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 编辑资料</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .avatar-edit {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 28px 20px 8px;
+  }
+  .avatar-big {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: var(--rice);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; color: var(--tea);
+    position: relative; cursor: pointer;
+  }
+  .avatar-big .edit-ico {
+    position: absolute; right: 0; bottom: 0;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--caramel); color: var(--cream-text);
+    font-size: 13px; display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--paper);
+    z-index: 2;
+  }
+  .avatar-hint { margin-top: 12px; font-size: 12px; color: var(--ash); }
+  .field-card { padding: 4px 18px; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="me.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">编辑资料</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 头像 -->
+  <div class="avatar-edit fade-up" style="padding-bottom: 18px;">
+    <div class="avatar-big" id="avatarBig">
+      <span id="avatarChar">✧</span>
+      <span class="edit-ico">✎</span>
+    </div>
+    <div class="avatar-hint">点击头像，从相册选择或拍照</div>
+  </div>
+
+  <!-- 昵称 -->
+  <div class="section" style="margin-top: 14px;">
+    <div class="card field-card">
+      <div class="field">
+        <label>昵称</label>
+        <input type="text" id="nickname" value="林小满" maxlength="12" placeholder="请输入昵称">
+        <div class="hint">2-12 个字，将展示在课程与实践互动中</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <a class="btn-primary" id="saveBtn" href="#">保存</a>
+  </div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  // 点击头像换图(正式版打开相册/拍照,此处用文件选择模拟)
+  var avatarChar = document.getElementById('avatarChar');
+  var fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.style.display = 'none';
+  document.body.appendChild(fileInput);
+  document.getElementById('avatarBig').addEventListener('click', function () {
+    fileInput.click();
+  });
+  fileInput.addEventListener('change', function () {
+    if (fileInput.files && fileInput.files[0]) {
+      var url = URL.createObjectURL(fileInput.files[0]);
+      var big = document.getElementById('avatarBig');
+      avatarChar.style.display = 'none';
+      big.style.background = 'center/cover no-repeat url(' + url + ')';
+      showToast('头像已更新');
+    }
+  });
+
+  // 保存
+  document.getElementById('saveBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('nickname').value.trim();
+    if (name.length < 2) { showToast('昵称至少 2 个字'); return; }
+    showToast('已保存 · ' + name);
+  });
+})();
+</script>
+</body>
+</html>

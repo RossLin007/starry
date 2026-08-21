@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 食光烘焙</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .notice-rows { display: flex; flex-direction: column; }
+  .notice-rows .row { display: flex; padding: 10px 0; font-size: 14px; line-height: 1.6; }
+  .notice-rows .row + .row { border-top: 1px solid var(--rice); }
+  .notice-rows .k { flex-shrink: 0; width: 76px; color: var(--ash); font-size: 13px; padding-top: 1px; }
+  .notice-rows .v { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="courses.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">食光烘焙</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 头图 -->
+  <div class="section" style="margin-bottom: 26px;">
+    <div class="photo photo-baking" style="aspect-ratio: 4/3; border-radius: 12px;"><span class="photo-label">烘焙实景</span></div>
+  </div>
+
+  <!-- 眉题 + 主题句 -->
+  <div class="section" style="margin-bottom: 30px;">
+    <div class="eyebrow" style="margin-bottom: 10px;">食光烘焙 · 第 1 期 · 线下 3 天</div>
+    <h1 class="page-title" style="margin-bottom: 18px;">把麦香，揉进日常</h1>
+    <p class="body-text" style="color: var(--ash);">
+      三天的时间，我们从一团面开始：认识面粉与酵母，学着等待发酵，亲手烤出第一炉面包。烘焙不只是手艺，也是一种和时间相处的方式。
+    </p>
+  </div>
+
+  <!-- 三天安排 -->
+  <div class="section">
+    <div class="section-head"><span class="section-title bilingual">三天安排</span></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-title">第 1 天 · 认识面团</div>
+        <div class="meta">9 月 19 日（周五）14:00 - 17:00</div>
+        <div class="meta" style="margin-top: 4px;">面粉、酵母与温度，从揉好第一团面开始。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 2 天 · 发酵与等待</div>
+        <div class="meta">9 月 20 日（周六）14:00 - 17:00</div>
+        <div class="meta" style="margin-top: 4px;">学会看发酵的状态，做一只朴素的乡村面包。</div>
+      </div>
+      <div class="timeline-item" style="padding-bottom: 4px;">
+        <div class="tl-title">第 3 天 · 出炉与分享</div>
+        <div class="meta">9 月 21 日（周日）14:00 - 17:00</div>
+        <div class="meta" style="margin-top: 4px;">烤出属于自己的一炉，把麦香带回家。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 课程须知 -->
+  <div class="section" style="margin-bottom: 140px;">
+    <div class="section-head"><span class="section-title bilingual">课程须知</span></div>
+    <div class="notice-rows">
+      <div class="row"><span class="k">开课时间</span><span class="v">9 月 19 日起 · 连续 3 天 14:00-17:00</span></div>
+      <div class="row"><span class="k">课程形式</span><span class="v">线下 · 若星莘庄空间（限 12 人）</span></div>
+      <div class="row"><span class="k">课程费用</span><span class="v">¥980（含全部食材与工具使用）</span></div>
+      <div class="row"><span class="k">课后陪伴</span><span class="v">课后 30 天 · 每天早 7:30 推送「日日新生」引导</span></div>
+      <div class="row"><span class="k">报名方式</span><span class="v">填写报名信息后在线支付</span></div>
+    </div>
+  </div>
+
+  <!-- 底部行动条 -->
+  <div class="action-bar split">
+    <button type="button" class="share-fab" id="shareTrigger" aria-label="分享课程给好友"><svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M35 16C37.7614 16 40 13.7614 40 11C40 8.23858 37.7614 6 35 6C32.2386 6 30 8.23858 30 11C30 13.7614 32.2386 16 35 16Z"/><path d="M13 29C15.7614 29 18 26.7614 18 24C18 21.2386 15.7614 19 13 19C10.2386 19 8 21.2386 8 24C8 26.7614 10.2386 29 13 29Z"/><path d="M30.0004 13.5745L17.3393 21.2454"/><path d="M17.3385 26.5639L30.6789 34.4469"/><path d="M35 32C37.7614 32 40 34.2386 40 37C40 39.7614 37.7614 42 35 42C32.2386 42 30 39.7614 30 37C30 34.2386 32.2386 32 35 32Z"/></svg></button>
+    <a class="btn-primary" href="enroll-activity.html">填写报名</a>
+  </div>
+
+</div>
+
+<!-- 分享面板 -->
+<div class="share-mask" id="shareMask" role="dialog" aria-modal="true" aria-label="分享课程">
+  <div class="share-panel">
+    <div class="sp-title">把这门课分享给朋友</div>
+    <div class="share-grid">
+      <button type="button" data-share="朋友">
+        <span class="sg-ico" style="background: var(--caramel);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20C22.866 20 26 16.866 26 13C26 9.13401 22.866 6 19 6C15.134 6 12 9.13401 12 13C12 16.866 15.134 20 19 20Z"/><path d="M32.6077 7C34.6405 8.2249 36.0001 10.4537 36.0001 13C36.0001 15.5463 34.6405 17.7751 32.6077 19"/><path d="M4 40.8V42H34V40.8C34 36.3196 34 34.0794 33.1281 32.3681C32.3611 30.8628 31.1372 29.6389 29.6319 28.8719C27.9206 28 25.6804 28 21.2 28H16.8C12.3196 28 10.0794 28 8.36808 28.8719C6.86278 29.6389 5.63893 30.8628 4.87195 32.3681C4 34.0794 4 36.3196 4 40.8Z"/></svg></span>
+        <span class="sg-label">发送给好友</span>
+      </button>
+      <button type="button" data-share="群聊">
+        <span class="sg-ico" style="background: var(--bamboo);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20C22.866 20 26 16.866 26 13C26 9.13401 22.866 6 19 6C15.134 6 12 9.13401 12 13C12 16.866 15.134 20 19 20Z"/><path d="M32.6077 7C34.6405 8.2249 36.0001 10.4537 36.0001 13C36.0001 15.5463 34.6405 17.7751 32.6077 19"/><path d="M4 40.8V42H34V40.8C34 36.3196 34 34.0794 33.1281 32.3681C32.3611 30.8628 31.1372 29.6389 29.6319 28.8719C27.9206 28 25.6804 28 21.2 28H16.8C12.3196 28 10.0794 28 8.36808 28.8719C6.86278 29.6389 5.63893 30.8628 4.87195 32.3681C4 34.0794 4 36.3196 4 40.8Z"/><path d="M43.9999 42.0001V40.8001C43.9999 36.3197 43.9999 34.0795 43.128 32.3682C42.361 30.8629 41.1371 29.6391 39.6318 28.8721"/></svg></span>
+        <span class="sg-label">分享到群聊</span>
+      </button>
+    </div>
+    <button type="button" class="share-cancel" id="shareCancel">取消</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var mask = document.getElementById('shareMask');
+  var toast = document.getElementById('toast');
+  var trigger = document.getElementById('shareTrigger');
+  var cancel = document.getElementById('shareCancel');
+  function open() { mask.classList.add('open'); }
+  function close() { mask.classList.remove('open'); }
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  if (trigger) trigger.addEventListener('click', open);
+  if (cancel) cancel.addEventListener('click', close);
+  if (mask) mask.addEventListener('click', function (e) { if (e.target === mask) close(); });
+  if (mask) mask.querySelectorAll('[data-share]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      close();
+      showToast('已准备好，把这门课分享给' + btn.getAttribute('data-share'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

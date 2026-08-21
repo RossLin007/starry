@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 我的课程</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .course-item { display: block; text-decoration: none; color: var(--ink); padding: 18px; }
+  .course-item + .course-item { border-top: 1px solid var(--rice); }
+  .course-item .ci-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .course-item .ci-name { font-family: var(--serif); font-size: 16px; font-weight: 500; }
+  .course-item .ci-progress { font-size: 12px; color: var(--tea); }
+  .course-item .ci-meta { font-size: 13px; color: var(--ash); margin-top: 8px; line-height: 1.6; }
+  .course-item .ci-bar { height: 4px; background: var(--rice); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+  .course-item .ci-fill { height: 100%; background: var(--caramel); border-radius: 2px; }
+  .course-item .ci-todo { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 12px; color: var(--caramel); }
+  .done-tag { display: inline-flex; font-size: 11px; color: var(--ash); border: 1px solid var(--rice); border-radius: 4px; padding: 2px 8px; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="me.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">我的课程</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 进行中 -->
+  <div class="section fade-up">
+    <div class="section-head"><span class="section-title">进行中 · 3 门</span></div>
+    <div class="card" style="padding: 0;">
+      <a class="course-item" href="learn-reading.html">
+        <div class="ci-head">
+          <span class="ci-name">拾光读书 · 第 3 期</span>
+          <span class="ci-progress">2 / 8 课</span>
+        </div>
+        <div class="ci-meta">《瓦尔登湖》· 每周六晚 20:00 · 线上</div>
+        <div class="ci-bar"><div class="ci-fill" style="width: 25%;"></div></div>
+        <div class="ci-todo">今日待办 · 读第 3 章 · 一日一习</div>
+      </a>
+      <a class="course-item" href="learn-space.html">
+        <div class="ci-head">
+          <span class="ci-name">空间管理 · 第 7 期</span>
+          <span class="ci-progress">2 / 8 课</span>
+        </div>
+        <div class="ci-meta">把家还给自己 · 每周三晚 20:00 · 线上</div>
+        <div class="ci-bar"><div class="ci-fill" style="width: 25%;"></div></div>
+        <div class="ci-todo">今日待办 · 盘点衣柜 · 日日新生</div>
+      </a>
+      <a class="course-item" href="learn-cooking.html">
+        <div class="ci-head">
+          <span class="ci-name">生活料理 · 第 12 期</span>
+          <span class="ci-progress">2 / 8 课</span>
+        </div>
+        <div class="ci-meta">把一日三餐，过成修行 · 每周四晚 20:00 · 线上</div>
+        <div class="ci-bar"><div class="ci-fill" style="width: 25%;"></div></div>
+        <div class="ci-todo">今日待办 · 备菜 · 本周菜谱</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 已结课 -->
+  <div class="section" style="margin-bottom: 0;">
+    <div class="section-head"><span class="section-title">已结课</span></div>
+    <div class="card" style="padding: 0;">
+      <div class="course-item" style="cursor: default;">
+        <div class="ci-head">
+          <span class="ci-name">纯素烘焙 · 第 4 期</span>
+          <span class="done-tag">已结课</span>
+        </div>
+        <div class="ci-meta">2026 年 5 月 - 6 月 · 共 6 课</div>
+      </div>
+      <div class="course-item" style="cursor: default; opacity: .75;">
+        <div class="ci-head">
+          <span class="ci-name">读书会 · 第 8 期</span>
+          <span class="done-tag">已结课</span>
+        </div>
+        <div class="ci-meta">2026 年 3 月 - 4 月 · 共 4 课</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

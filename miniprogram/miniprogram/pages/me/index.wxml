@@ -1,0 +1,118 @@
+<!-- pages/me/index.wxml -->
+<view class="container me-page">
+  <!-- 学员个人名片 -->
+  <view class="starry-card profile-card">
+    <view class="profile-main">
+      <view class="avatar-box">
+        <text class="avatar-letter">{{ user ? user.nickname.slice(0, 1) : '星' }}</text>
+      </view>
+      <view class="profile-info">
+        <view class="nickname-row">
+          <text class="nickname">{{ user ? user.nickname : '若星学员' }}</text>
+          <text class="tier-tag {{ user && user.memberTier === 'STAR_MEMBER' ? 'tier-vip' : 'tier-free' }}">
+            {{ user && user.memberTier === 'STAR_MEMBER' ? '✦ 星愿会员' : '普通学员' }}
+          </text>
+        </view>
+        <view class="join-days" wx:if="{{ user }}">已在若星陪伴生活 {{ user.joinDays || 1 }} 天</view>
+      </view>
+    </view>
+
+    <!-- 积分与星图条 -->
+    <view class="stats-bar" data-url="/pages/growth/index" bindtap="onNavTo">
+      <view class="stat-item">
+        <view class="stat-num">{{ user ? user.points : 0 }} <text class="stat-unit">pts</text></view>
+        <view class="stat-name">星图积分 · 查看星图 ➔</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 星愿会员权益横幅 -->
+  <view class="vip-banner" data-url="/pages/member/index" bindtap="onNavTo">
+    <view class="vip-banner-left">
+      <view class="vip-banner-title">✦ 若星星愿年度会员</view>
+      <view class="vip-banner-desc">
+        {{ user && user.memberTier === 'STAR_MEMBER' ? '有效期至：' + (user.memberExpireAt ? user.memberExpireAt.slice(0, 10) : '长期') : '开通享全场课程 8.8 折与雅集礼盒' }}
+      </view>
+    </view>
+    <view class="vip-banner-btn">
+      {{ user && user.memberTier === 'STAR_MEMBER' ? '续费 ➔' : '立即开通 ➔' }}
+    </view>
+  </view>
+
+  <!-- 功能入口列表 -->
+  <view class="starry-card menu-card">
+    <view class="menu-item" data-url="/pages/orders/index" bindtap="onNavTo">
+      <view class="menu-left">
+        <text class="menu-icon">🧾</text>
+        <text class="menu-label">我的订单</text>
+      </view>
+      <text class="menu-arrow">➔</text>
+    </view>
+
+    <view class="menu-item" data-url="/pages/growth/index" bindtap="onNavTo">
+      <view class="menu-left">
+        <text class="menu-icon">⭐</text>
+        <text class="menu-label">成长星图与打卡日历</text>
+      </view>
+      <text class="menu-arrow">➔</text>
+    </view>
+
+    <view class="menu-item" data-url="/pages/checkin-wall/index" bindtap="onNavTo">
+      <view class="menu-left">
+        <text class="menu-icon">✨</text>
+        <text class="menu-label">精选打卡广场</text>
+      </view>
+      <text class="menu-arrow">➔</text>
+    </view>
+
+    <view class="menu-item" bindtap="onOpenAddress">
+      <view class="menu-left">
+        <text class="menu-icon">📦</text>
+        <text class="menu-label">默认物料寄送收货地址</text>
+      </view>
+      <text class="menu-arrow">➔</text>
+    </view>
+
+    <view class="menu-item" bindtap="onOpenContact">
+      <view class="menu-left">
+        <text class="menu-icon">💬</text>
+        <text class="menu-label">若星客服与陪伴支持</text>
+      </view>
+      <text class="menu-arrow">➔</text>
+    </view>
+  </view>
+
+  <!-- 收货地址维护弹窗 -->
+  <view class="modal-mask" wx:if="{{ showAddressModal }}">
+    <view class="modal-box">
+      <view class="modal-title">物料寄送默认地址</view>
+      <view class="form-item">
+        <text class="lbl">收货人：</text>
+        <input class="ipt" placeholder="姓名" value="{{ addressForm.name }}" data-field="name" bindinput="onInputAddress" />
+      </view>
+      <view class="form-item">
+        <text class="lbl">手机号：</text>
+        <input class="ipt" type="number" placeholder="手机号" value="{{ addressForm.phone }}" data-field="phone" bindinput="onInputAddress" />
+      </view>
+      <view class="form-item">
+        <text class="lbl">详细地址：</text>
+        <input class="ipt" placeholder="省市区及详细门牌号" value="{{ addressForm.address }}" data-field="address" bindinput="onInputAddress" />
+      </view>
+      <view class="modal-btns">
+        <button class="m-cancel" bindtap="onCloseAddress">取消</button>
+        <button class="m-save" bindtap="onSaveAddress">保存地址</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 客服微信弹窗 -->
+  <view class="modal-mask" wx:if="{{ showContactModal }}">
+    <view class="modal-box text-center">
+      <view class="modal-title">若星主理人温润陪伴客服</view>
+      <view class="contact-hint">长按或添加主理人微信进行 1v1 答疑咨询：</view>
+      <view class="contact-wechat-id">微信号：StarrySpace2026</view>
+      <view class="contact-phone">联系电话：188-8888-8888</view>
+      <button class="m-save w-full" bindtap="onCloseContact">我知道了</button>
+    </view>
+  </view>
+</view>

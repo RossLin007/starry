@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 工作台</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html" class="active">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>工作台</h1>
+      </div>
+      <span class="head-note">2026 年 7 月 28 日 · 星期二</span>
+    </div>
+
+    <!-- 今日概览 -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">6</div>
+        <div class="stat-label">本周新报名</div>
+        <div class="stat-note">料理课 4 · 烘焙课 2</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">进行中的课程</div>
+        <div class="stat-note">最近一课在本周四</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">近期活动</div>
+        <div class="stat-note">初秋茶会 9 月 7 日</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">待处理事项</div>
+        <div class="stat-note">不着急，一件件来</div>
+      </div>
+    </div>
+
+    <!-- 待处理 -->
+    <div class="panel">
+      <div class="panel-title">待处理<span class="title-note">系统替你记住的事</span></div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td style="width:24px;">✦</td>
+            <td>
+              <div class="td-main">初秋茶会的报名将在 9 月 5 日截止</div>
+              <div class="td-sub">目前已有 8 人报名，限 12 人</div>
+            </td>
+            <td style="width:120px; text-align:right;"><a class="btn-text" href="activity-detail.html">去看看</a></td>
+          </tr>
+          <tr>
+            <td>✦</td>
+            <td>
+              <div class="td-main">料理课第 3 课资料将于 9 月 17 日自动开放</div>
+              <div class="td-sub">已设置定时开放，无需手动操作</div>
+            </td>
+            <td style="text-align:right;"><a class="btn-text" href="course-detail.html">查看课程设置</a></td>
+          </tr>
+          <tr>
+            <td>✦</td>
+            <td>
+              <div class="td-main">有 2 位学员的打卡还没有回复</div>
+              <div class="td-sub">阿玲 · 7 月 24 日 / 小满 · 7 月 23 日</div>
+            </td>
+            <td style="text-align:right;"><a class="btn-text" href="students.html">回复打卡</a></td>
+          </tr>
+          <tr>
+            <td>✦</td>
+            <td>
+              <div class="td-main">1 笔退款申请待处理</div>
+              <div class="td-sub">订单 20260718 · 插花活动</div>
+            </td>
+            <td style="text-align:right;"><a class="btn-text" href="orders.html">处理</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 进行中的课程 -->
+    <div class="panel">
+      <div class="panel-title">进行中的课程<span class="title-note"><a class="btn-text" href="courses.html">全部课程</a></span></div>
+      <table class="table">
+        <thead>
+          <tr><th>课程</th><th>进度</th><th>学员</th><th>本周作业提交</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-food thumb"></div>
+                <div><div class="td-main">生活料理 · 第 12 期</div><div class="td-sub">每周四晚 · 线上</div></div>
+              </div>
+            </td>
+            <td>第 2 / 8 课</td>
+            <td class="num">32</td>
+            <td><span class="tag green">21 份</span></td>
+            <td style="text-align:right;"><a class="row-link" href="course-detail.html">管理</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-space thumb"></div>
+                <div><div class="td-main">空间管理 · 第 7 期</div><div class="td-sub">每周三晚 · 线上</div></div>
+              </div>
+            </td>
+            <td>第 4 / 6 课</td>
+            <td class="num">28</td>
+            <td><span class="tag green">19 份</span></td>
+            <td style="text-align:right;"><a class="row-link" href="course-detail.html">管理</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-baking thumb"></div>
+                <div><div class="td-main">纯素烘焙 · 第 5 期</div><div class="td-sub">每周六上午 · 线上</div></div>
+              </div>
+            </td>
+            <td>第 1 / 6 课</td>
+            <td class="num">24</td>
+            <td><span class="tag">收集中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="course-detail.html">管理</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 最新报名 -->
+    <div class="panel">
+      <div class="panel-title">最新报名<span class="title-note"><a class="btn-text" href="orders.html">全部订单</a></span></div>
+      <table class="table">
+        <thead>
+          <tr><th>学员</th><th>报名内容</th><th>时间</th><th>状态</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">满</span><div><div class="td-main">林小满</div><div class="td-sub">上海</div></div></div></td>
+            <td>生活料理 · 第 12 期</td>
+            <td class="td-sub">今天 10:24</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">晴</span><div><div class="td-main">苏晚晴</div><div class="td-sub">杭州</div></div></div></td>
+            <td>初秋茶会</td>
+            <td class="td-sub">昨天 21:07</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">禾</span><div><div class="td-main">陈禾禾</div><div class="td-sub">苏州</div></div></div></td>
+            <td>纯素烘焙 · 第 5 期</td>
+            <td class="td-sub">昨天 16:42</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

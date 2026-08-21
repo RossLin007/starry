@@ -1,0 +1,49 @@
+<!-- pages/checkin-wall/index.wxml -->
+<view class="container wall-page">
+  <!-- 头部引言 -->
+  <view class="starry-card wall-header">
+    <view class="header-quote">“微小的实践，汇聚成心念的星光。”</view>
+    <view class="header-desc">若星学员实践精选 · 彼此见证成长</view>
+  </view>
+
+  <!-- 打卡流 -->
+  <view class="checkins-flow">
+    <view wx:for="{{ checkins }}" wx:key="id" class="starry-card item-card">
+      <!-- 学员头部 -->
+      <view class="item-user">
+        <view class="user-avatar-text">{{ item.user.nickname ? item.user.nickname.slice(0, 1) : '星' }}</view>
+        <view class="user-meta">
+          <view class="user-name">{{ item.user.nickname || '若星学员' }}</view>
+          <view class="course-name">{{ item.course?.title || '日常整理实践' }}</view>
+        </view>
+      </view>
+
+      <!-- 心得内容 -->
+      <view class="item-content">{{ item.content }}</view>
+
+      <!-- 照片展示 -->
+      <view class="item-images" wx:if="{{ item.images && item.images.length > 0 }}">
+        <image
+          wx:for="{{ item.images }}"
+          wx:for-item="img"
+          wx:key="*this"
+          src="{{ img }}"
+          mode="aspectFill"
+          class="checkin-thumb"
+        />
+      </view>
+
+      <!-- 若星团队温润陪伴寄语 -->
+      <view class="comment-box" wx:if="{{ item.adminComment }}">
+        <view class="comment-title">✦ 若星主理人陪伴寄语：</view>
+        <view class="comment-body">{{ item.adminComment }}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 浮动打卡按钮 -->
+  <view class="floating-btn" bindtap="onTapCheckin">
+    <text class="btn-icon">✦</text>
+    <text>去打卡</text>
+  </view>
+</view>

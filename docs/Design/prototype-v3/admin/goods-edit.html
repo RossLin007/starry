@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 编辑商品</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .goods-form { max-width: 720px; }
+  .field label { display: block; font-size: 13px; color: var(--ash); margin: 14px 0 8px; }
+  .field input[type="text"], .field textarea {
+    width: 100%; border: 1px solid var(--rice); border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; font-family: inherit;
+    background: var(--card); color: var(--ink);
+  }
+  .field textarea { resize: vertical; }
+  .upload-area {
+    border: 1px dashed var(--rice); border-radius: 12px; padding: 26px;
+    text-align: center; color: var(--ash); font-size: 13px;
+  }
+  .upload-area .up-hint { margin-top: 6px; font-size: 12px; }
+  .preview-img {
+    width: 120px; height: 120px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(250,246,232,.9); margin-bottom: 12px;
+  }
+  .preview-img svg { width: 40px; height: 40px; }
+  .form-actions { display: flex; gap: 12px; margin-top: 26px; align-items: center; }
+  .help-note { font-size: 12px; color: var(--ash); margin-top: 6px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html" class="active">商品管理<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="breadcrumb"><a href="goods.html">商品管理</a> / 编辑商品</div>
+    <div class="page-head">
+      <div>
+        <h1>老豆腐 · 盐卤点浆</h1>
+      </div>
+      <span class="head-note">上架中 · 若心拾光</span>
+    </div>
+
+    <div class="panel goods-form">
+      <div class="field">
+        <label>商品名称</label>
+        <input type="text" value="老豆腐 · 盐卤点浆" id="fName">
+      </div>
+
+      <div class="field">
+        <label>商品头图</label>
+        <div class="preview-img photo-food"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 44C32 44 32 40.1355 32.0015 40.1282C32.6987 39.7817 33.3702 39.3913 34.0124 38.9606C34.9896 38.3053 35.899 37.5569 36.7279 36.7279C39.9853 33.4706 42 28.9706 42 24H6C6 28.9706 8.01472 33.4706 11.2721 36.7279C12.1086 37.5645 13.0271 38.319 14.0145 38.9786C14.653 39.4051 15.3204 39.792 16.0131 40.1355L16 44H32Z"/><path d="M24 18.0083V8"/><path d="M36 18.0083V12"/><path d="M12 18.0083V12"/><path d="M40 8C37.7909 8 36 9.79086 36 12"/><path d="M28 4C25.7909 4 24 5.79086 24 8"/><path d="M16 8C13.7909 8 12 9.79086 12 12"/></svg></div>
+        <div class="upload-area" id="uploadArea">点击更换头图<div class="up-hint">建议 1:1 正方形 · png / jpg</div></div>
+      </div>
+
+      <div class="field">
+        <label>商品简介</label>
+        <textarea rows="3" id="fDesc">清晨现做，豆香扎实，口感紧实有回甘</textarea>
+        <div class="help-note">一句话介绍，显示在商品卡片与分享中。</div>
+      </div>
+
+      <div class="field">
+        <label>跳转链接（第三方小程序页面路径）</label>
+        <input type="text" value="pages/goods/detail?id=101" id="fLink">
+        <div class="help-note">用户点击商品后，将跳转至第三方小程序「若心拾光」的该页面完成下单。格式如：pages/goods/detail?id=xxx</div>
+      </div>
+
+      <div class="form-actions">
+        <a class="btn" href="#" id="saveBtn">保存修改</a>
+        <a class="btn-outline" href="#" id="offBtn">下架商品</a>
+        <span style="flex:1;"></span>
+        <a class="btn-danger-text" href="#">删除</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  document.getElementById('saveBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('fName').value.trim();
+    if (!name) { showToast('请填写商品名称'); return; }
+    showToast('已保存「' + name + '」，商城货架已更新');
+  });
+  document.getElementById('offBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    showToast('商品已下架，商城不再显示');
+  });
+  document.getElementById('uploadArea').addEventListener('click', function () {
+    showToast('原型示意：正式版此处选择图片文件');
+  });
+})();
+</script>
+</body>
+</html>

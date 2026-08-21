@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 故事</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .filter-note { font-size: 12px; color: var(--ash); padding: 0 20px 14px; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="learn-reading.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">书友故事</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 标签筛选 -->
+  <div class="tag-filter" id="tagFilter">
+    <span class="tag-chip active" data-tag="all">全部</span>
+    <span class="tag-chip" data-tag="独处">独处</span>
+    <span class="tag-chip" data-tag="自然">自然</span>
+    <span class="tag-chip" data-tag="简朴">简朴</span>
+    <span class="tag-chip" data-tag="阅读">阅读</span>
+  </div>
+  <div class="filter-note" id="filterNote">共 6 篇</div>
+
+  <div class="section" style="padding-top: 0; margin-bottom: 0;">
+    <div class="story-grid" id="storyGrid">
+
+      <a class="card story-card" href="story-detail.html" data-tags="独处,自然">
+        <div class="photo photo-read"><span class="photo-label">书友故事</span></div>
+        <div class="sc-body">
+          <div class="sc-title">在山里住了三天，我把手机留在了家里</div>
+          <div class="sc-text">读到梭罗写"独处"，我想起去年夏天。那三天我没有信号，只有一本书、一个本子和满山的绿……</div>
+          <div class="sc-foot">
+            <span><span class="tag-chip">独处</span><span class="tag-chip">自然</span></span>
+            <span class="sc-meta">阿瑾 · 9 月 14 日</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card story-card" href="story-detail.html" data-tags="阅读,简朴">
+        <div class="photo photo-tea"><span class="photo-label">书友故事</span></div>
+        <div class="sc-body">
+          <div class="sc-title">每天早起一小时，我读完了整本《瓦尔登湖》</div>
+          <div class="sc-text">以前总觉得没时间读书。这期开始后，我把闹钟往前拨了一小时，天没亮就坐在窗边……</div>
+          <div class="sc-foot">
+            <span><span class="tag-chip">阅读</span><span class="tag-chip">简朴</span></span>
+            <span class="sc-meta">知远 · 9 月 12 日</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card story-card" href="story-detail.html" data-tags="自然">
+        <div class="photo photo-flower"><span class="photo-label">书友故事</span></div>
+        <div class="sc-body">
+          <div class="sc-title">在小区花园里，我找到了自己的"瓦尔登"</div>
+          <div class="sc-text">不用去远方。楼下的那个小花园，每天傍晚坐二十分钟，看树影，听鸟叫，心就慢下来了……</div>
+          <div class="sc-foot">
+            <span><span class="tag-chip">自然</span></span>
+            <span class="sc-meta">青禾 · 9 月 10 日</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card story-card" href="story-detail.html" data-tags="简朴,独处">
+        <div class="photo photo-space"><span class="photo-label">书友故事</span></div>
+        <div class="sc-body">
+          <div class="sc-title">我把客厅的东西减了一半</div>
+          <div class="sc-text">读完"简单生活"那一章，我把客厅的物品清走了一半。沙发旁只剩一盏灯、一本书、一杯茶……</div>
+          <div class="sc-foot">
+            <span><span class="tag-chip">简朴</span><span class="tag-chip">独处</span></span>
+            <span class="sc-meta">小满 · 9 月 8 日</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card story-card" href="story-detail.html" data-tags="阅读">
+        <div class="photo photo-body"><span class="photo-label">书友故事</span></div>
+        <div class="sc-body">
+          <div class="sc-title">和孩子一起重读《瓦尔登湖》</div>
+          <div class="sc-text">十岁的女儿问我：为什么那个人要一个人住在湖边？我们一起读了第一章，她画了一幅小木屋……</div>
+          <div class="sc-foot">
+            <span><span class="tag-chip">阅读</span></span>
+            <span class="sc-meta">阿禾 · 9 月 6 日</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card story-card" href="story-detail.html" data-tags="自然,简朴">
+        <div class="photo photo-baking"><span class="photo-label">书友故事</span></div>
+        <div class="sc-body">
+          <div class="sc-title">在阳台上种了一小片香草</div>
+          <div class="sc-text">梭罗在湖边种豆子，我在阳台种罗勒和薄荷。每天浇水、看它们长大，是最踏实的小事……</div>
+          <div class="sc-foot">
+            <span><span class="tag-chip">自然</span><span class="tag-chip">简朴</span></span>
+            <span class="sc-meta">顾北 · 9 月 4 日</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var filter = document.getElementById('tagFilter');
+  var note = document.getElementById('filterNote');
+  var cards = document.querySelectorAll('#storyGrid .story-card');
+  filter.querySelectorAll('.tag-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      filter.querySelectorAll('.tag-chip').forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var tag = chip.getAttribute('data-tag');
+      var count = 0;
+      cards.forEach(function (card) {
+        var tags = card.getAttribute('data-tags').split(',');
+        var show = (tag === 'all') || tags.indexOf(tag) >= 0;
+        card.style.display = show ? '' : 'none';
+        if (show) count++;
+      });
+      note.textContent = tag === 'all' ? ('共 ' + count + ' 篇') : ('「' + tag + '」共 ' + count + ' 篇');
+    });
+  });
+})();
+</script>
+</body>
+</html>

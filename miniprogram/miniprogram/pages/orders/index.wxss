@@ -1,0 +1,157 @@
+/* pages/orders/index.wxss */
+.orders-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding-bottom: 60rpx;
+}
+
+.tab-bar {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: var(--starry-radius-md);
+  padding: 8rpx;
+  border: 1rpx solid var(--starry-muted-bg);
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: var(--starry-text-secondary);
+  border-radius: var(--starry-radius-sm);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.tab-item.active {
+  background: var(--starry-primary);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.empty-box {
+  text-align: center;
+  padding: 120rpx 0;
+  color: var(--starry-text-muted);
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+}
+
+.empty-text {
+  font-size: 26rpx;
+}
+
+.order-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid var(--starry-muted-bg);
+  padding-bottom: 12rpx;
+}
+
+.order-no {
+  font-size: 22rpx;
+  font-family: monospace;
+  color: var(--starry-text-muted);
+}
+
+.order-status-tag {
+  font-size: 20rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 6rpx;
+  font-weight: 600;
+}
+
+.status-PAID {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.status-PENDING {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.status-CLOSED {
+  background: #F1F5F9;
+  color: #64748B;
+}
+
+.order-body {
+  margin: 8rpx 0;
+}
+
+.order-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--starry-text-main);
+  margin-bottom: 8rpx;
+}
+
+.order-time {
+  font-size: 20rpx;
+  color: var(--starry-text-muted);
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1rpx solid var(--starry-muted-bg);
+  padding-top: 16rpx;
+}
+
+.amount-box {
+  display: flex;
+  align-items: baseline;
+}
+
+.amount-lbl {
+  font-size: 22rpx;
+  color: var(--starry-text-secondary);
+}
+
+.amount-val {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: var(--starry-gold);
+}
+
+.action-btns {
+  display: flex;
+  gap: 16rpx;
+}
+
+.cancel-btn {
+  font-size: 22rpx;
+  padding: 8rpx 24rpx;
+  background: #F1F5F9;
+  color: var(--starry-text-secondary);
+  border-radius: var(--starry-radius-full);
+}
+
+.pay-btn {
+  font-size: 22rpx;
+  padding: 8rpx 28rpx;
+  background: var(--starry-primary);
+  color: #FFFFFF;
+  border-radius: var(--starry-radius-full);
+  font-weight: 600;
+}

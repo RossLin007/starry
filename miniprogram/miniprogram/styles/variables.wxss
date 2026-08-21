@@ -1,0 +1,36 @@
+/**
+ * 若星空间 (Starry Space) - VI 设计规范全局变量
+ * 依据: docs/Design/VI/
+ */
+page {
+  /* 品牌色系 */
+  --starry-primary: #4F46E5;
+  --starry-primary-light: #EEF2FF;
+  --starry-dark: #0F172A;
+  --starry-gold: #F59E0B;
+  --starry-gold-light: #FEF3C7;
+  --starry-emerald: #10B981;
+  --starry-emerald-light: #ECFDF5;
+  --starry-rose: #F43F5E;
+
+  /* 背景与表面色 */
+  --starry-bg: #F8FAFC;
+  --starry-card-bg: #FFFFFF;
+  --starry-muted-bg: #F1F5F9;
+
+  /* 文字颜色 */
+  --starry-text-main: #0F172A;
+  --starry-text-secondary: #475569;
+  --starry-text-muted: #94A3B8;
+
+  /* 圆角 */
+  --starry-radius-sm: 12rpx;
+  --starry-radius-md: 20rpx;
+  --starry-radius-lg: 32rpx;
+  --starry-radius-full: 9999rpx;
+
+  /* 阴影 */
+  --starry-shadow-sm: 0 2rpx 8rpx rgba(15, 23, 42, 0.04);
+  --starry-shadow-md: 0 8rpx 24rpx rgba(15, 23, 42, 0.06);
+  --starry-shadow-lg: 0 16rpx 40rpx rgba(15, 23, 42, 0.08);
+}

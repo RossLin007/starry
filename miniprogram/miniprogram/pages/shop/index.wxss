@@ -1,0 +1,109 @@
+/* pages/shop/index.wxss */
+.shop-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding-bottom: 60rpx;
+}
+
+.shop-header {
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+  color: #FFFFFF;
+  padding: 32rpx;
+}
+
+.header-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FBBF24;
+  margin-bottom: 8rpx;
+}
+
+.header-desc {
+  font-size: 22rpx;
+  color: #CBD5E1;
+}
+
+.cat-bar {
+  display: flex;
+  gap: 16rpx;
+  overflow-x: auto;
+  padding-bottom: 8rpx;
+}
+
+.cat-tab {
+  flex-shrink: 0;
+  padding: 10rpx 28rpx;
+  background: #F1F5F9;
+  color: var(--starry-text-secondary);
+  font-size: 24rpx;
+  border-radius: var(--starry-radius-full);
+  font-weight: 500;
+}
+
+.cat-tab.active {
+  background: var(--starry-primary);
+  color: #FFFFFF;
+}
+
+.goods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.good-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.good-cover {
+  width: 100%;
+  height: 260rpx;
+}
+
+.good-info {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.good-cat-tag {
+  font-size: 18rpx;
+  color: var(--starry-primary);
+  background: #EEF2FF;
+  padding: 2rpx 10rpx;
+  border-radius: 6rpx;
+  align-self: flex-start;
+  margin-bottom: 8rpx;
+}
+
+.good-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: var(--starry-text-main);
+  line-height: 1.4;
+  margin-bottom: 12rpx;
+}
+
+.good-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.good-price {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: var(--starry-gold);
+}
+
+.jump-tip {
+  font-size: 20rpx;
+  color: var(--starry-text-muted);
+}

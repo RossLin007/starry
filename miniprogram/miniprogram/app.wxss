@@ -1,0 +1,41 @@
+@import "./styles/variables.wxss";
+
+page {
+  background-color: var(--starry-bg);
+  color: var(--starry-text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+view, text, image, navigator, input, button {
+  box-sizing: border-box;
+}
+
+/* 通用容器与卡片样式 */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 32rpx;
+}
+
+.starry-card {
+  background-color: var(--starry-card-bg);
+  border-radius: var(--starry-radius-md);
+  box-shadow: var(--starry-shadow-sm);
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+}
+
+/* 按钮通用重置 */
+.starry-btn-primary {
+  background-color: var(--starry-primary);
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 600;
+  border-radius: var(--starry-radius-full);
+  padding: 20rpx 48rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 20rpx rgba(79, 70, 229, 0.25);
+}

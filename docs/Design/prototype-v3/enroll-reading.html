@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 读书会报名</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .summary-card { padding: 16px 20px 18px; }
+  .summary-card .eyebrow { margin-bottom: 6px; }
+  .summary-card .sum-theme { font-family: var(--serif); font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+  .form-lede {
+    font-family: var(--serif); font-size: 15px; line-height: 1.7;
+    color: var(--ink); margin: 26px 0 6px;
+  }
+  .fee-area { margin-top: 36px; }
+  .fee-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid var(--rice); padding-top: 18px;
+    font-size: 14px; color: var(--ash); margin-bottom: 10px;
+  }
+  .fee-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 15px; color: var(--ink); font-weight: 600;
+  }
+  .fee-total .amount { font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="course-detail-reading.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">读书会报名</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 课程摘要 -->
+  <div class="section" style="margin-bottom: 0;">
+    <div class="card summary-card">
+      <div class="eyebrow">拾光读书 · 第 3 期</div>
+      <div class="sum-theme">《瓦尔登湖》· 在书里遇见同频的人</div>
+      <div class="meta">9 月 6 日起 · 每周六晚 · 线上</div>
+    </div>
+    <p class="form-lede">这些信息能帮带读老师更好地认识你。</p>
+  </div>
+
+  <!-- 表单 -->
+  <div class="section" style="margin-bottom: 0;">
+    <div class="field">
+      <label>姓名</label>
+      <input type="text" placeholder="你的名字">
+    </div>
+    <div class="field">
+      <label>手机号</label>
+      <input type="tel" placeholder="用于课程通知">
+    </div>
+    <div class="field">
+      <label>微信号</label>
+      <input type="text" placeholder="方便课程助手联系你">
+    </div>
+    <div class="field">
+      <label>所在城市</label>
+      <input type="text" placeholder="如：上海">
+    </div>
+    <div class="field">
+      <label>最近在读的一本书</label>
+      <input type="text" placeholder="选填 · 不带压力，想到什么写什么">
+    </div>
+    <div class="field">
+      <label>为什么想参加这期读书会</label>
+      <textarea rows="3" placeholder="一句话就好"></textarea>
+    </div>
+    <div class="field">
+      <label>想对老师说的话</label>
+      <textarea rows="3" placeholder=""></textarea>
+      <div class="hint">选填</div>
+    </div>
+
+    <!-- 费用小结 -->
+    <div class="fee-area" style="margin-bottom: 120px;">
+      <div class="fee-line"><span>课程费用</span><span>¥680</span></div>
+      <div class="fee-total"><span>实付</span><span class="amount">¥680</span></div>
+    </div>
+  </div>
+
+  <!-- 底部行动条 -->
+  <div class="action-bar">
+    <a class="btn-primary" href="enroll-success.html">确认报名并支付 ¥680</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 订单管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html" class="active">订单管理<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>订单管理</h1>
+      </div>
+      <span class="head-note">近 30 天 47 笔订单</span>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <a href="#" class="active">全部</a>
+        <a href="#">课程</a>
+        <a href="#">活动</a>
+        <a href="#">会员</a>
+        <a href="#">退款</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="search-box">
+        <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+        <input type="text" placeholder="搜索订单号或姓名">
+      </div>
+    </div>
+
+    <div class="notice-bar">
+      有 1 笔退款申请待处理（订单 20260718 · 秋日插花）。处理前建议先和对方通个电话。
+    </div>
+
+    <div class="panel">
+      <table class="table">
+        <thead>
+          <tr><th>订单号</th><th>学员</th><th>内容</th><th>金额</th><th>支付时间</th><th>状态</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">20260728</td>
+            <td><div class="id-cell"><span class="avatar">满</span><div class="td-main">林小满</div></div></td>
+            <td>生活料理 · 第 12 期</td>
+            <td class="num">¥1,280</td>
+            <td class="td-sub">今天 10:24</td>
+            <td><span class="tag green">已支付</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#">详情</a></td>
+          </tr>
+          <tr>
+            <td class="num">20260727</td>
+            <td><div class="id-cell"><span class="avatar">晴</span><div class="td-main">苏晚晴</div></div></td>
+            <td>初秋茶会</td>
+            <td class="num">¥168</td>
+            <td class="td-sub">昨天 21:07</td>
+            <td><span class="tag green">已支付</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#">详情</a></td>
+          </tr>
+          <tr>
+            <td class="num">20260726</td>
+            <td><div class="id-cell"><span class="avatar">禾</span><div class="td-main">陈禾禾</div></div></td>
+            <td>纯素烘焙 · 第 5 期</td>
+            <td class="num">¥1,080</td>
+            <td class="td-sub">昨天 16:42</td>
+            <td><span class="tag green">已支付</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#">详情</a></td>
+          </tr>
+          <tr>
+            <td class="num">20260725</td>
+            <td><div class="id-cell"><span class="avatar">芝</span><div class="td-main">王雅芝</div></div></td>
+            <td>空间管理 · 第 7 期</td>
+            <td class="num">¥960</td>
+            <td class="td-sub">7月25日 20:45</td>
+            <td><span class="tag green">已支付</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#">详情</a></td>
+          </tr>
+          <tr>
+            <td class="num">20260722</td>
+            <td><div class="id-cell"><span class="avatar">姝</span><div class="td-main">李静姝</div></div></td>
+            <td>初秋茶会</td>
+            <td class="num">¥168</td>
+            <td class="td-sub">7月22日 11:02</td>
+            <td><span class="tag green">已支付</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#">详情</a></td>
+          </tr>
+          <tr>
+            <td class="num">20260718</td>
+            <td><div class="id-cell"><span class="avatar">蕙</span><div class="td-main">周明蕙</div></div></td>
+            <td>秋日插花</td>
+            <td class="num">¥198</td>
+            <td class="td-sub">7月18日 14:51</td>
+            <td><span class="tag red">退款申请中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-refund>处理</a></td>
+          </tr>
+          <tr>
+            <td class="num">20260715</td>
+            <td><div class="id-cell"><span class="avatar">玲</span><div class="td-main">阿玲</div></div></td>
+            <td>基础会员 · 续费</td>
+            <td class="num">¥1,200</td>
+            <td class="td-sub">7月15日 09:30</td>
+            <td><span class="tag green">已支付</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#">详情</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span>近 30 天共 47 笔订单</span>
+        <div class="pages">
+          <a href="#" class="cur">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<!-- 退款处理弹层 -->
+<div class="refund-mask" id="refundMask" style="display:none;position:fixed;inset:0;background:rgba(43,40,30,.4);z-index:50;display:none;">
+  <div style="background:var(--card);border-radius:14px;max-width:420px;margin:12vh auto;padding:26px 28px;box-shadow:0 18px 50px rgba(0,0,0,.18);">
+    <div style="font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:6px;">处理退款 · 订单 20260718</div>
+    <p style="font-size:13px;color:var(--ash);line-height:1.8;margin-bottom:14px;">秋日插花 · 周明蕙 · ¥198<br>学员申请退款。处理前，请先和对方通个电话，确认原因后再操作。</p>
+    <label style="display:block;font-size:12px;color:var(--ash);margin:8px 0 6px;">处理备注（选填）</label>
+    <input type="text" id="refundNote" placeholder="如：已电话沟通，同意退款" style="width:100%;border:1px solid var(--rice);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
+    <div style="display:flex;gap:12px;margin-top:22px;">
+      <a class="btn-outline" href="#" id="refundCancel" style="flex:1;">取消</a>
+      <a class="btn" href="#" id="refundConfirm" style="flex:1;">确认退款</a>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  var mask = document.getElementById('refundMask');
+  document.querySelectorAll('[data-refund]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      mask.style.display = 'block';
+    });
+  });
+  document.getElementById('refundCancel').addEventListener('click', function (e) {
+    e.preventDefault();
+    mask.style.display = 'none';
+  });
+  mask.addEventListener('click', function (e) {
+    if (e.target === mask) mask.style.display = 'none';
+  });
+  document.getElementById('refundConfirm').addEventListener('click', function (e) {
+    e.preventDefault();
+    var note = document.getElementById('refundNote').value.trim();
+    mask.style.display = 'none';
+    var tr = document.querySelector('[data-refund]').closest('tr');
+    tr.querySelectorAll('td')[5].innerHTML = '<span class="tag gray">已退款</span>';
+    var b = tr.querySelector('[data-refund]');
+    b.textContent = '已处理';
+    b.removeAttribute('data-refund');
+    b.style.color = 'var(--ash)';
+    showToast(note ? '已确认退款，并记录备注' : '已确认退款');
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 报名配置</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .cfg-layout { display: grid; grid-template-columns: 220px 1fr; gap: 18px; align-items: start; }
+  .course-list { padding: 6px 0; }
+  .course-list a {
+    display: block; padding: 12px 16px; text-decoration: none; color: var(--ink);
+    font-size: 14px; border-left: 2px solid transparent;
+  }
+  .course-list a.active { border-left-color: var(--caramel); background: var(--card); font-weight: 500; }
+  .course-list a .cl-sub { font-size: 11px; color: var(--ash); margin-top: 3px; }
+  .field-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 2px; border-bottom: 1px solid var(--rice); font-size: 14px; }
+  .field-row:last-child { border-bottom: none; }
+  .field-row .fr-name { font-weight: 500; }
+  .field-row .fr-sub { font-size: 12px; color: var(--ash); margin-top: 3px; }
+  .switch {
+    position: relative; width: 40px; height: 22px; border-radius: 11px;
+    background: var(--rice); border: none; cursor: pointer; transition: background .2s;
+    flex-shrink: 0; margin-left: 14px;
+  }
+  .switch::after {
+    content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px;
+    border-radius: 50%; background: #fff; transition: left .2s;
+  }
+  .switch.on { background: var(--caramel); }
+  .switch.on::after { left: 20px; }
+  .custom-field { display: flex; gap: 10px; margin-top: 12px; }
+  .custom-field input { flex: 1; border: 1px solid var(--rice); border-radius: 10px; padding: 9px 12px; font-size: 14px; font-family: inherit; background: var(--card); color: var(--ink); }
+  .sec-title { font-size: 13px; color: var(--tea); letter-spacing: 0.1em; margin: 18px 0 6px; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html" class="active">报名配置<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>报名配置</h1>
+      </div>
+      <span class="head-note">不同课程 / 活动的报名表单可单独配置</span>
+    </div>
+
+    <div class="cfg-layout">
+      <!-- 课程/活动选择 -->
+      <div class="panel course-list" id="courseList">
+        <a href="#" data-course="reading">拾光读书 · 第 3 期<div class="cl-sub">线上 · 8 周</div></a>
+        <a href="#" data-course="space">空间管理 · 第 7 期<div class="cl-sub">线上 · 8 周</div></a>
+        <a href="#" data-course="cooking" class="active">生活料理 · 第 12 期<div class="cl-sub">线上 · 8 周</div></a>
+        <a href="#" data-course="tea">初秋茶会<div class="cl-sub">线下活动 · 9 月 7 日</div></a>
+      </div>
+
+      <!-- 字段配置 -->
+      <div class="panel" style="padding-top: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+          <span style="font-family: var(--serif); font-size: 16px; font-weight: 600;" id="cfgTitle">生活料理 · 报名表单</span>
+          <span class="head-note" id="cfgNote">含食材包配送，需收货地址</span>
+        </div>
+
+        <div class="sec-title">基础字段</div>
+        <div class="field-row">
+          <div><div class="fr-name">姓名</div><div class="fr-sub">必填</div></div>
+          <button type="button" class="switch on" data-sw></button>
+        </div>
+        <div class="field-row">
+          <div><div class="fr-name">手机号</div><div class="fr-sub">必填 · 用于课程通知</div></div>
+          <button type="button" class="switch on" data-sw></button>
+        </div>
+        <div class="field-row">
+          <div><div class="fr-name">微信号</div><div class="fr-sub">课程助手联系用</div></div>
+          <button type="button" class="switch on" data-sw></button>
+        </div>
+
+        <div class="sec-title">扩展字段（按课程配置）</div>
+        <div id="extFields">
+          <div class="field-row">
+            <div><div class="fr-name">所在城市</div><div class="fr-sub">了解学员分布</div></div>
+            <button type="button" class="switch on" data-sw></button>
+          </div>
+          <div class="field-row">
+            <div><div class="fr-name">收货地址</div><div class="fr-sub">食材包配送地址 · 料理课专属</div></div>
+            <button type="button" class="switch on" data-sw></button>
+          </div>
+          <div class="field-row">
+            <div><div class="fr-name">饮食状态</div><div class="fr-sub">荤素 / 蛋奶素 / 纯素 · 料理课专属</div></div>
+            <button type="button" class="switch on" data-sw></button>
+          </div>
+        </div>
+
+        <div class="sec-title">自定义字段</div>
+        <div id="customFields"></div>
+        <div class="custom-field">
+          <input type="text" placeholder="自定义字段名称，如：如何了解到若星" id="customInput">
+          <a class="btn btn-small" href="#" id="addCustom">添加</a>
+        </div>
+
+        <div class="form-actions" style="display: flex; gap: 12px; margin-top: 24px;">
+          <a class="btn" href="#" id="saveBtn">保存配置</a>
+          <a class="btn-outline" href="#">预览报名表单</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  // 开关
+  function bindSwitch(sw) {
+    sw.addEventListener('click', function () { sw.classList.toggle('on'); });
+  }
+  document.querySelectorAll('[data-sw]').forEach(bindSwitch);
+
+  // 课程切换（字段集示意）
+  var presets = {
+    reading: { title: '拾光读书 · 报名表单', note: '线上读书会，无需收货地址', ext: ['所在城市', '最近在读的一本书'] },
+    space: { title: '空间管理 · 报名表单', note: '线上课，无配送', ext: ['所在城市', '你最想整理的区域'] },
+    cooking: { title: '生活料理 · 报名表单', note: '含食材包配送，需收货地址', ext: ['所在城市', '收货地址', '饮食状态'] },
+    tea: { title: '初秋茶会 · 报名表单', note: '线下活动，人数有限', ext: ['参加人数', '是否带孩子'] }
+  };
+  var list = document.getElementById('courseList');
+  list.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      list.querySelectorAll('a').forEach(function (x) { x.classList.remove('active'); });
+      a.classList.add('active');
+      var key = a.getAttribute('data-course');
+      var p = presets[key];
+      document.getElementById('cfgTitle').textContent = p.title;
+      document.getElementById('cfgNote').textContent = p.note;
+      var box = document.getElementById('extFields');
+      box.innerHTML = '';
+      p.ext.forEach(function (name) {
+        var row = document.createElement('div');
+        row.className = 'field-row';
+        row.innerHTML = '<div><div class="fr-name">' + name + '</div></div>';
+        var sw = document.createElement('button');
+        sw.type = 'button'; sw.className = 'switch on'; sw.setAttribute('data-sw', '');
+        bindSwitch(sw);
+        row.appendChild(sw);
+        box.appendChild(row);
+      });
+    });
+  });
+
+  // 自定义字段
+  document.getElementById('addCustom').addEventListener('click', function (e) {
+    e.preventDefault();
+    var input = document.getElementById('customInput');
+    var name = input.value.trim();
+    if (!name) { showToast('请输入字段名称'); return; }
+    var box = document.getElementById('customFields');
+    var row = document.createElement('div');
+    row.className = 'field-row';
+    row.innerHTML = '<div><div class="fr-name">' + name + '</div><div class="fr-sub">自定义 · 文本</div></div>';
+    var sw = document.createElement('button');
+    sw.type = 'button'; sw.className = 'switch on'; sw.setAttribute('data-sw', '');
+    bindSwitch(sw);
+    row.appendChild(sw);
+    box.appendChild(row);
+    input.value = '';
+    showToast('已添加自定义字段「' + name + '」');
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    showToast('报名配置已保存，该课程报名表单即时更新');
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!-- pages/growth/index.wxml -->
+<view class="container growth-page" wx:if="{{ growth }}">
+  <!-- 星图总览卡片 -->
+  <view class="star-hero-card">
+    <view class="hero-top">
+      <view class="user-tier-badge">✦ {{ growth.user.memberTier === 'STAR_MEMBER' ? '若星签约星愿会员' : '若星学员' }}</view>
+      <view class="points-label">累计星图积分</view>
+      <view class="points-num">{{ growth.user.points }} <text class="points-unit">pts</text></view>
+    </view>
+
+    <view class="hero-stats">
+      <view class="stat-col">
+        <view class="stat-val">{{ growth.streakDays }} <text class="stat-u">天</text></view>
+        <view class="stat-lbl">连续实践打卡</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-col">
+        <view class="stat-val">{{ growth.totalCheckins }} <text class="stat-u">次</text></view>
+        <view class="stat-lbl">累计实践次数</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-col">
+        <view class="stat-val">{{ growth.totalDays }} <text class="stat-u">天</text></view>
+        <view class="stat-lbl">点亮星图天数</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 30天星图打卡热力墙 -->
+  <view class="starry-card heatmap-card">
+    <view class="card-title">✦ 近 30 天实践星图</view>
+    <view class="card-subtitle">每一次打卡，都是在自己内心的宇宙点亮一颗星</view>
+
+    <view class="dots-grid">
+      <view
+        wx:for="{{ calendarDays }}"
+        wx:key="date"
+        class="dot-item {{ item.isChecked ? 'dot-active' : 'dot-empty' }}"
+      >
+        <text class="dot-day">{{ item.dayNum }}</text>
+        <text class="dot-star">{{ item.isChecked ? '★' : '·' }}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分规则说明 -->
+  <view class="starry-card rules-card">
+    <view class="card-title">星图积分权益说明</view>
+    <view class="rule-item">1. 每次完成整理打卡：获得 +10 星图积分</view>
+    <view class="rule-item">2. 积分可用于抵扣若星空间线下雅集门票与沙龙席位</view>
+    <view class="rule-item">3. 连续打卡满 21 天可获赠《若星空间生活整理手册》纸质版</view>
+  </view>
+
+  <!-- 打卡按钮 -->
+  <button class="starry-btn action-btn" bindtap="onTapCheckin">
+    去打卡 · 点亮今日星光 ➔
+  </button>
+</view>

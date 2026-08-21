@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 拾光读书 第 3 期</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  /* ===== 分区切换(四字标签,一行放下) ===== */
+  .mode-tabs {
+    display: flex; justify-content: space-between;
+    padding: 4px 20px 14px; scrollbar-width: none;
+  }
+  .mode-tabs::-webkit-scrollbar { display: none; }
+  .mode-tabs a {
+    flex-shrink: 0; text-decoration: none;
+    font-size: 13px; color: var(--ash);
+    padding-bottom: 6px; border-bottom: 1px solid transparent;
+    letter-spacing: 0.04em;
+  }
+  .mode-tabs a.active {
+    font-family: var(--serif); font-weight: 600; font-size: 14px;
+    color: var(--ink); border-bottom-color: var(--tea);
+  }
+  .zone { display: none; }
+  .zone.open { display: block; }
+
+  /* ===== 概要 · 课节 ===== */
+  .lesson-item { display: flex; align-items: baseline; justify-content: space-between; }
+  .lesson-status { font-size: 12px; color: var(--tea); flex-shrink: 0; margin-left: 12px; }
+  .lesson-meta { font-size: 13px; color: var(--ash); margin-top: 4px; }
+  a.lesson-link { display: block; text-decoration: none; color: var(--ink); }
+  .notice-rows { display: flex; flex-direction: column; }
+  .notice-rows .row { display: flex; padding: 10px 0; font-size: 14px; line-height: 1.6; }
+  .notice-rows .row + .row { border-top: 1px solid var(--rice); }
+  .notice-rows .k { flex-shrink: 0; width: 76px; color: var(--ash); font-size: 13px; padding-top: 1px; }
+  .notice-rows .v { color: var(--ink); }
+
+  /* ===== 一日一习 · 打卡动态流 ===== */
+  .checkin-entry { padding: 20px; text-align: center; }
+  .feed-card { padding: 18px; margin-bottom: 18px; }
+  .feed-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .feed-avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--rice);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tea); font-size: 15px; flex-shrink: 0;
+  }
+  .feed-name { font-size: 14px; font-weight: 500; }
+  .feed-sub { font-size: 11px; color: var(--ash); margin-top: 2px; }
+  .feed-text { font-size: 14px; line-height: 1.8; color: var(--ink); }
+  .feed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 12px; }
+  .feed-grid .photo { aspect-ratio: 1 / 1; height: auto; border-radius: 8px; }
+  .feed-tag { margin-top: 12px; font-size: 13px; color: var(--caramel); letter-spacing: 0.02em; }
+  .feed-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rice);
+    font-size: 12px; color: var(--ash);
+  }
+  .feed-actions { display: flex; gap: 18px; }
+  .feed-actions span { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  .feed-actions svg { display: block; }
+
+  /* ===== 故事卡 ===== */
+  .story-grid { display: flex; flex-direction: column; gap: 18px; }
+  .story-card { display: block; text-decoration: none; color: var(--ink); overflow: hidden; }
+  .story-card .photo { height: 150px; }
+  .story-card .sc-body { padding: 14px 18px 18px; }
+  .story-card .sc-title { font-family: var(--serif); font-size: 15px; font-weight: 500; margin-bottom: 8px; line-height: 1.6; }
+  .story-card .sc-text { font-size: 13px; color: var(--ash); line-height: 1.7; margin-bottom: 12px; }
+  .story-card .sc-foot { display: flex; justify-content: space-between; align-items: center; }
+  .tag-chip {
+    display: inline-flex; font-size: 11px; color: var(--tea);
+    border: 1px solid var(--tea); border-radius: 4px; padding: 2px 8px;
+    letter-spacing: 0.03em; margin-right: 6px;
+  }
+  .sc-meta { font-size: 12px; color: var(--ash); }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="me.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">拾光读书 · 第 3 期</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 分区切换 -->
+  <div class="mode-tabs" id="modeTabs">
+    <a href="#" data-zone="summary" class="active">课程概要</a>
+    <a href="#" data-zone="practice">一日一习</a>
+    <a href="#" data-zone="story">书友故事</a>
+    <a href="#" data-zone="discuss">故事研讨</a>
+  </div>
+
+  <!-- ============ 课程概要(详情+学练合并) ============ -->
+  <div class="zone open" id="zone-summary">
+    <div class="section fade-up" style="margin-bottom: 28px;">
+      <div class="eyebrow" style="margin-bottom: 10px;">拾光读书 · 第 3 期</div>
+      <h1 class="page-title" style="margin-bottom: 14px;">在书里，遇见同频的人</h1>
+      <p class="body-text" style="color: var(--ash);">八周的时间，我们共读一本书。每周六晚线上相聚两小时：书友分享一周里的实践故事，主讲人带领大家走进文字深处。课后导读摘要、轻轻的作业，和每天几行的「一日一习」，陪你把书读进生活里。</p>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="section-title">课程须知</span></div>
+      <div class="card" style="padding: 6px 18px;">
+        <div class="notice-rows">
+        <div class="row"><span class="k">开课时间</span><span class="v">9 月 6 日起 · 每周六晚 20:00</span></div>
+        <div class="row"><span class="k">课程形式</span><span class="v">线上 · 腾讯会议直播（无视频回放）</span></div>
+        <div class="row"><span class="k">本期书目</span><span class="v">《瓦尔登湖》</span></div>
+        <div class="row"><span class="k">陪伴内容</span><span class="v">导读摘要 · 课后作业 · 一日一习 · 书友故事 · 故事研讨</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 课节信息:点击已开课节,可查看本节课的导读摘要、课后作业、课程金句 -->
+    <div class="section" style="margin-bottom: 0;">
+      <div class="section-head"><span class="section-title">课节信息</span></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <a class="lesson-link" href="lesson-reading.html">
+            <div class="lesson-item">
+              <span class="tl-title">第 1 课 · 走进瓦尔登<svg class="lesson-eye" width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 6px; vertical-align: -2px; color: var(--tea);"><path d="M4 24C4 24 12 10 24 10C36 10 44 24 44 24C44 24 36 38 24 38C12 38 4 24 4 24Z"/><circle cx="24" cy="24" r="6"/></svg></span>
+              <span class="lesson-status">已结束</span>
+            </div>
+            <div class="lesson-meta">9 月 6 日</div>
+            <div class="micro" style="margin-top: 6px;">导读摘要 · 课后作业 · 课程金句</div>
+          </a>
+        </div>
+        <div class="timeline-item">
+          <a class="lesson-link" href="lesson-reading.html">
+            <div class="lesson-item">
+              <span class="tl-title">第 2 课 · 独处的意义<svg class="lesson-eye" width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 6px; vertical-align: -2px; color: var(--tea);"><path d="M4 24C4 24 12 10 24 10C36 10 44 24 44 24C44 24 36 38 24 38C12 38 4 24 4 24Z"/><circle cx="24" cy="24" r="6"/></svg></span>
+              <span class="lesson-status">进行中</span>
+            </div>
+            <div class="lesson-meta">9 月 13 日</div>
+            <div class="micro" style="margin-top: 6px;">导读摘要 · 课后作业 · 课程金句</div>
+          </a>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 3 课 · 简单生活</div>
+          <div class="lesson-meta">将于 9 月 20 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 4 课 · 自然的馈赠</div>
+          <div class="lesson-meta">将于 9 月 27 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 5 课 · 阅读与沉思</div>
+          <div class="lesson-meta">将于 10 月 4 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 6 课 · 冬日的湖</div>
+          <div class="lesson-meta">将于 10 月 11 日开启</div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-title">第 7 课 · 告别与归来</div>
+          <div class="lesson-meta">将于 10 月 18 日开启</div>
+        </div>
+        <div class="timeline-item pending" style="padding-bottom: 0;">
+          <div class="tl-title">第 8 课 · 结业茶话</div>
+          <div class="lesson-meta">将于 10 月 25 日开启</div>
+        </div>
+      </div>
+      <p class="micro" style="margin-top: 14px; color: var(--ash);">点击已开课的课节，可查看本节课的导读摘要、课后作业与课程金句。</p>
+    </div>
+  </div>
+
+  <!-- ============ 一日一习(每日打卡) ============ -->
+  <div class="zone" id="zone-practice">
+
+    <div class="section fade-up">
+      <div class="card checkin-entry">
+        <p style="font-family: var(--serif); font-size: 15px; line-height: 1.8; margin-bottom: 16px;">每天几行，把书读进生活里。<br>不必完美，真实的一次，就很好。</p>
+        <a class="btn-secondary" href="checkin.html">记录今日心得</a>
+      </div>
+    </div>
+
+    <!-- 打卡动态(上方文字、下方图片/视频,带标签) -->
+    <div class="section" style="margin-bottom: 0;">
+      <div class="section-head"><span class="section-title">书友的一日一习</span></div>
+
+      <div class="card feed-card">
+        <div class="feed-head">
+          <span class="feed-avatar">✧</span>
+          <div>
+            <div class="feed-name">阿瑾</div>
+            <div class="feed-sub">第 9 天打卡 · 拾光读书 · 第 2 课</div>
+          </div>
+        </div>
+        <p class="feed-text">读到梭罗写"独处"，想起去年夏天在山里住的三天。没有信号，只有一本书、一个本子和满山的绿。原来独处不是逃离，而是回到自己。</p>
+        <div class="feed-grid">
+          <div class="photo photo-read"></div>
+          <div class="photo photo-tea"></div>
+          <div class="photo photo-flower"></div>
+        </div>
+        <div class="feed-tag">#独处 #自然</div>
+        <div class="feed-foot">
+          <span>9 月 14 日 22:08 · 大理</span>
+          <span class="feed-actions">
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8C8.92487 8 4 12.9249 4 19C4 30 17 40 24 42C31 40 44 30 44 19C44 12.9249 39.0751 8 33 8C29.2797 8 25.9907 9.8469 24 12.6738C22.0093 9.8469 18.7203 8 15 8Z"/></svg>15</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 6H4V36H13V44L23 36H44V6Z"/></svg>4</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6V30"/><path d="M14 16L24 6L34 16"/><path d="M8 26V42H40V26"/></svg></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="card feed-card">
+        <div class="feed-head">
+          <span class="feed-avatar">✦</span>
+          <div>
+            <div class="feed-name">知远</div>
+            <div class="feed-sub">第 7 天打卡 · 拾光读书 · 第 2 课</div>
+          </div>
+        </div>
+        <p class="feed-text">把闹钟往前拨了一小时，天没亮就坐在窗边读完了第 3 章。清晨的阅读让一整天都慢了下来。</p>
+        <div class="feed-grid">
+          <div class="photo photo-read"></div>
+        </div>
+        <div class="feed-tag">#阅读 #简朴</div>
+        <div class="feed-foot">
+          <span>9 月 13 日 06:51 · 成都</span>
+          <span class="feed-actions">
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8C8.92487 8 4 12.9249 4 19C4 30 17 40 24 42C31 40 44 30 44 19C44 12.9249 39.0751 8 33 8C29.2797 8 25.9907 9.8469 24 12.6738C22.0093 9.8469 18.7203 8 15 8Z"/></svg>9</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 6H4V36H13V44L23 36H44V6Z"/></svg>2</span>
+            <span><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6V30"/><path d="M14 16L24 6L34 16"/><path d="M8 26V42H40V26"/></svg></span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 书友故事(课上大家的实践故事,精炼有启发) ============ -->
+  <div class="zone" id="zone-story">
+    <div class="section" style="margin-bottom: 0;">
+      <div class="story-grid">
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-read"><span class="photo-label">书友故事</span></div>
+          <div class="sc-body">
+            <div class="sc-title">在山里住了三天，我把手机留在了家里</div>
+            <div class="sc-text">读到梭罗写"独处"，我想起去年夏天。那三天我没有信号，只有一本书、一个本子和满山的绿……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">独处</span><span class="tag-chip">自然</span></span>
+              <span class="sc-meta">阿瑾 · 9 月 14 日</span>
+            </div>
+          </div>
+        </a>
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-tea"><span class="photo-label">书友故事</span></div>
+          <div class="sc-body">
+            <div class="sc-title">每天早起一小时，我读完了整本《瓦尔登湖》</div>
+            <div class="sc-text">以前总觉得没时间读书。这期开始后，我把闹钟往前拨了一小时，天没亮就坐在窗边……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">阅读</span><span class="tag-chip">简朴</span></span>
+              <span class="sc-meta">知远 · 9 月 12 日</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 故事研讨(历史典故等,供大家参悟) ============ -->
+  <div class="zone" id="zone-discuss">
+    <div class="section" style="margin-bottom: 0;">
+      <div class="story-grid">
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-space"><span class="photo-label">故事研讨</span></div>
+          <div class="sc-body">
+            <div class="sc-title">颜回之乐：一箪食，一瓢饮</div>
+            <div class="sc-text">孔子说："贤哉回也。"居陋巷而不改其乐——两千年前的简朴，与梭罗的湖畔小屋遥遥相应……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">典故</span><span class="tag-chip">简朴</span></span>
+              <span class="sc-meta">若星整理 · 9 月 13 日</span>
+            </div>
+          </div>
+        </a>
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-flower"><span class="photo-label">故事研讨</span></div>
+          <div class="sc-body">
+            <div class="sc-title">陶渊明归园田居：久在樊笼里，复得返自然</div>
+            <div class="sc-text">他放下五斗米，回到南山下。我们讨论：今天的"樊笼"是什么？每个人心里都有自己的答案……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">典故</span><span class="tag-chip">自然</span></span>
+              <span class="sc-meta">若星整理 · 9 月 10 日</span>
+            </div>
+          </div>
+        </a>
+        <a class="card story-card" href="story-detail.html">
+          <div class="photo photo-body"><span class="photo-label">故事研讨</span></div>
+          <div class="sc-body">
+            <div class="sc-title">苏东坡的"人间有味是清欢"</div>
+            <div class="sc-text">雪沫乳花浮午盏，蓼茸蒿笋试春盘。被贬黄州的日子，他反而吃出了生活本来的味道……</div>
+            <div class="sc-foot">
+              <span><span class="tag-chip">典故</span><span class="tag-chip">清欢</span></span>
+              <span class="sc-meta">若星整理 · 9 月 7 日</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('#modeTabs a');
+  var zones = document.querySelectorAll('.zone');
+  function show(name) {
+    tabs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-zone') === name); });
+    zones.forEach(function (z) { z.classList.toggle('open', z.id === 'zone-' + name); });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function (e) { e.preventDefault(); show(t.getAttribute('data-zone')); });
+  });
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  document.querySelectorAll('.dl-btn').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      showToast('已开始下载 ' + b.getAttribute('data-dl'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

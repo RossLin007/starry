@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 内容发布</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .module-tabs { display: flex; gap: 4px; margin-bottom: 18px; }
+  .module-tabs a { padding: 8px 16px; border-radius: 18px; font-size: 13px; color: var(--ash); text-decoration: none; }
+  .module-tabs a.active { background: var(--card); border: 1px solid var(--rice); color: var(--ink); font-weight: 500; }
+  .pub-form { max-width: 760px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 32px; }
+  .field-row .full { grid-column: 1 / -1; }
+  .field label { display: block; font-size: 13px; color: var(--ash); margin: 14px 0 8px; }
+  .field input[type="text"], .field textarea, .field select {
+    width: 100%; border: 1px solid var(--rice); border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; font-family: inherit;
+    background: var(--card); color: var(--ink);
+  }
+  .field textarea { resize: vertical; }
+  .upload-area {
+    border: 1px dashed var(--rice); border-radius: 12px; padding: 22px;
+    text-align: center; color: var(--ash); font-size: 13px;
+  }
+  .time-row { display: flex; align-items: center; gap: 12px; }
+  .time-row input { width: auto; }
+  .switch-note { font-size: 12px; color: var(--ash); }
+  .status-tag { display: inline-flex; font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+  .status-tag.draft { background: rgba(110,103,92,.08); color: var(--ash); }
+  .status-tag.pub { background: rgba(94,128,74,.12); color: var(--bamboo); }
+  .pub-actions { display: flex; gap: 12px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html" class="active">内容发布<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>内容发布</h1>
+      </div>
+      <span class="head-note">课程内容上传与定时发布</span>
+    </div>
+
+    <!-- 模块切换 -->
+    <div class="module-tabs" id="moduleTabs">
+      <a href="#" data-mod="summary" class="active">导读摘要 / 课程概要</a>
+      <a href="#" data-mod="daily">每日内容</a>
+      <a href="#" data-mod="story">故事</a>
+      <a href="#" data-mod="form">工具表单</a>
+    </div>
+
+    <div class="panel pub-form">
+      <!-- 通用：课程 + 课节 -->
+      <div class="field-row">
+        <div class="field">
+          <label>选择课程</label>
+          <select id="courseSel">
+            <option>拾光读书 · 第 3 期</option>
+            <option>空间管理 · 第 7 期</option>
+            <option>生活料理 · 第 12 期</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>关联课节</label>
+          <select>
+            <option>第 1 课</option>
+            <option>第 2 课</option>
+            <option>第 3 课</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 导读摘要 -->
+      <div class="mod-zone" data-zone="summary">
+        <div class="field full">
+          <label>标题</label>
+          <input type="text" placeholder="如：第 2 课导读摘要 · 独处的意义">
+        </div>
+        <div class="field full">
+          <label>思维导图（图片）</label>
+          <div class="upload-area">点击上传思维导图图片（png / jpg）</div>
+        </div>
+        <div class="field full">
+          <label>课后作业</label>
+          <textarea rows="3" placeholder="本周实践作业内容…"></textarea>
+        </div>
+        <div class="field full">
+          <label>金句（每段一行）</label>
+          <textarea rows="3" placeholder="第一段金句…&#10;第二段金句…"></textarea>
+        </div>
+      </div>
+
+      <!-- 每日内容 -->
+      <div class="mod-zone" data-zone="daily" style="display: none;">
+        <div class="field full">
+          <label>内容类型</label>
+          <select>
+            <option>日日新生（空间 · 每日 7:30）</option>
+            <option>生活金句（料理 · 每日图卡）</option>
+            <option>若星食谱（料理 · 食谱图卡）</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>引导语 / 金句 / 食谱内容</label>
+          <textarea rows="4" placeholder="今天整理一个抽屉就好…"></textarea>
+        </div>
+        <div class="field full">
+          <label>配图（可选）</label>
+          <div class="upload-area">点击上传配图</div>
+        </div>
+        <div class="field full">
+          <label>定时发布</label>
+          <div class="time-row">
+            <input type="text" placeholder="发布日期 2026-09-16">
+            <input type="text" placeholder="时间 07:30">
+            <span class="switch-note">到点自动公开可浏览</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 故事 -->
+      <div class="mod-zone" data-zone="story" style="display: none;">
+        <div class="field full">
+          <label>故事标题</label>
+          <input type="text" placeholder="如：在山里住了三天，我把手机留在了家里">
+        </div>
+        <div class="field full">
+          <label>故事正文</label>
+          <textarea rows="5" placeholder="打磨后的书友故事…"></textarea>
+        </div>
+        <div class="field full">
+          <label>配图</label>
+          <div class="upload-area">点击上传故事图片</div>
+        </div>
+        <div class="field full">
+          <label>视频（可选）</label>
+          <div class="upload-area">点击上传故事视频（mp4 · 最长 3 分钟）</div>
+        </div>
+        <div class="field">
+          <label>选择标签</label>
+          <select>
+            <option>独处</option><option>自然</option><option>简朴</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 工具表单 -->
+      <div class="mod-zone" data-zone="form" style="display: none;">
+        <div class="field full">
+          <label>表单名称</label>
+          <input type="text" placeholder="如：物品盘点表">
+        </div>
+        <div class="field full">
+          <label>说明</label>
+          <input type="text" placeholder="如：Excel · 全屋物品清单">
+        </div>
+        <div class="field full">
+          <label>上传文件</label>
+          <div class="upload-area">点击上传 pdf / excel / word 文件</div>
+        </div>
+      </div>
+
+      <div class="pub-actions">
+        <a class="btn" href="#" id="pubNow">立即发布</a>
+        <a class="btn-outline" href="#" id="pubDraft">存为草稿</a>
+        <span style="flex:1;"></span>
+        <span class="status-tag draft" id="statusTag">草稿</span>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('#moduleTabs a');
+  var zones = document.querySelectorAll('.mod-zone');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function (e) {
+      e.preventDefault();
+      tabs.forEach(function (x) { x.classList.remove('active'); });
+      t.classList.add('active');
+      var m = t.getAttribute('data-mod');
+      zones.forEach(function (z) { z.style.display = (z.getAttribute('data-zone') === m) ? '' : 'none'; });
+    });
+  });
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  document.getElementById('pubNow').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('statusTag').className = 'status-tag pub';
+    document.getElementById('statusTag').textContent = '已发布';
+    showToast('内容已发布，学员端立即可见');
+  });
+  document.getElementById('pubDraft').addEventListener('click', function (e) {
+    e.preventDefault();
+    showToast('已存为草稿');
+  });
+})();
+</script>
+</body>
+</html>

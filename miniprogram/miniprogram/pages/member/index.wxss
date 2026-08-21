@@ -1,0 +1,155 @@
+/* pages/member/index.wxss */
+.member-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding-bottom: 160rpx;
+}
+
+.vip-hero-card {
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
+  border-radius: 28rpx;
+  padding: 48rpx 36rpx;
+  color: #FFFFFF;
+  box-shadow: 0 12rpx 36rpx rgba(49, 46, 129, 0.25);
+  border: 1rpx solid rgba(251, 191, 36, 0.3);
+}
+
+.vip-badge {
+  font-size: 20rpx;
+  font-weight: 800;
+  color: #1E1B4B;
+  background: #FBBF24;
+  padding: 6rpx 20rpx;
+  border-radius: var(--starry-radius-full);
+  display: inline-block;
+  letter-spacing: 2rpx;
+  margin-bottom: 16rpx;
+}
+
+.vip-title {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 8rpx;
+}
+
+.vip-slogan {
+  font-size: 24rpx;
+  color: #CBD5E1;
+  margin-bottom: 32rpx;
+}
+
+.vip-price-box {
+  display: flex;
+  align-items: baseline;
+  color: #FBBF24;
+}
+
+.currency {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.price-val {
+  font-size: 64rpx;
+  font-weight: 800;
+  margin: 0 6rpx;
+}
+
+.duration {
+  font-size: 24rpx;
+  color: #CBD5E1;
+}
+
+.benefits-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--starry-text-main);
+  border-bottom: 1rpx solid var(--starry-muted-bg);
+  padding-bottom: 12rpx;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+
+.b-icon-box {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 16rpx;
+  background: #FEF3C7;
+  color: #92400E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  flex-shrink: 0;
+}
+
+.b-text {
+  flex: 1;
+}
+
+.b-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--starry-text-main);
+}
+
+.b-desc {
+  font-size: 22rpx;
+  color: var(--starry-text-muted);
+  margin-top: 4rpx;
+  line-height: 1.4;
+}
+
+.note-card {
+  font-size: 22rpx;
+  color: var(--starry-text-muted);
+  line-height: 1.6;
+}
+
+.note-item {
+  margin-top: 8rpx;
+}
+
+.bottom-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 140rpx;
+  background: #FFFFFF;
+  border-top: 1rpx solid var(--starry-muted-bg);
+  padding: 0 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.06);
+  z-index: 100;
+}
+
+.total-price {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--starry-gold);
+}
+
+.price-hint {
+  font-size: 20rpx;
+  color: var(--starry-text-muted);
+}
+
+.pay-btn {
+  padding: 24rpx 48rpx;
+  font-size: 28rpx;
+}

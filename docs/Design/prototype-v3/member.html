@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 会员中心</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .identity { text-align: center; padding-top: 30px; position: relative; }
+  .identity .star { font-size: 28px; line-height: 1.4; }
+  .identity .page-title { margin-top: 10px; }
+  .identity .meta { margin-top: 8px; }
+
+  .benefit-item { display: flex; gap: 12px; padding: 16px 18px; }
+  .benefit-item + .benefit-item { border-top: 1px solid rgba(61,78,115,.4); }
+  .benefit-item .b-star { color: var(--starlight); font-size: 14px; line-height: 1.8; flex-shrink: 0; }
+  .benefit-item .b-name { font-size: 15px; }
+  .benefit-item .b-desc { font-size: 12px; color: rgba(233,228,216,.55); margin-top: 3px; line-height: 1.5; }
+
+  .level-row { display: flex; align-items: center; gap: 14px; padding: 16px 18px; }
+  .level-row + .level-row { border-top: 1px solid rgba(61,78,115,.4); }
+  .level-row .lv-star { flex-shrink: 0; width: 24px; text-align: center; }
+  .level-row .lv-name { font-size: 15px; }
+  .level-row .lv-desc { font-size: 12px; color: rgba(233,228,216,.55); margin-top: 2px; }
+  .level-row .lv-body { flex: 1; }
+  .here-tag {
+    font-size: 11px; color: var(--starlight);
+    border: 1px solid rgba(240,217,168,.55); border-radius: 11px;
+    padding: 2px 10px; letter-spacing: 0.05em; flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div class="screen night no-tabbar">
+
+  <div class="stars-bg">
+    <i style="width:3px;height:3px;left:12%;top:9%;" class="breathing"></i>
+    <i style="width:2px;height:2px;left:82%;top:7%;"></i>
+    <i style="width:2px;height:2px;left:28%;top:16%;"></i>
+    <i style="width:3px;height:3px;left:90%;top:20%;" class="breathing"></i>
+    <i style="width:2px;height:2px;left:8%;top:26%;"></i>
+    <i style="width:2px;height:2px;left:62%;top:14%;"></i>
+    <i style="width:2px;height:2px;left:45%;top:6%;"></i>
+    <i style="width:3px;height:3px;left:74%;top:28%;"></i>
+  </div>
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="home.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">会员中心</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 身份区 -->
+  <div class="identity fade-up">
+    <div class="star star-lit">✦</div>
+    <div class="page-title">若星 · 基础会员</div>
+    <div class="meta">有效期至 2027 年 6 月 · 随时欢迎续一杯茶</div>
+  </div>
+
+  <!-- 你将参与的生活 -->
+  <div class="section" style="margin-top: 40px;">
+    <div class="section-head">
+      <span class="section-title">你将参与的生活</span>
+    </div>
+    <div class="night-panel">
+      <div class="benefit-item">
+        <span class="b-star">✦</span>
+        <div>
+          <div class="b-name">每月线上相聚</div>
+          <div class="b-desc">一次线上茶会或读书会，和同频的人在一起</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <span class="b-star">✦</span>
+        <div>
+          <div class="b-name">课程的优惠</div>
+          <div class="b-desc">报名若星课程享会员价</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <span class="b-star">✦</span>
+        <div>
+          <div class="b-name">专属资料</div>
+          <div class="b-desc">每月一份生活方式资料包</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <span class="b-star">✦</span>
+        <div>
+          <div class="b-name">优先报名</div>
+          <div class="b-desc">线下小型活动，为会员留出位置</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 会员的四个层级 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-title">会员的四个层级</span>
+    </div>
+    <div class="night-panel">
+      <div class="level-row">
+        <span class="lv-star star-dim" style="font-size:14px;">✦</span>
+        <div class="lv-body">
+          <div class="lv-name" style="color:rgba(233,228,216,.6);">普通用户</div>
+          <div class="lv-desc">刚刚遇见若星</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="lv-star" style="font-size:16px;color:rgba(240,217,168,.55);">✦</span>
+        <div class="lv-body">
+          <div class="lv-name">基础会员</div>
+          <div class="lv-desc">开始规律地参与</div>
+        </div>
+        <span class="here-tag">你在这里</span>
+      </div>
+      <div class="level-row">
+        <span class="lv-star" style="font-size:18px;color:rgba(240,217,168,.8);">✦</span>
+        <div class="lv-body">
+          <div class="lv-name">深度会员</div>
+          <div class="lv-desc">走得更深，陪伴更稳定</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="lv-star star-lit" style="font-size:20px;">✦</span>
+        <div class="lv-body">
+          <div class="lv-name">共创伙伴</div>
+          <div class="lv-desc">把若星的生活方式，带回自己的城市</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部行动 -->
+  <div class="section" style="margin-bottom: 0;">
+    <a class="btn-primary" href="#">了解深度会员</a>
+    <p class="micro" style="text-align:center; margin-top: 20px; padding-bottom: 12px;">会员的进阶，看你走过的路，而不是付过的费。</p>
+  </div>
+
+</div>
+</body>
+</html>

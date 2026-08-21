@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 商品管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .goods-thumb { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: rgba(250,246,232,.9); }
+  .goods-thumb svg { width: 22px; height: 22px; }
+  .link-cell { max-width: 260px; }
+  .link-cell .lk { font-size: 12px; color: var(--ash); font-family: ui-monospace, monospace; word-break: break-all; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html" class="active">商品管理<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>商品管理</h1>
+      </div>
+      <a class="btn" href="goods-edit.html">新建商品</a>
+    </div>
+
+    <div class="panel-desc" style="margin-bottom: 16px; font-size: 13px; color: var(--ash);">
+      商城货架商品。用户点击商品后跳转至第三方小程序「若心拾光」下单购买，此处仅需维护名称、头图、简介与跳转链接。
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <a href="#" class="active">全部</a>
+        <a href="#">上架中</a>
+        <a href="#">已下架</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="search-box">
+        <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+        <input type="text" placeholder="搜索商品">
+      </div>
+    </div>
+
+    <div class="panel" style="padding-top:14px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>商品</th>
+            <th>简介</th>
+            <th class="link-cell">跳转链接（第三方小程序）</th>
+            <th>状态</th>
+            <th style="text-align:right;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="goods-thumb photo-food"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 44C32 44 32 40.1355 32.0015 40.1282C32.6987 39.7817 33.3702 39.3913 34.0124 38.9606C34.9896 38.3053 35.899 37.5569 36.7279 36.7279C39.9853 33.4706 42 28.9706 42 24H6C6 28.9706 8.01472 33.4706 11.2721 36.7279C12.1086 37.5645 13.0271 38.319 14.0145 38.9786C14.653 39.4051 15.3204 39.792 16.0131 40.1355L16 44H32Z"/><path d="M24 18.0083V8"/><path d="M36 18.0083V12"/><path d="M12 18.0083V12"/><path d="M40 8C37.7909 8 36 9.79086 36 12"/><path d="M28 4C25.7909 4 24 5.79086 24 8"/><path d="M16 8C13.7909 8 12 9.79086 12 12"/></svg></div>
+                <div><div class="td-main">老豆腐 · 盐卤点浆</div><div class="td-sub">若心拾光 · 豆制品</div></div>
+              </div>
+            </td>
+            <td>清晨现做，豆香扎实，口感紧实有回甘</td>
+            <td class="link-cell"><span class="lk">pages/goods/detail?id=101</span></td>
+            <td><span class="tag green">上架中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-toggle>下架</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="goods-edit.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="goods-thumb photo-baking"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 38C33.3888 38 41 30.9411 41 21H7C7 30.9411 14.6112 38 24 38Z"/><path d="M30 21C30 15.4772 25.7467 11 20.5 11C15.2533 11 11 15.4772 11 21"/><path d="M39 21C39 17.6863 36.234 15 32.822 15C31.379 15 30.0515 15.4805 29 16.2857"/><path d="M33 15L36 5"/><path d="M38.0002 18.0001L42.0002 11.0001"/><path d="M18 37L16 43H32L30 37"/></svg></div>
+                <div><div class="td-main">有机糙米 · 五常产地</div><div class="td-sub">若心拾光 · 谷物杂粮</div></div>
+              </div>
+            </td>
+            <td>带胚芽的糙米，慢慢咀嚼有淡淡麦香</td>
+            <td class="link-cell"><span class="lk">pages/goods/detail?id=102</span></td>
+            <td><span class="tag green">上架中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-toggle>下架</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="goods-edit.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="goods-thumb photo-space"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M34 28L44 24"/><path d="M4 28H34L33.5613 31.8024C33.1537 35.3345 30.163 38 26.6074 38H11.3926C7.83703 38 4.84629 35.3345 4.43873 31.8024L4 28Z"/><path d="M19 10V20"/><path d="M11 12V18"/><path d="M27 12V18"/></svg></div>
+                <div><div class="td-main">香菇 · 古田厚肉菇</div><div class="td-sub">若心拾光 · 菌菇干货</div></div>
+              </div>
+            </td>
+            <td>菇伞厚实，煲汤提鲜，半斤一袋</td>
+            <td class="link-cell"><span class="lk">pages/goods/detail?id=103</span></td>
+            <td><span class="tag green">上架中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-toggle>下架</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="goods-edit.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="goods-thumb photo-body"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5736C12 19.1988 12.1053 18.8315 12.304 18.5136L17 11H31L35.696 18.5136C35.8947 18.8315 36 19.1988 36 19.5736V42C36 43.1046 35.1046 44 34 44H14C12.8954 44 12 43.1046 12 42V19.5736Z"/><path d="M19 33V24L24 30L29 24V33"/><path d="M17 4H31V11H17V4Z"/></svg></div>
+                <div><div class="td-main">纯燕麦奶 · 无糖原味</div><div class="td-sub">若心拾光 · 植物奶</div></div>
+              </div>
+            </td>
+            <td>只用水和燕麦，淡淡的谷物甜</td>
+            <td class="link-cell"><span class="lk">pages/goods/detail?id=104</span></td>
+            <td><span class="tag green">上架中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-toggle>下架</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="goods-edit.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="goods-thumb photo-tea"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 18.1672C11 18.0749 11.0749 18 11.1672 18H34.8328C34.9251 18 35 18.0749 35 18.1672V30C35 36.6274 29.6274 42 23 42C16.3726 42 11 36.6274 11 30V18.1672Z"/><path d="M35 30C38.3137 30 41 27.3137 41 24C41 20.6863 38.3137 18 35 18"/><line x1="11" y1="8" x2="11" y2="11"/><line x1="35" y1="8" x2="35" y2="11"/><line x1="23" y1="5" x2="23" y2="11"/></svg></div>
+                <div><div class="td-main">武夷肉桂 · 岩茶小罐</div><div class="td-sub">若心拾光 · 茶饮</div></div>
+              </div>
+            </td>
+            <td>桂皮香显，茶汤橙黄，一罐约十泡</td>
+            <td class="link-cell"><span class="lk">pages/goods/detail?id=105</span></td>
+            <td><span class="tag green">上架中</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-toggle>下架</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="goods-edit.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="goods-thumb photo-read"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23.9111 11.3176C23.9931 9.08606 24.6201 7.12594 25.7772 5.4874C26.9402 3.84056 28.8628 2.6707 31.4945 2.00781C31.512 2.08885 31.5302 2.16994 31.5491 2.25072V2.67472C31.5491 3.63616 31.3159 4.73862 30.8556 5.95127C30.3732 7.12541 29.6193 8.23048 28.618 9.22782C27.6815 10.1066 26.8151 10.6884 26.0494 10.9514C25.7966 11.0269 25.45 11.1012 25.0314 11.1681C24.6591 11.2261 24.2856 11.276 23.9111 11.3176Z"/><path d="M24.3502 14.629C21.3775 14.629 19.3136 11.9999 16.3813 11.9999C13.4491 11.9999 7.4082 14.6951 7.4082 23.9999C7.4082 33.3047 12.7726 39.2999 13.3726 39.9999C13.9725 40.7 15.3601 42.4994 17.5098 42.4994C19.6596 42.4994 22.0131 40.7902 24.3502 40.7902C26.6872 40.7902 29.6288 42.4994 31.5492 42.4994C33.4696 42.4994 34.2595 41.7165 35.5665 40.3662C36.8734 39.0159 39.3663 34.8952 40.2369 32.422C38.8029 31.5684 35.0021 29.2511 35.0021 23.9999C35.0021 20.4992 36.2814 17.5909 38.8401 15.2752C37.1615 13.0917 35.2147 11.9999 32.9996 11.9999C29.6769 11.9999 27.3229 14.629 24.3502 14.629Z"/></svg></div>
+                <div><div class="td-main">黑芝麻丸 · 九蒸九晒</div><div class="td-sub">若心拾光 · 零食</div></div>
+              </div>
+            </td>
+            <td>黑芝麻与枣泥的紧实小丸，一天一颗</td>
+            <td class="link-cell"><span class="lk">pages/goods/detail?id=106</span></td>
+            <td><span class="tag gray">已下架</span></td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-toggle>上架</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="goods-edit.html">编辑</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span>共 6 件商品</span>
+        <div class="pages">
+          <a href="#" class="cur">1</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  document.querySelectorAll('[data-toggle]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      var tr = b.closest('tr');
+      var cells = tr.querySelectorAll('td');
+      var stateCell = cells[3];
+      var onShelf = stateCell.querySelector('.tag').classList.contains('green');
+      if (onShelf) {
+        stateCell.innerHTML = '<span class="tag gray">已下架</span>';
+        b.textContent = '上架';
+        showToast('商品已下架，商城与首页好物推荐不再显示');
+      } else {
+        stateCell.innerHTML = '<span class="tag green">上架中</span>';
+        b.textContent = '下架';
+        showToast('商品已上架，商城货架立即可见');
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!-- pages/courses/index.wxml -->
+<view class="container">
+  <!-- 分类筛选横滑栏 -->
+  <scroll-view scroll-x class="category-scroll" enable-flex>
+    <view
+      wx:for="{{ categories }}"
+      wx:key="*this"
+      class="category-tab {{ activeCategory === item ? 'active' : '' }}"
+      data-category="{{ item }}"
+      bindtap="onSelectCategory"
+    >
+      {{ item }}
+    </view>
+  </scroll-view>
+
+  <!-- 课程列表 -->
+  <view class="courses-list">
+    <view
+      wx:for="{{ courses }}"
+      wx:key="id"
+      class="starry-card course-card"
+      data-id="{{ item.id }}"
+      bindtap="onTapCourse"
+    >
+      <view class="course-header">
+        <view class="course-tag">{{ item.category }}</view>
+        <view class="course-price">{{ item.price === 0 ? '免费体验' : '¥' + item.price }}</view>
+      </view>
+
+      <view class="course-title">{{ item.title }}</view>
+      <view class="course-subtitle">{{ item.subtitle }}</view>
+
+      <view class="course-footer">
+        <view class="course-date">
+          <text class="date-icon">🗓️</text>
+          <text>{{ item.courseStartTime ? item.courseStartTime : '近期开营' }}</text>
+        </view>
+        <view class="course-btn">查看详情 ➔</view>
+      </view>
+    </view>
+  </view>
+</view>

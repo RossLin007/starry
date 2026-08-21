@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 空间管理 第 7 期</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .timeline-item .tl-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .timeline-item .tl-row .btn-text { flex-shrink: 0; margin-top: 2px; }
+  .timeline-item.pending .tl-title { color: var(--ash); font-weight: 400; }
+  .tl-title { font-weight: 500; }
+  .quiet-actions { display: flex; align-items: center; gap: 18px; margin-top: 4px; }
+  .quiet-actions .spacer { flex: 1; }
+  .form-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
+  .panel-desc { font-size: 13px; color: var(--ash); margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html" class="active">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="breadcrumb"><a href="courses.html">课程管理</a> / 空间管理 · 第 7 期</div>
+    <div class="page-head">
+      <div>
+        <h1>空间管理 · 第 7 期</h1>
+      </div>
+      <span class="head-note">每周三晚 20:00 · 线上 · 腾讯会议</span>
+    </div>
+
+    <!-- 概要 -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">28</div>
+        <div class="stat-label">名学员</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">第 2 课</div>
+        <div class="stat-label">共 8 课 · 当前进度</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">23</div>
+        <div class="stat-label">本周作业</div>
+        <div class="stat-note">还有 11 份在路上</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">¥980</div>
+        <div class="stat-label">课程费用</div>
+      </div>
+    </div>
+
+    <!-- 详情 Tab -->
+    <div class="inner-tabs" id="detailTabs">
+      <a href="#" data-tab="info">课程信息</a>
+      <a href="#" data-tab="lessons" class="active">课节与资料</a>
+      <a href="publish.html">内容发布</a>
+      <a href="#" data-tab="roster">报名名单</a>
+      <a href="#" data-tab="work">作业与打卡</a>
+    </div>
+
+    <!-- 内容模块概览 -->
+    <div class="panel" style="margin-bottom: 18px;">
+      <div class="panel-title">内容模块<span class="title-note">本期各模块内容进度</span></div>
+      <div class="quiet-actions" style="flex-wrap: wrap; gap: 10px;">
+        <span class="tag green">课程概要 2/8</span>
+        <span class="tag green">日日新生 18 天</span>
+        <span class="tag green">空间故事 2 篇</span>
+        <span class="tag green">工具表单 3 份</span>
+        <span class="tag">标签 4 个</span>
+        <span class="spacer"></span>
+        <a class="btn-text" href="publish.html">前往发布</a>
+      </div>
+    </div>
+
+    <!-- 课程信息（含腾讯会议配置） -->
+    <div class="tab-zone" data-zone="info" style="display:none;">
+      <div class="panel">
+        <div class="panel-title">课程信息<span class="title-note">名称 / 分类 / 时间 / 形式 / 费用</span></div>
+        <div class="form-grid">
+          <div class="a-field full"><label>课程名称</label><input type="text" value="空间管理 · 第 7 期"></div>
+          <div class="a-field"><label>课程分类</label><input type="text" value="生活料理" disabled></div>
+          <div class="a-field"><label>开课时间</label><input type="text" value="9 月 3 日起 · 每周四晚 20:00"></div>
+          <div class="a-field"><label>课程形式</label><input type="text" value="线上 · 8 周"></div>
+          <div class="a-field"><label>课程费用</label><input type="text" value="¥1,280"></div>
+          <div class="a-field"><label>学员上限</label><input type="text" value="32 人"></div>
+          <div class="a-field full"><label>课程介绍</label><textarea rows="3" placeholder="一句话介绍课程…"></textarea></div>
+          <div class="a-field full"><label>适合人群</label><textarea rows="2" placeholder="如：想改善饮食习惯、愿意动手练习的朋友…"></textarea></div>
+          <div class="a-field full"><label>封面</label><div class="upload-area" style="text-align:center;padding:18px;border:1px dashed var(--rice);border-radius:12px;color:var(--ash);font-size:13px;">点击上传课程头图（16:9）</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">腾讯会议配置<span class="title-note">线上课程课节页入口</span></div>
+        <p class="panel-desc">学员在课节页点击「腾讯会议」将直接跳转到对应会议室。支持每期统一配置或按课节单独覆盖。</p>
+        <div class="form-grid">
+          <div class="a-field"><label>本期会议号（默认）</label><input type="text" value="861 395 227"></div>
+          <div class="a-field"><label>会议链接（默认）</label><input type="text" value="https://meeting.tencent.com/dm/space7"></div>
+        </div>
+        <table class="table" style="margin-top:14px;">
+          <thead><tr><th>课节</th><th>会议号</th><th>会议链接</th></tr></thead>
+          <tbody>
+            <tr><td>第 1 课</td><td class="num">861 395 227</td><td class="td-sub" style="word-break:break-all;">https://meeting.tencent.com/dm/space7</td></tr>
+            <tr><td>第 2 课</td><td class="num">861 395 227</td><td class="td-sub" style="word-break:break-all;">https://meeting.tencent.com/dm/space7</td></tr>
+            <tr><td class="td-sub">…其余课节沿用本期默认</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="quiet-actions">
+        <a class="btn" href="#" data-save-tab>保存课程信息</a>
+        <span style="flex:1;"></span>
+        <a class="btn-text" href="enroll-config.html">报名表单设置</a>
+      </div>
+    </div>
+
+    <!-- 报名名单 -->
+    <div class="tab-zone" data-zone="roster" style="display:none;">
+      <div class="panel">
+        <div class="toolbar" style="margin-bottom:12px;">
+          <div class="search-box">
+            <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+            <input type="text" placeholder="搜索报名人">
+          </div>
+          <div class="spacer"></div>
+          <a class="btn-outline" href="#" data-export>导出报名名单</a>
+        </div>
+        <table class="table">
+          <thead><tr><th>报名人</th><th>报名信息<br><span class="td-sub">居住户型 / 最想整理的区域</span></th><th>付款状态</th></tr></thead>
+          <tbody>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">王</span><div><div class="td-main">王雅芝</div><div class="td-sub">北京</div></div></div></td>
+            <td class="td-sub">两居室</td>
+            <td class="td-sub">衣柜</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">小</span><div><div class="td-main">小满</div><div class="td-sub">上海</div></div></div></td>
+            <td class="td-sub">一居室</td>
+            <td class="td-sub">书桌</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">阿</span><div><div class="td-main">阿禾</div><div class="td-sub">苏州</div></div></div></td>
+            <td class="td-sub">三居室</td>
+            <td class="td-sub">玄关</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="pagination"><span>共 32 人已报名 · 32 笔已支付</span><div class="pages"><a href="#" class="cur">1</a><a href="#">2</a><a href="#">3</a></div></div>
+      </div>
+    </div>
+
+    <!-- 作业与打卡 -->
+    <div class="tab-zone" data-zone="work" style="display:none;">
+      <div class="panel">
+        <div class="stat-mini" style="display:flex;gap:14px;margin-bottom:16px;">
+          <div class="sm" style="background:var(--card);border:1px solid var(--rice);border-radius:12px;padding:12px 18px;"><div class="n" style="font-size:20px;font-weight:600;">21</div><div class="l" style="font-size:12px;color:var(--ash);margin-top:2px;">本周作业</div></div>
+          <div class="sm" style="background:var(--card);border:1px solid var(--rice);border-radius:12px;padding:12px 18px;"><div class="n" style="font-size:20px;font-weight:600;">3</div><div class="l" style="font-size:12px;color:var(--ash);margin-top:2px;">被精选</div></div>
+          <div class="sm" style="background:var(--card);border:1px solid var(--rice);border-radius:12px;padding:12px 18px;"><div class="n" style="font-size:20px;font-weight:600;">2</div><div class="l" style="font-size:12px;color:var(--ash);margin-top:2px;">待回复</div></div>
+        </div>
+        <table class="table">
+          <thead><tr><th>学员</th><th>实践内容</th><th>标签</th><th>状态</th><th style="text-align:right;">操作</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="id-cell"><span class="avatar">满</span><div class="td-main">林小满</div></div></td>
+              <td class="td-sub">昨晚做了山药栗子粥，女儿喝了两碗…</td>
+              <td><span class="tag">食材预处理</span></td>
+              <td><span class="tag green">被精选</span></td>
+              <td style="text-align:right;"><a class="row-link" href="#" data-pick>取消精选</a></td>
+            </tr>
+            <tr>
+              <td><div class="id-cell"><span class="avatar">玲</span><div class="td-main">阿玲</div></div></td>
+              <td class="td-sub">跟第 2 课试了清炒时蔬，火候不太稳…</td>
+              <td><span class="tag">动线设计</span></td>
+              <td><span class="tag gray">正常</span></td>
+              <td style="text-align:right;"><a class="row-link" href="#" data-pick>精选</a></td>
+            </tr>
+            <tr>
+              <td><div class="id-cell"><span class="avatar">晴</span><div class="td-main">苏晚晴</div></div></td>
+              <td class="td-sub">第一次交作业，做了最简单的拌豆腐…</td>
+              <td><span class="tag">冰箱管理</span></td>
+              <td><span class="tag gray">正常</span></td>
+              <td style="text-align:right;"><a class="row-link" href="#" data-pick>精选</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="quiet-actions" style="margin-top:16px;">
+          <a class="btn-outline" href="checkins.html">前往打卡管理</a>
+          <span style="flex:1;"></span>
+          <a class="btn-text" href="#">导出本期作业汇总</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-zone" data-zone="lessons">
+    <!-- 课节安排 -->
+    <div class="panel">
+      <div class="panel-title">课节安排<span class="title-note">共 8 课，到时间自动开放</span></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 1 课 · 看见你的空间</div>
+              <div class="td-sub">已开放 · 9月3日</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 2 课 · 盘点与断舍离</div>
+              <div class="td-sub">已开放 · 9月10日</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 3 课 · 分区与动线</div>
+              <div class="td-sub">将于 9 月 17 日 09:00 自动开放</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 4 课 · 衣物的秩序</div>
+              <div class="td-sub">将于 9 月 24 日 09:00 自动开放</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 5 课 · 厨房与餐桌</div>
+              <div class="td-sub">将于 10 月 1 日 09:00 自动开放</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 6 课 · 文件与记忆</div>
+              <div class="td-sub">将于 10 月 8 日 09:00 自动开放</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 7 课 · 清洁与维护</div>
+              <div class="td-sub">将于 10 月 15 日 09:00 自动开放</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+        <div class="timeline-item pending" style="padding-bottom:6px;">
+          <div class="tl-row">
+            <div>
+              <div class="tl-title">第 8 课 · 日日新生</div>
+              <div class="td-sub">将于 10 月 22 日 09:00 自动开放</div>
+            </div>
+            <a class="btn-text" href="#">编辑</a>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--rice); padding-top:16px; margin-top:6px;">
+        <a class="btn-outline btn-small" href="#">添加课节</a>
+      </div>
+    </div>
+
+    <!-- 资料开放时间 -->
+    <div class="panel">
+      <div class="panel-title">资料开放时间<span class="title-note">跟着课节走</span></div>
+      <p class="panel-desc">资料可按课节进度定时开放，学员到时间自动可见，无需手动发送。</p>
+      <table class="table" style="margin-top:10px;">
+        <thead>
+          <tr><th>课节</th><th>资料</th><th>开放状态</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>第 1 课</td>
+            <td class="num">2 份资料</td>
+            <td><span class="tag green">已开放</span></td>
+          </tr>
+          <tr>
+            <td>第 2 课</td>
+            <td class="num">3 份资料</td>
+            <td><span class="tag green">已开放</span></td>
+          </tr>
+          <tr>
+            <td>第 3 课</td>
+            <td class="num">4 份资料</td>
+            <td><span class="tag">定时开放</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 报名表单设置 -->
+    <div class="panel">
+      <div class="panel-title">报名表单设置<span class="title-note">报名时需要填写的信息</span></div>
+      <p class="panel-desc">本期报名需填写以下信息，学员提交后可在报名名单中查看。</p>
+      <div class="form-tags">
+        <span class="tag gray">姓名</span>
+        <span class="tag gray">手机号</span>
+        <span class="tag gray">微信号</span>
+        <span class="tag gray">所在城市</span>
+        <span class="tag gray">居住户型</span>
+        <span class="tag gray">最想整理的区域</span>
+      </div>
+      <a class="btn-outline btn-small" href="#">编辑表单</a>
+    </div>
+
+    <!-- 安静的操作 -->
+    <div class="quiet-actions">
+      <a class="btn-outline" href="#">导出报名名单</a>
+      <div class="spacer"></div>
+      <a class="btn-text" href="#">查看作业与打卡</a>
+    </div>
+
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  // Tab 切换
+  var tabs = document.querySelectorAll('#detailTabs a');
+  tabs.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var tab = a.getAttribute('data-tab');
+      if (!tab) return; // 内容发布外链
+      e.preventDefault();
+      tabs.forEach(function (x) { x.classList.remove('active'); });
+      a.classList.add('active');
+      document.querySelectorAll('.tab-zone').forEach(function (z) {
+        z.style.display = z.getAttribute('data-zone') === tab ? '' : 'none';
+      });
+    });
+  });
+  // 保存/导出/精选 的轻提示
+  document.querySelectorAll('[data-save-tab]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); showToast('课程信息已保存，小程序端即时生效'); });
+  });
+  document.querySelectorAll('[data-export]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); showToast('报名名单已导出（含报名信息与付款状态）'); });
+  });
+  document.querySelectorAll('[data-pick]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      var tr = b.closest('tr');
+      var cell = tr.querySelectorAll('td')[3];
+      var picked = cell.querySelector('.tag').classList.contains('green');
+      if (picked) {
+        cell.innerHTML = '<span class="tag gray">正常</span>';
+        b.textContent = '精选';
+      } else {
+        cell.innerHTML = '<span class="tag green">被精选</span>';
+        b.textContent = '取消精选';
+      }
+      showToast(picked ? '已取消精选' : '已精选，学员端将显示「被精选」标记');
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 商城</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .shop-intro {
+    font-family: var(--serif); font-size: 15px; color: var(--ink);
+    padding: 6px 20px 20px; line-height: 1.7;
+  }
+  .cat-tabs {
+    display: flex; gap: 12px 20px; flex-wrap: wrap;
+    padding: 4px 20px 14px;
+    scrollbar-width: none;
+  }
+  .cat-tabs::-webkit-scrollbar { display: none; }
+  .cat-tabs a {
+    flex-shrink: 0; text-decoration: none;
+    font-size: 13px; color: var(--ash);
+    padding-bottom: 6px; border-bottom: 1px solid transparent;
+    letter-spacing: 0.04em;
+  }
+  .cat-tabs a.active {
+    font-family: var(--serif); font-weight: 600; font-size: 14px;
+    color: var(--ink); border-bottom-color: var(--tea);
+  }
+  .goods-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    padding: 0 20px 24px;
+  }
+  .goods-card {
+    display: block; text-decoration: none; background: var(--paper);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(43,68,32,.06), 0 8px 24px rgba(43,68,32,.05);
+    transition: transform .15s ease-out;
+  }
+  .goods-card:active { transform: scale(.97); }
+  .goods-photo {
+    position: relative; aspect-ratio: 1 / 1;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(250,246,232,.9);
+  }
+  .goods-photo svg { width: 44px; height: 44px; }
+  .goods-body { padding: 12px 14px 14px; }
+  .goods-name {
+    font-family: var(--serif); font-size: 15px; font-weight: 500;
+    color: var(--ink); line-height: 1.5; margin-bottom: 6px;
+  }
+  .goods-desc {
+    font-size: 12px; color: var(--ash); line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .goods-foot {
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  .goods-price { font-size: 15px; font-weight: 600; color: var(--caramel); }
+  .goods-price small { font-size: 12px; font-weight: 400; color: var(--ash); }
+  .goods-source {
+    font-size: 11px; color: var(--tea); letter-spacing: 0.04em;
+    display: inline-flex; align-items: center; gap: 3px;
+  }
+  .mini-tag {
+    display: inline-block; font-size: 11px; color: var(--tea);
+    border: 1px solid var(--tea); border-radius: 4px;
+    padding: 1px 5px; margin-bottom: 8px; letter-spacing: 0.05em;
+  }
+  /* 小程序跳转面板 */
+  .mini-panel-title {
+    text-align: center; font-family: var(--serif);
+    font-size: 16px; color: var(--ink); margin-bottom: 8px;
+  }
+  .mini-panel-sub {
+    text-align: center; font-size: 13px; color: var(--ash);
+    line-height: 1.7; margin-bottom: 22px;
+  }
+  .mini-app-row {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--rice); border-radius: 12px;
+    padding: 12px 14px; margin-bottom: 20px;
+  }
+  .mini-app-ico {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+    background: var(--caramel); color: var(--cream-text);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mini-app-ico svg { width: 22px; height: 22px; }
+  .mini-app-name { font-size: 14px; color: var(--ink); font-weight: 500; }
+  .mini-app-meta { font-size: 12px; color: var(--ash); margin-top: 2px; }
+  .mini-open {
+    width: 100%; height: 46px; border-radius: 23px;
+    border: none; background: var(--caramel); color: var(--cream-text);
+    font-size: 15px; letter-spacing: 0.06em; cursor: pointer;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <span class="nav-spacer"></span>
+    <span class="nav-title">商城</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <p class="shop-intro">认真挑选的素食好物，由合作店铺直供。下单将前往第三方小程序完成。</p>
+
+  <!-- 分类 -->
+  <div class="cat-tabs" id="catTabs">
+    <a href="#" class="active" data-cat="all">全部</a>
+    <a href="#" data-cat="gift">礼品订制</a>
+    <a href="#" data-cat="bean">豆制品</a>
+    <a href="#" data-cat="grain">谷物杂粮</a>
+    <a href="#" data-cat="mushroom">菌菇干货</a>
+    <a href="#" data-cat="milk">植物奶</a>
+    <a href="#" data-cat="tea">茶饮</a>
+    <a href="#" data-cat="snack">零食</a>
+  </div>
+
+  <!-- 个性化伴手礼定制(海报说明页,无产品价格,引导联系客服) -->
+  <div id="giftZone" style="display: none; padding: 0 20px 24px;">
+    <div class="card" style="overflow: hidden;">
+      <div class="photo photo-flower" style="aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center; color: rgba(255,255,255,.95);">
+          <div style="font-family: var(--serif); font-size: 20px; letter-spacing: 0.12em; margin-bottom: 8px;">个性化伴手礼定制</div>
+          <div style="font-size: 12px; letter-spacing: 0.2em; opacity: .85;">一份带着心意的礼物</div>
+        </div>
+      </div>
+      <div style="padding: 20px;">
+        <p class="body-text" style="font-size: 14px; line-height: 1.9; color: var(--ink);">
+          节日走访、感恩回馈、活动纪念……告诉我们你的场合与心意，若星为你搭配一份恰到好处的伴手礼。
+        </p>
+        <div style="margin-top: 18px;">
+          <div class="notice-line" style="display: flex; padding: 9px 0; font-size: 14px; border-top: 1px solid var(--rice);"><span style="width: 76px; flex-shrink: 0; color: var(--ash); font-size: 13px;">定制内容</span><span>素食茶点 · 谷物礼盒 · 茶饮组合</span></div>
+          <div class="notice-line" style="display: flex; padding: 9px 0; font-size: 14px; border-top: 1px solid var(--rice);"><span style="width: 76px; flex-shrink: 0; color: var(--ash); font-size: 13px;">定制方式</span><span>告诉我们场合、预算与份数</span></div>
+          <div class="notice-line" style="display: flex; padding: 9px 0; font-size: 14px; border-top: 1px solid var(--rice); border-bottom: 1px solid var(--rice);"><span style="width: 76px; flex-shrink: 0; color: var(--ash); font-size: 13px;">交付周期</span><span>确认方案后 5-7 天</span></div>
+        </div>
+        <div style="margin-top: 22px; text-align: center;">
+          <button type="button" class="btn-secondary" id="giftContact" style="border: none; background: var(--caramel); color: var(--cream-text); width: 100%; border-radius: 24px; height: 48px; font-size: 15px; display: flex; align-items: center; justify-content: center;">联系客服，聊聊你的想法</button>
+          <p class="micro" style="margin-top: 12px; color: var(--ash);">客服会与你一对一沟通定制方案</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 商品货架 -->
+  <div class="goods-grid" id="goodsGrid">
+
+    <a class="goods-card" href="#" data-goods="老豆腐·盐卤点浆" data-app="若心拾光">
+      <div class="goods-photo photo-food">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 44C32 44 32 40.1355 32.0015 40.1282C32.6987 39.7817 33.3702 39.3913 34.0124 38.9606C34.9896 38.3053 35.899 37.5569 36.7279 36.7279C39.9853 33.4706 42 28.9706 42 24H6C6 28.9706 8.01472 33.4706 11.2721 36.7279C12.1086 37.5645 13.0271 38.319 14.0145 38.9786C14.653 39.4051 15.3204 39.792 16.0131 40.1355L16 44H32Z"/><path d="M24 18.0083V8"/><path d="M36 18.0083V12"/><path d="M12 18.0083V12"/><path d="M40 8C37.7909 8 36 9.79086 36 12"/><path d="M28 4C25.7909 4 24 5.79086 24 8"/><path d="M16 8C13.7909 8 12 9.79086 12 12"/></svg>
+      </div>
+      <div class="goods-body">
+        <span class="mini-tag">第三方店铺</span>
+        <div class="goods-name">老豆腐 · 盐卤点浆</div>
+        <div class="goods-desc">清晨现做，豆香扎实，口感紧实有回甘</div>
+        <div class="goods-foot">
+          <span class="goods-price">¥8.8 <small>/ 400g</small></span>
+          <span class="goods-source">若心拾光</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="goods-card" href="#" data-goods="有机糙米·五常产地" data-app="若心拾光">
+      <div class="goods-photo photo-baking">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 38C33.3888 38 41 30.9411 41 21H7C7 30.9411 14.6112 38 24 38Z"/><path d="M30 21C30 15.4772 25.7467 11 20.5 11C15.2533 11 11 15.4772 11 21"/><path d="M39 21C39 17.6863 36.234 15 32.822 15C31.379 15 30.0515 15.4805 29 16.2857"/><path d="M33 15L36 5"/><path d="M38.0002 18.0001L42.0002 11.0001"/><path d="M18 37L16 43H32L30 37"/></svg>
+      </div>
+      <div class="goods-body">
+        <span class="mini-tag">第三方店铺</span>
+        <div class="goods-name">有机糙米 · 五常产地</div>
+        <div class="goods-desc">带胚芽的糙米，慢慢咀嚼有淡淡麦香</div>
+        <div class="goods-foot">
+          <span class="goods-price">¥19.9 <small>/ 1kg</small></span>
+          <span class="goods-source">若心拾光</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="goods-card" href="#" data-goods="香菇·古田厚肉菇" data-app="若心拾光">
+      <div class="goods-photo photo-space">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M34 28L44 24"/><path d="M4 28H34L33.5613 31.8024C33.1537 35.3345 30.163 38 26.6074 38H11.3926C7.83703 38 4.84629 35.3345 4.43873 31.8024L4 28Z"/><path d="M19 10V20"/><path d="M11 12V18"/><path d="M27 12V18"/></svg>
+      </div>
+      <div class="goods-body">
+        <span class="mini-tag">第三方店铺</span>
+        <div class="goods-name">香菇 · 古田厚肉菇</div>
+        <div class="goods-desc">菇伞厚实，煲汤提鲜，半斤一袋</div>
+        <div class="goods-foot">
+          <span class="goods-price">¥29.9 <small>/ 250g</small></span>
+          <span class="goods-source">若心拾光</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="goods-card" href="#" data-goods="纯燕麦奶·无糖原味" data-app="若心拾光">
+      <div class="goods-photo photo-body">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5736C12 19.1988 12.1053 18.8315 12.304 18.5136L17 11H31L35.696 18.5136C35.8947 18.8315 36 19.1988 36 19.5736V42C36 43.1046 35.1046 44 34 44H14C12.8954 44 12 43.1046 12 42V19.5736Z"/><path d="M19 33V24L24 30L29 24V33"/><path d="M17 4H31V11H17V4Z"/></svg>
+      </div>
+      <div class="goods-body">
+        <span class="mini-tag">第三方店铺</span>
+        <div class="goods-name">纯燕麦奶 · 无糖原味</div>
+        <div class="goods-desc">只用水和燕麦，淡淡的谷物甜</div>
+        <div class="goods-foot">
+          <span class="goods-price">¥15.9 <small>/ 1L</small></span>
+          <span class="goods-source">若心拾光</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="goods-card" href="#" data-goods="武夷肉桂·岩茶小罐" data-app="若心拾光">
+      <div class="goods-photo photo-tea">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 18.1672C11 18.0749 11.0749 18 11.1672 18H34.8328C34.9251 18 35 18.0749 35 18.1672V30C35 36.6274 29.6274 42 23 42C16.3726 42 11 36.6274 11 30V18.1672Z"/><path d="M35 30C38.3137 30 41 27.3137 41 24C41 20.6863 38.3137 18 35 18"/><line x1="11" y1="8" x2="11" y2="11"/><line x1="35" y1="8" x2="35" y2="11"/><line x1="23" y1="5" x2="23" y2="11"/></svg>
+      </div>
+      <div class="goods-body">
+        <span class="mini-tag">第三方店铺</span>
+        <div class="goods-name">武夷肉桂 · 岩茶小罐</div>
+        <div class="goods-desc">桂皮香显，茶汤橙黄，一罐约十泡</div>
+        <div class="goods-foot">
+          <span class="goods-price">¥68 <small>/ 50g</small></span>
+          <span class="goods-source">若心拾光</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="goods-card" href="#" data-goods="黑芝麻丸·九蒸九晒" data-app="若心拾光">
+      <div class="goods-photo photo-read">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23.9111 11.3176C23.9931 9.08606 24.6201 7.12594 25.7772 5.4874C26.9402 3.84056 28.8628 2.6707 31.4945 2.00781C31.512 2.08885 31.5302 2.16994 31.5491 2.25072V2.67472C31.5491 3.63616 31.3159 4.73862 30.8556 5.95127C30.3732 7.12541 29.6193 8.23048 28.618 9.22782C27.6815 10.1066 26.8151 10.6884 26.0494 10.9514C25.7966 11.0269 25.45 11.1012 25.0314 11.1681C24.6591 11.2261 24.2856 11.276 23.9111 11.3176Z"/><path d="M24.3502 14.629C21.3775 14.629 19.3136 11.9999 16.3813 11.9999C13.4491 11.9999 7.4082 14.6951 7.4082 23.9999C7.4082 33.3047 12.7726 39.2999 13.3726 39.9999C13.9725 40.7 15.3601 42.4994 17.5098 42.4994C19.6596 42.4994 22.0131 40.7902 24.3502 40.7902C26.6872 40.7902 29.6288 42.4994 31.5492 42.4994C33.4696 42.4994 34.2595 41.7165 35.5665 40.3662C36.8734 39.0159 39.3663 34.8952 40.2369 32.422C38.8029 31.5684 35.0021 29.2511 35.0021 23.9999C35.0021 20.4992 36.2814 17.5909 38.8401 15.2752C37.1615 13.0917 35.2147 11.9999 32.9996 11.9999C29.6769 11.9999 27.3229 14.629 24.3502 14.629Z"/></svg>
+      </div>
+      <div class="goods-body">
+        <span class="mini-tag">第三方店铺</span>
+        <div class="goods-name">黑芝麻丸 · 九蒸九晒</div>
+        <div class="goods-desc">黑芝麻与枣泥的紧实小丸，一天一颗</div>
+        <div class="goods-foot">
+          <span class="goods-price">¥39.9 <small>/ 15 颗</small></span>
+          <span class="goods-source">若心拾光</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- 底部导航 -->
+  <nav class="tabbar" aria-label="底部导航">
+    <a href="home.html">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V42H39V18L24 6L9 18Z"/><path d="M19 29V42H29V29H19Z"/><path d="M9 42H39"/></svg></span><span>首页</span>
+    </a>
+    <a href="courses.html">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 44L22.6875 15.5"/><path d="M36 44L25.3125 15.5"/><circle cx="24" cy="12" r="4"/><path d="M37.57 33C33.6618 35.5307 29.0024 37 23.9998 37C18.9973 37 14.3379 35.5307 10.4297 33"/><path d="M24 8V4"/></svg></span><span>成长</span>
+    </a>
+    <a href="shop.html" class="active">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12H44V20L42.6015 20.8391C40.3847 22.1692 37.6153 22.1692 35.3985 20.8391L34 20L32.6015 20.8391C30.3847 22.1692 27.6153 22.1692 25.3985 20.8391L24 20L22.6015 20.8391C20.3847 22.1692 17.6153 22.1692 15.3985 20.8391L14 20L12.6015 20.8391C10.3847 22.1692 7.61531 22.1692 5.39853 20.8391L4 20V12Z"/><path d="M8 22.4889V44H40V22"/><path d="M8 11.8222V4H40V12"/><rect x="19" y="32" width="10" height="12"/></svg></span><span>商城</span>
+    </a>
+    <a href="me.html">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="12" r="8"/><path d="M42 44C42 34.0589 33.9411 26 24 26C14.0589 26 6 34.0589 6 44"/></svg></span><span>我的</span>
+    </a>
+  </nav>
+
+</div>
+
+<!-- 即将打开小程序面板 -->
+<div class="share-mask" id="miniMask" role="dialog" aria-modal="true" aria-label="即将打开小程序">
+  <div class="share-panel">
+    <div class="mini-panel-title" id="miniTitle">老豆腐 · 盐卤点浆</div>
+    <div class="mini-panel-sub">即将离开若星，前往第三方小程序购买。</div>
+    <div class="mini-app-row">
+      <span class="mini-app-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12H44V20L42.6015 20.8391C40.3847 22.1692 37.6153 22.1692 35.3985 20.8391L34 20L32.6015 20.8391C30.3847 22.1692 27.6153 22.1692 25.3985 20.8391L24 20L22.6015 20.8391C20.3847 22.1692 17.6153 22.1692 15.3985 20.8391L14 20L12.6015 20.8391C10.3847 22.1692 7.61531 22.1692 5.39853 20.8391L4 20V12Z"/><path d="M8 22.4889V44H40V22"/><path d="M8 11.8222V4H40V12"/><rect x="19" y="32" width="10" height="12"/></svg></span>
+      <div>
+        <div class="mini-app-name" id="miniApp">若心拾光</div>
+        <div class="mini-app-meta">第三方小程序 · 由商家独立运营</div>
+      </div>
+    </div>
+    <button type="button" class="mini-open" id="miniOpen">打开小程序</button>
+    <button type="button" class="share-cancel" id="miniCancel">取消</button>
+  </div>
+</div>
+<!-- 客服弹层(礼品定制咨询,正式版由 open-type="contact" 唤起官方客服) -->
+<div class="share-mask" id="kfMask" role="dialog" aria-modal="true" aria-label="联系客服">
+  <div class="share-panel">
+    <div class="mini-panel-title">伴手礼定制咨询</div>
+    <div class="mini-panel-sub">即将进入小程序官方客服会话，和客服聊聊你的场合与心意。</div>
+    <div class="mini-app-row">
+      <span class="mini-app-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 24C44 35.0457 35.0457 44 24 44C18.6 44 13.7 41.9 10 38.4L4 44V24C4 12.9543 12.9543 4 24 4C35.0457 4 44 12.9543 44 24Z"/><path d="M16 22H16.02"/><path d="M24 22H24.02"/><path d="M32 22H32.02"/></svg></span>
+      <div>
+        <div class="mini-app-name">若星空间 · 官方客服</div>
+        <div class="mini-app-meta">服务时间 · 每日 9:00 - 21:00</div>
+      </div>
+    </div>
+    <button type="button" class="mini-open" id="kfOpen">进入客服会话</button>
+    <button type="button" class="share-cancel" id="kfCancel">取消</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var mask = document.getElementById('miniMask');
+  var toast = document.getElementById('toast');
+  var title = document.getElementById('miniTitle');
+  var app = document.getElementById('miniApp');
+  var cancel = document.getElementById('miniCancel');
+  var openBtn = document.getElementById('miniOpen');
+
+  function open() { mask.classList.add('open'); }
+  function close() { mask.classList.remove('open'); }
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  document.querySelectorAll('.goods-card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      e.preventDefault();
+      title.textContent = card.getAttribute('data-goods');
+      app.textContent = card.getAttribute('data-app');
+      open();
+    });
+  });
+  if (cancel) cancel.addEventListener('click', close);
+  if (openBtn) openBtn.addEventListener('click', function () {
+    close();
+    showToast('即将打开「' + app.textContent + '」小程序');
+  });
+  if (mask) mask.addEventListener('click', function (e) {
+    if (e.target === mask) close();
+  });
+
+  // 分类切换:礼品订制显示海报说明页,其余分类显示货架
+  var catTabs = document.querySelectorAll('#catTabs a');
+  var giftZone = document.getElementById('giftZone');
+  var goodsGrid = document.getElementById('goodsGrid');
+  catTabs.forEach(function (tab) {
+    tab.addEventListener('click', function (e) {
+      e.preventDefault();
+      catTabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      var isGift = tab.getAttribute('data-cat') === 'gift';
+      giftZone.style.display = isGift ? 'block' : 'none';
+      goodsGrid.style.display = isGift ? 'none' : '';
+    });
+  });
+
+  // 礼品定制 → 联系客服
+  var kfMask = document.getElementById('kfMask');
+  document.getElementById('giftContact').addEventListener('click', function () {
+    kfMask.classList.add('open');
+  });
+  document.getElementById('kfCancel').addEventListener('click', function () { kfMask.classList.remove('open'); });
+  document.getElementById('kfOpen').addEventListener('click', function () {
+    kfMask.classList.remove('open');
+    showToast('正在打开官方客服会话…');
+  });
+  kfMask.addEventListener('click', function (e) { if (e.target === kfMask) kfMask.classList.remove('open'); });
+})();
+</script>
+</body>
+</html>

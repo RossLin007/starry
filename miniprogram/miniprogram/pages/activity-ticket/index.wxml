@@ -1,0 +1,54 @@
+<!-- pages/activity-ticket/index.wxml -->
+<view class="container ticket-page" wx:if="{{ ticket }}">
+  <!-- 电子票主体卡片 (复古票根设计) -->
+  <view class="ticket-card">
+    <view class="ticket-header">
+      <view class="ticket-brand">✦ 若星空间 · 入场凭证</view>
+      <view class="ticket-status-badge {{ ticket.isCheckedIn ? 'badge-checked' : 'badge-pending' }}">
+        {{ ticket.isCheckedIn ? '✓ 已核销入场' : '待核销 · 现场出示' }}
+      </view>
+    </view>
+
+    <view class="ticket-main">
+      <view class="ticket-title">{{ ticket.activity.title }}</view>
+
+      <view class="ticket-detail-row">
+        <text class="row-label">持票人：</text>
+        <text class="row-val">{{ ticket.user.nickname }} ({{ ticket.user.phone || '微信学员' }})</text>
+      </view>
+      <view class="ticket-detail-row">
+        <text class="row-label">时　间：</text>
+        <text class="row-val">{{ ticket.activity.startTime }}</text>
+      </view>
+      <view class="ticket-detail-row">
+        <text class="row-label">地　点：</text>
+        <text class="row-val">{{ ticket.activity.location || '线上腾讯会议' }}</text>
+      </view>
+    </view>
+
+    <!-- 虚线打孔分割线 -->
+    <view class="ticket-divider">
+      <view class="punch-hole left-hole"></view>
+      <view class="dash-line"></view>
+      <view class="punch-hole right-hole"></view>
+    </view>
+
+    <!-- 二维码与核销码 -->
+    <view class="ticket-qr-section">
+      <view class="qr-box">
+        <view class="qr-placeholder">
+          <text class="qr-mock-icon">▦</text>
+          <text class="qr-mock-text">签到核销专用码</text>
+        </view>
+      </view>
+      <view class="ticket-code-text">票号：{{ ticket.ticketCode }}</view>
+      <view class="ticket-hint">入场时请向若星团队主理人出示此码核销</view>
+    </view>
+  </view>
+
+  <!-- 底部操作按钮 -->
+  <view class="actions-box">
+    <button class="starry-btn save-btn" bindtap="onSaveTicket">截屏保存凭证</button>
+    <button class="home-btn" bindtap="onBackHome">返回首页</button>
+  </view>
+</view>

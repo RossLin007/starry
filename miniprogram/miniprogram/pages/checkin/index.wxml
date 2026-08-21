@@ -1,0 +1,36 @@
+<!-- pages/checkin/index.wxml -->
+<view class="container checkin-page">
+  <!-- 顶部提示卡片 -->
+  <view class="starry-card tip-card">
+    <view class="tip-title">✦ 每日实践打卡</view>
+    <view class="tip-desc">记录一次空间的整理、一次心念的舍弃。每次完成打卡可点亮 1 颗星图并累计 10 积分。</view>
+    <view wx:if="{{ courseTitle }}" class="tag-course">关联课程：{{ courseTitle }}</view>
+  </view>
+
+  <!-- 心得输入区域 -->
+  <view class="starry-card input-card">
+    <textarea
+      class="content-input"
+      placeholder="记录今日的整理体会、舍弃心念或空间蜕变后的感受..."
+      maxlength="800"
+      bindinput="onInputContent"
+      value="{{ content }}"
+    />
+
+    <!-- 图片上传与预览 -->
+    <view class="images-grid">
+      <view wx:for="{{ images }}" wx:key="*this" class="image-item">
+        <image src="{{ item }}" mode="aspectFill" class="preview-img" />
+      </view>
+      <view class="upload-btn" bindtap="onChooseImage" wx:if="{{ images.length < 6 }}">
+        <text class="upload-icon">📷</text>
+        <text class="upload-text">添加照片</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button class="starry-btn submit-btn" loading="{{ submitting }}" bindtap="onSubmit">
+    完成今日打卡 · 点亮星图 ➔
+  </button>
+</view>

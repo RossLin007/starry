@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 故事管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .story-thumb { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html" class="active">故事管理<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>故事管理</h1>
+      </div>
+      <div>
+        <a class="btn-outline" href="#" id="exportBtn" style="margin-right: 10px;">汇总导出</a>
+        <a class="btn" href="publish.html">上传故事</a>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <a href="#" class="active">全部</a>
+        <a href="#">书友故事</a>
+        <a href="#">空间故事</a>
+        <a href="#">料理故事</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="search-box">
+        <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+        <input type="text" placeholder="搜索故事">
+      </div>
+    </div>
+
+    <div class="panel" style="padding-top:14px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>故事</th>
+            <th>来源课程</th>
+            <th>标签</th>
+            <th>留言</th>
+            <th>状态</th>
+            <th>日期</th>
+            <th style="text-align:right;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-read story-thumb"></div>
+                <div><div class="td-main">在山里住了三天，我把手机留在了家里</div><div class="td-sub">阿瑾 · 书友故事</div></div>
+              </div>
+            </td>
+            <td>拾光读书 · 第 3 期</td>
+            <td><span class="tag">独处</span> <span class="tag">自然</span></td>
+            <td class="num">12</td>
+            <td><span class="tag green">已发布</span></td>
+            <td>9 月 14 日</td>
+            <td style="text-align:right;"><a class="row-link" href="publish.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-space story-thumb"></div>
+                <div><div class="td-main">清空了玄关，进门的第一秒就松了口气</div><div class="td-sub">小满 · 空间故事</div></div>
+              </div>
+            </td>
+            <td>空间管理 · 第 7 期</td>
+            <td><span class="tag">断舍离</span> <span class="tag">整理</span></td>
+            <td class="num">8</td>
+            <td><span class="tag green">已发布</span></td>
+            <td>9 月 12 日</td>
+            <td style="text-align:right;"><a class="row-link" href="publish.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-food story-thumb"></div>
+                <div><div class="td-main">第一次为家人做了一桌全素的晚餐</div><div class="td-sub">阿玲 · 料理故事</div></div>
+              </div>
+            </td>
+            <td>生活料理 · 第 12 期</td>
+            <td><span class="tag">食材预处理</span></td>
+            <td class="num">15</td>
+            <td><span class="tag green">已发布</span></td>
+            <td>9 月 12 日</td>
+            <td style="text-align:right;"><a class="row-link" href="publish.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-tea story-thumb"></div>
+                <div><div class="td-main">每天早起一小时，我读完了整本《瓦尔登湖》</div><div class="td-sub">知远 · 书友故事</div></div>
+              </div>
+            </td>
+            <td>拾光读书 · 第 3 期</td>
+            <td><span class="tag">阅读</span> <span class="tag">简朴</span></td>
+            <td class="num">6</td>
+            <td><span class="tag green">已发布</span></td>
+            <td>9 月 10 日</td>
+            <td style="text-align:right;"><a class="row-link" href="publish.html">编辑</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-kids story-thumb"></div>
+                <div><div class="td-main">和孩子一起重读《瓦尔登湖》</div><div class="td-sub">阿禾 · 书友故事</div></div>
+              </div>
+            </td>
+            <td>拾光读书 · 第 3 期</td>
+            <td><span class="tag">阅读</span></td>
+            <td class="num">4</td>
+            <td><span class="tag gray">草稿</span></td>
+            <td>9 月 6 日</td>
+            <td style="text-align:right;"><a class="row-link" href="publish.html">编辑</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span>共 18 篇故事 · 本期 6 篇</span>
+        <div class="pages">
+          <a href="#" class="cur">1</a>
+          <a href="#">2</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  document.getElementById('exportBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    showToast('已生成本期故事汇总文档（pdf），可下载');
+  });
+})();
+</script>
+</body>
+</html>

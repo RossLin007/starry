@@ -1,0 +1,104 @@
+/* pages/activities/index.wxss */
+.type-bar {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.type-tab {
+  padding: 12rpx 28rpx;
+  background: #F1F5F9;
+  color: var(--starry-text-secondary);
+  font-size: 26rpx;
+  border-radius: var(--starry-radius-full);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.type-tab.active {
+  background: var(--starry-primary);
+  color: #FFFFFF;
+}
+
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.act-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.act-cover-box {
+  position: relative;
+  width: 100%;
+  height: 300rpx;
+}
+
+.act-cover {
+  width: 100%;
+  height: 100%;
+}
+
+.act-type-tag {
+  position: absolute;
+  top: 16rpx;
+  left: 16rpx;
+  background: rgba(15, 23, 42, 0.75);
+  color: #FFFFFF;
+  font-size: 20rpx;
+  padding: 6rpx 18rpx;
+  border-radius: var(--starry-radius-full);
+  backdrop-filter: blur(6px);
+}
+
+.act-body {
+  padding: 24rpx 28rpx 28rpx;
+}
+
+.act-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--starry-text-main);
+  margin-bottom: 16rpx;
+  line-height: 1.4;
+}
+
+.act-info {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 24rpx;
+  color: var(--starry-text-secondary);
+  margin-bottom: 8rpx;
+}
+
+.location-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.act-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1rpx solid var(--starry-muted-bg);
+  padding-top: 20rpx;
+  margin-top: 16rpx;
+}
+
+.act-price {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--starry-gold);
+}
+
+.act-btn {
+  font-size: 24rpx;
+  color: var(--starry-primary);
+  font-weight: 600;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 我的活动</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .act-card { display: block; text-decoration: none; color: var(--ink); overflow: hidden; }
+  .act-card .ac-body { padding: 16px 18px 18px; }
+  .act-card .ac-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .act-card .ac-name { font-family: var(--serif); font-size: 16px; font-weight: 500; }
+  .act-card .ac-meta { font-size: 13px; color: var(--ash); margin-top: 8px; line-height: 1.7; }
+  .act-card .ac-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rice);
+  }
+  .status-upcoming { display: inline-flex; font-size: 11px; color: var(--caramel); border: 1px solid var(--caramel); border-radius: 4px; padding: 2px 8px; }
+  .status-done { display: inline-flex; font-size: 11px; color: var(--ash); border: 1px solid var(--rice); border-radius: 4px; padding: 2px 8px; }
+  .ac-order { font-size: 12px; color: var(--ash); }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="me.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">课程已完成</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 待赴约 -->
+  <div class="section fade-up">
+    <div class="section-head"><span class="section-title">待赴约 · 1</span></div>
+    <div class="card act-card">
+      <a href="activity-detail.html" style="text-decoration: none; color: var(--ink); display: block;">
+        <div class="photo photo-tea" style="height: 130px;"><span class="photo-label">初秋茶会</span></div>
+        <div class="ac-body">
+          <div class="ac-head">
+            <span class="ac-name">初秋茶会</span>
+            <span class="status-upcoming">待赴约</span>
+          </div>
+          <div class="ac-meta">9 月 7 日（周日）14:00 · 若星莘庄空间 · 1 人 · 已付 ¥168</div>
+          <div class="ac-foot">
+            <span class="ac-order">订单 RX2026090701</span>
+            <span class="btn-text">查看详情</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 已完成 -->
+  <div class="section" style="margin-bottom: 0;">
+    <div class="section-head"><span class="section-title">已完成 · 2</span></div>
+    <div style="display: flex; flex-direction: column; gap: 18px;">
+      <a class="card act-card" href="learn-baking.html" style="text-decoration: none; color: var(--ink); display: block;">
+        <div class="ac-body">
+          <div class="ac-head">
+            <span class="ac-name">食光烘焙 · 第 1 期（线下 3 天）</span>
+            <span class="status-done">已结课</span>
+          </div>
+          <div class="ac-meta">9 月 21 日结课 · 日日新生陪伴第 12 天 / 共 30 天 · 每天 7:30 推送</div>
+        </div>
+      </a>
+      <div class="card act-card" style="opacity: .8;">
+        <div class="ac-body">
+          <div class="ac-head">
+            <span class="ac-name">端午包粽 · 亲子厨房</span>
+            <span class="status-done">已完成</span>
+          </div>
+          <div class="ac-meta">6 月 8 日 · 若星莘庄空间 · 2 人</div>
+        </div>
+      </div>
+      <div class="card act-card" style="opacity: .8;">
+        <div class="ac-body">
+          <div class="ac-head">
+            <span class="ac-name">仲夏读书会</span>
+            <span class="status-done">已完成</span>
+          </div>
+          <div class="ac-meta">7 月 26 日 · 线上 · 1 人</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

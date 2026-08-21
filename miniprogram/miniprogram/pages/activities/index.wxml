@@ -1,0 +1,48 @@
+<!-- pages/activities/index.wxml -->
+<view class="container">
+  <!-- 分类筛选横滑栏 -->
+  <view class="type-bar">
+    <view
+      wx:for="{{ types }}"
+      wx:key="key"
+      class="type-tab {{ activeType === item.key ? 'active' : '' }}"
+      data-type="{{ item.key }}"
+      bindtap="onSelectType"
+    >
+      {{ item.label }}
+    </view>
+  </view>
+
+  <!-- 活动列表 -->
+  <view class="activities-list">
+    <view
+      wx:for="{{ activities }}"
+      wx:key="id"
+      class="starry-card act-card"
+      data-id="{{ item.id }}"
+      bindtap="onTapActivity"
+    >
+      <view class="act-cover-box">
+        <image class="act-cover" src="{{ item.coverUrl }}" mode="aspectFill" />
+        <view class="act-type-tag">{{ item.activityType === 'OFFLINE' ? '📍 线下雅集' : '💻 线上共创' }}</view>
+      </view>
+
+      <view class="act-body">
+        <view class="act-title">{{ item.title }}</view>
+        <view class="act-info">
+          <text class="info-icon">🗓️</text>
+          <text>{{ item.startTime ? item.startTime : '近期举办' }}</text>
+        </view>
+        <view class="act-info" wx:if="{{ item.location }}">
+          <text class="info-icon">📍</text>
+          <text class="location-text">{{ item.location }}</text>
+        </view>
+
+        <view class="act-footer">
+          <view class="act-price">{{ item.price === 0 ? '免费参加' : '¥' + item.price }}</view>
+          <view class="act-btn">报名入场 ➔</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

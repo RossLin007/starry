@@ -1,0 +1,451 @@
+// ==========================================
+// 若星空间 (Starry Space) - Prisma Schema
+// ==========================================
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ------------------------------------------
+// 枚举定义 (Enums)
+// ------------------------------------------
+
+enum MemberTier {
+  FREE        // 免费学员 / 访客
+  BASIC       // 基础会员
+  DEEP        // 深度会员
+  CO_CREATOR  // 共创伙伴
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum AdminRole {
+  SUPER_ADMIN // 超级管理员
+  OPERATOR    // 运营人员
+}
+
+enum PublishStatus {
+  DRAFT      // 草稿
+  PUBLISHED  // 已发布
+  OFFLINE    // 已下架
+}
+
+enum UnlockType {
+  IMMEDIATE        // 立即解锁
+  DAYS_AFTER_START // 开课后第 N 天解锁
+  FIXED_TIME       // 固定时间点解锁
+}
+
+enum ShippingStatus {
+  NOT_REQUIRED // 无需寄送
+  PENDING      // 待寄送
+  SHIPPED      // 已发货
+  DELIVERED    // 已送达
+}
+
+enum EnrollmentStatus {
+  ACTIVE    // 生效中
+  COMPLETED // 已结营/已完成
+  REFUNDED  // 已退款
+  CANCELLED // 已取消
+}
+
+enum ActivityType {
+  ONLINE  // 线上活动
+  OFFLINE // 线下活动
+}
+
+enum CheckinStatus {
+  PENDING  // 待审核
+  APPROVED // 已通过
+  REJECTED // 未通过
+}
+
+enum ShopStatus {
+  ON_SALE  // 上架
+  OFF_SALE // 下架
+}
+
+enum OrderType {
+  COURSE   // 课程报名
+  ACTIVITY // 活动报名
+  MEMBER   // 会员订阅
+}
+
+enum OrderStatus {
+  PENDING  // 待支付
+  PAID     // 已支付
+  REFUNDED // 已退款
+  CLOSED   // 已关闭
+}
+
+// ------------------------------------------
+// 1. 用户与权限域 (User & Admin)
+// ------------------------------------------
+
+// 小程序学员/会员表
+model User {
+  id              String      @id @default(uuid())
+  openid          String      @unique
+  unionid         String?     @unique
+  nickname        String      @default("若星学员")
+  avatarUrl       String?
+  phone           String?
+  memberTier      MemberTier  @default(FREE)
+  memberExpireAt  DateTime?
+  points          Int         @default(0) // 星图积分
+  status          UserStatus  @default(ACTIVE)
+  shippingAddress Json?       // 格式: { name, phone, province, city, district, address }
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // 关联
+  courseEnrollments   CourseEnrollment[]
+  activityEnrollments ActivityEnrollment[]
+  checkins            Checkin[]
+  orders              Order[]
+  tags                StudentTag[]
+
+  @@map("users")
+}
+
+// 管理后台团队成员表
+model AdminUser {
+  id           String     @id @default(uuid())
+  username     String     @unique
+  email        String?    @unique
+  passwordHash String
+  realName     String
+  avatarUrl    String?
+  role         AdminRole  @default(OPERATOR)
+  status       UserStatus @default(ACTIVE)
+  lastLoginAt  DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("admin_users")
+}
+
+// ------------------------------------------
+// 2. 课程与学习区域 (Course & Study Space)
+// ------------------------------------------
+
+// 课程主表
+model Course {
+  id              String        @id @default(uuid())
+  title           String
+  subtitle        String?
+  category        String        // 空间整理 / 深度阅读 / 生活美学
+  coverUrl        String
+  price           Decimal       @default(0.00) @db.Decimal(10, 2)
+  originalPrice   Decimal?      @db.Decimal(10, 2)
+  maxStudents     Int?
+  currentStudents Int           @default(0)
+  enrollStartTime DateTime?
+  enrollEndTime   DateTime?
+  courseStartTime DateTime?
+  courseEndTime   DateTime?
+  status          PublishStatus @default(DRAFT)
+  description     String        @db.Text
+  formConfig      Json?         // 自定义报名表单字段配置
+  sortOrder       Int           @default(0)
+  isRecommended   Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  // 关联
+  lessons     CourseLesson[]
+  enrollments CourseEnrollment[]
+  checkins    Checkin[]
+
+  @@map("courses")
+}
+
+// 课节表
+model CourseLesson {
+  id          String     @id @default(uuid())
+  courseId    String
+  title       String
+  sectionName String?    // 所属周次/阶段，例如 "第一周：整理心念"
+  sortOrder   Int        @default(0)
+  unlockType  UnlockType @default(IMMEDIATE)
+  unlockDays  Int?       // 开课后第几天解锁 (0 表示第1天)
+  unlockAt    DateTime?  // 固定解锁日期时间
+  content     String?    @db.Text
+  materials   Json?      // 资料列表: [{ name, url, size, type }]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // 关联
+  course   Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  checkins Checkin[]
+
+  @@index([courseId])
+  @@map("course_lessons")
+}
+
+// 课程报名与学习记录
+model CourseEnrollment {
+  id                 String           @id @default(uuid())
+  userId             String
+  courseId           String
+  orderId            String?
+  formData           Json?            // 学员报名填写的表单快照
+  shippingStatus     ShippingStatus   @default(NOT_REQUIRED)
+  shippingTrackingNo String?
+  progressPercent    Int              @default(0) // 0 - 100
+  status             EnrollmentStatus @default(ACTIVE)
+  enrolledAt         DateTime         @default(now())
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  // 关联
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  order  Order? @relation(fields: [orderId], references: [id])
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+  @@map("course_enrollments")
+}
+
+// ------------------------------------------
+// 3. 活动域 (Activity)
+// ------------------------------------------
+
+// 活动主表
+model Activity {
+  id                  String        @id @default(uuid())
+  title               String
+  coverUrl            String
+  activityType        ActivityType  @default(OFFLINE)
+  location            String?       // 线下地址或线上会议号
+  price               Decimal       @default(0.00) @db.Decimal(10, 2)
+  maxParticipants     Int?
+  currentParticipants Int           @default(0)
+  startTime           DateTime
+  endTime             DateTime
+  enrollDeadline      DateTime
+  status              PublishStatus @default(DRAFT)
+  content             String        @db.Text
+  isRecommended       Boolean       @default(false)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  // 关联
+  enrollments ActivityEnrollment[]
+
+  @@map("activities")
+}
+
+// 活动报名记录
+model ActivityEnrollment {
+  id          String    @id @default(uuid())
+  userId      String
+  activityId  String
+  orderId     String?
+  isCheckedIn Boolean   @default(false)
+  checkedInAt DateTime?
+  feedback    String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // 关联
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  order    Order?   @relation(fields: [orderId], references: [id])
+
+  @@unique([userId, activityId])
+  @@index([userId])
+  @@index([activityId])
+  @@map("activity_enrollments")
+}
+
+// ------------------------------------------
+// 4. 打卡实践与成长 (Checkin & Growth)
+// ------------------------------------------
+
+// 学员实践打卡表
+model Checkin {
+  id           String        @id @default(uuid())
+  userId       String
+  courseId     String?
+  lessonId     String?
+  content      String        @db.Text
+  images       Json          @default("[]") // 图片 URL 数组 ["url1", "url2"]
+  status       CheckinStatus @default(PENDING)
+  isFeatured   Boolean       @default(false) // 精选上墙
+  featuredAt   DateTime?
+  adminComment String?       @db.Text // 若星团队陪伴寄语
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  // 关联
+  user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course?       @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  lesson CourseLesson? @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([courseId])
+  @@index([lessonId])
+  @@map("checkins")
+}
+
+// ------------------------------------------
+// 5. 内容与故事域 (Content, Story, Tool)
+// ------------------------------------------
+
+// 学员/会员故事表
+model Story {
+  id            String        @id @default(uuid())
+  title         String
+  authorName    String
+  authorAvatar  String?
+  summary       String        @db.Text
+  content       String        @db.Text
+  coverUrl      String?
+  status        PublishStatus @default(DRAFT)
+  isRecommended Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("stories")
+}
+
+// 每日星语/每日内容表
+model DailyContent {
+  id          String   @id @default(uuid())
+  date        String   @unique // 格式 YYYY-MM-DD
+  quote       String   @db.Text
+  author      String?
+  audioUrl    String?  // 伴读音频
+  content     String?  @db.Text
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("daily_contents")
+}
+
+// 工具与练习表单模板表
+model ToolForm {
+  id          String   @id @default(uuid())
+  title       String
+  category    String   // 整理工具 / 习惯养成 / 深度思考
+  description String?  @db.Text
+  fileUrl     String?  // PDF/Excel 模板下载链接
+  formSchema  Json?    // 在线表单结构配置
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("tool_forms")
+}
+
+// ------------------------------------------
+// 6. 好物推荐商品 (ShopItem - 跳转第三方)
+// ------------------------------------------
+
+model ShopItem {
+  id               String     @id @default(uuid())
+  title            String
+  category         String     // 收纳工具 / 美学器物 / 推荐书籍
+  coverUrl         String
+  images           Json       @default("[]")
+  price            Decimal    @db.Decimal(10, 2)
+  originalPrice    Decimal?   @db.Decimal(10, 2)
+  thirdPartyAppId  String?    // 第三方小程序 AppID
+  thirdPartyPath   String?    // 第三方小程序跳转路径
+  thirdPartyUrl    String?    // 外部 H5 链接
+  status           ShopStatus @default(ON_SALE)
+  sortOrder        Int        @default(0)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  @@map("shop_items")
+}
+
+// ------------------------------------------
+// 7. 交易与订单域 (Order)
+// ------------------------------------------
+
+model Order {
+  id               String      @id @default(uuid())
+  orderNo          String      @unique // 业务订单号 SO20260821xxxx
+  userId           String
+  orderType        OrderType
+  targetId         String      // 关联的课程/活动/会员卡ID
+  targetTitle      String      // 快照名称
+  amount           Decimal     @db.Decimal(10, 2) // 实付金额
+  status           OrderStatus @default(PENDING)
+  payTransactionId String?     // 微信支付流水单号
+  paidAt           DateTime?
+  refundAmount     Decimal?    @db.Decimal(10, 2)
+  refundReason     String?
+  refundAt         DateTime?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  // 关联
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseEnrollments   CourseEnrollment[]
+  activityEnrollments ActivityEnrollment[]
+
+  @@index([userId])
+  @@index([orderNo])
+  @@map("orders")
+}
+
+// ------------------------------------------
+// 8. 标签与系统配置域 (Tag & Config)
+// ------------------------------------------
+
+// 标签表
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  group     String   // course / student / activity
+  color     String?  @default("#3B82F6")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关联
+  studentTags StudentTag[]
+
+  @@unique([name, group])
+  @@map("tags")
+}
+
+// 学员-标签多对多关联
+model StudentTag {
+  id        String   @id @default(uuid())
+  userId    String
+  tagId     String
+  createdAt DateTime @default(now())
+
+  // 关联
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tagId])
+  @@map("student_tags")
+}
+
+// 全局与页面配置表
+model SystemConfig {
+  id          String   @id @default(uuid())
+  key         String   @unique // 例如 home_quote, home_banner, remind_hours
+  value       Json     // 具体配置内容
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("system_configs")
+}

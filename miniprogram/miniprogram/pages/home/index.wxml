@@ -1,0 +1,28 @@
+<!-- pages/home/index.wxml -->
+<view class="container">
+  <!-- 品牌引言区 (对应 docs/Design/prototype-v3/home.html) -->
+  <view class="hero-section starry-card">
+    <view class="brand-badge">✨ {{ brandName }}</view>
+    <view class="slogan-group">
+      <view class="slogan-line" wx:for="{{ slogans }}" wx:key="*this">{{ item }}</view>
+    </view>
+    <view class="sub-slogan">{{ subSlogan }}</view>
+  </view>
+
+  <!-- 每日星语 -->
+  <view class="quote-card starry-card">
+    <view class="quote-header">
+      <text class="quote-title">每日星语</text>
+      <text class="quote-date">今日推荐</text>
+    </view>
+    <view class="quote-content">“{{ todayQuote }}”</view>
+  </view>
+
+  <!-- 推荐模块占位 -->
+  <view class="section-title">课程与活动推荐</view>
+  <view class="starry-card demo-card">
+    <text class="card-tag">进行中</text>
+    <view class="course-title">21天空间生活整理营 · 第四期</view>
+    <view class="course-desc">从书桌到心念，建立温润秩序感的生活方式</view>
+  </view>
+</view>

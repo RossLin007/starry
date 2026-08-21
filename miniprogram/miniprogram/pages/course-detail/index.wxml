@@ -1,0 +1,72 @@
+<!-- pages/course-detail/index.wxml -->
+<view class="container detail-page" wx:if="{{ course }}">
+  <!-- 顶部封面与标签 -->
+  <view class="banner-box">
+    <image class="course-cover" src="{{ course.coverUrl || 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600' }}" mode="aspectFill" />
+    <view class="cover-tag">{{ course.category }}</view>
+  </view>
+
+  <!-- 课程标题与价格卡片 -->
+  <view class="starry-card info-card">
+    <view class="price-row">
+      <text class="price-main">¥{{ course.price }}</text>
+      <text class="price-orig" wx:if="{{ course.originalPrice }}">¥{{ course.originalPrice }}</text>
+      <text class="quota-tip">限量 {{ course.maxStudents || 30 }} 席 · 已报 {{ course.currentStudents || 0 }} 人</text>
+    </view>
+    <view class="detail-title">{{ course.title }}</view>
+    <view class="detail-subtitle">{{ course.subtitle || '温润生活，从秩序开始' }}</view>
+  </view>
+
+  <!-- 开营时间与服务保障 -->
+  <view class="starry-card service-card">
+    <view class="service-item">
+      <text class="service-icon">🗓️</text>
+      <view class="service-text">
+        <view class="service-label">开营时间</view>
+        <view class="service-val">{{ course.courseStartTime ? course.courseStartTime : '近期开营' }}</view>
+      </view>
+    </view>
+    <view class="service-item">
+      <text class="service-icon">📦</text>
+      <view class="service-text">
+        <view class="service-label">实体物料</view>
+        <view class="service-val">报名包含若星定制收纳卡与实践手账</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 课程大纲 -->
+  <view class="section-title">课程大纲与排期</view>
+  <view class="outline-list">
+    <view
+      wx:for="{{ course.lessons }}"
+      wx:key="id"
+      class="starry-card lesson-item"
+    >
+      <view class="lesson-left">
+        <view class="lesson-num">{{ index + 1 }}</view>
+        <view>
+          <view class="lesson-title">{{ item.title }}</view>
+          <view class="lesson-meta">{{ item.sectionName || '核心课节' }} · {{ item.unlockType === 'IMMEDIATE' ? '开营解锁' : '排期开放' }}</view>
+        </view>
+      </view>
+      <view class="lesson-status {{ item.isUnlocked ? 'unlocked' : 'locked' }}">
+        {{ item.isUnlocked ? '可学习' : '待解锁' }}
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部固定操作栏 -->
+  <view class="bottom-bar">
+    <view class="bar-left">
+      <view class="bar-price">¥{{ course.price }}</view>
+      <view class="bar-tip">支持微信支付 / 积分抵扣</view>
+    </view>
+    <view wx:if="{{ course.isEnrolled }}" class="starry-btn enter-btn" bindtap="onTapEnterStudy">
+      已报名 · 进入学习区
+    </view>
+    <view wx:else class="starry-btn enroll-btn" bindtap="onTapEnroll">
+      立即报名
+    </view>
+  </view>
+</view>

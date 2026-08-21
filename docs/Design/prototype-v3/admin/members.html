@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 会员管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .quiet-note { font-size: 12px; color: var(--ash); text-align: center; margin: 4px 0 24px; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html" class="active">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>会员管理</h1>
+      </div>
+      <span class="head-note">共 86 位会员</span>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">58</div>
+        <div class="stat-label">基础会员</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">21</div>
+        <div class="stat-label">深度会员</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">7</div>
+        <div class="stat-label">共创伙伴</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">本月到期</div>
+        <div class="stat-note">记得提前问候</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <a href="#" class="active">全部</a>
+        <a href="#">基础会员</a>
+        <a href="#">深度会员</a>
+        <a href="#">共创伙伴</a>
+        <a href="#">即将到期</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="search-box">
+        <span class="s-icon"><svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/></svg></span>
+        <input type="text" placeholder="搜索姓名或手机号">
+      </div>
+    </div>
+
+    <div class="panel">
+      <table class="table">
+        <thead>
+          <tr><th>会员</th><th>层级</th><th>加入时间</th><th>有效期至</th><th>参与近况</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">玲</span><div><div class="td-main">阿玲</div><div class="td-sub">上海</div></div></div></td>
+            <td><span class="tag green">深度会员</span></td>
+            <td class="td-sub">2024年9月</td>
+            <td class="td-sub">2027年6月</td>
+            <td class="td-sub">上周参加线上茶会</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">满</span><div><div class="td-main">林小满</div><div class="td-sub">上海</div></div></div></td>
+            <td><span class="tag">基础会员</span></td>
+            <td class="td-sub">2025年6月</td>
+            <td class="td-sub">2027年6月</td>
+            <td class="td-sub">持续打卡中</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">姝</span><div><div class="td-main">李静姝</div><div class="td-sub">成都</div></div></div></td>
+            <td><span class="tag green">共创伙伴</span></td>
+            <td class="td-sub">2023年4月</td>
+            <td class="td-sub">长期</td>
+            <td class="td-sub">在筹备自己的工作室</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">芝</span><div><div class="td-main">王雅芝</div><div class="td-sub">北京</div></div></div></td>
+            <td><span class="tag">深度会员</span></td>
+            <td class="td-sub">2024年11月</td>
+            <td class="td-sub">2026年11月</td>
+            <td class="td-sub">本月作业全勤</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">蕙</span><div><div class="td-main">周明蕙</div><div class="td-sub">广州</div></div></div></td>
+            <td><span class="tag">基础会员</span></td>
+            <td class="td-sub">2025年9月</td>
+            <td class="td-sub">2026年9月 <span class="tag red">即将到期</span></td>
+            <td class="td-sub">近一月较少参与</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+          <tr>
+            <td><div class="id-cell"><span class="avatar">晴</span><div><div class="td-main">苏晚晴</div><div class="td-sub">杭州</div></div></div></td>
+            <td><span class="tag">基础会员</span></td>
+            <td class="td-sub">2026年3月</td>
+            <td class="td-sub">2027年3月</td>
+            <td class="td-sub">刚报名初秋茶会</td>
+            <td style="text-align:right;"><a class="row-link" href="student-detail.html">查看</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quiet-note">会员的进阶，看他们走过的路，而不是付过的费。</div>
+
+  </main>
+</div>
+</body>
+</html>

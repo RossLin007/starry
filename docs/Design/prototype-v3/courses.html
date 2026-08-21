@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 生活</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .mode-tabs {
+    display: flex; gap: 28px; justify-content: center;
+    padding: 6px 20px 14px;
+  }
+  .mode-tabs a {
+    flex-shrink: 0; text-decoration: none;
+    font-size: 14px; color: var(--ash);
+    padding-bottom: 6px; border-bottom: 1px solid transparent;
+    letter-spacing: 0.06em;
+  }
+  .mode-tabs a.active {
+    font-family: var(--serif); font-weight: 600;
+    color: var(--ink); border-bottom-color: var(--tea);
+  }
+  .cat-tabs {
+    display: flex; gap: 24px; overflow-x: auto;
+    padding: 4px 20px 14px;
+    scrollbar-width: none;
+  }
+  .cat-tabs::-webkit-scrollbar { display: none; }
+  .cat-tabs a {
+    flex-shrink: 0; text-decoration: none;
+    font-size: 13px; color: var(--ash);
+    padding-bottom: 6px; border-bottom: 1px solid transparent;
+    letter-spacing: 0.04em;
+  }
+  .cat-tabs a.active {
+    font-family: var(--serif); font-weight: 600; font-size: 14px;
+    color: var(--ink); border-bottom-color: var(--tea);
+  }
+  .cat-lede {
+    font-family: var(--serif); font-size: 15px; color: var(--ink);
+    padding: 20px 20px 26px; line-height: 1.7;
+  }
+  .tag.gray { background: var(--rice); color: var(--ash); }
+  .course-card.past { opacity: .62; }
+  .course-card .tag { margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <span class="nav-spacer"></span>
+    <span class="nav-title">成长</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 线上课程 | 线下课程 切换 -->
+  <div class="mode-tabs">
+    <a href="#" id="tab-course" class="active">线上课程</a>
+    <a href="#" id="tab-act">线下课程</a>
+  </div>
+
+  <!-- 课程视图 -->
+  <div id="mode-course">
+    <!-- 板块标签 -->
+    <div class="cat-tabs" id="catTabs">
+      <a href="#" class="active" data-cat="all">全部</a>
+      <a href="#" data-cat="reading">拾光读书</a>
+      <a href="#" data-cat="space">空间管理</a>
+      <a href="#" data-cat="cooking">生活料理</a>
+    </div>
+
+    <p class="cat-lede">在一餐一饭、一桌一椅之间，回到更有觉知的生活。</p>
+
+    <!-- 课程列表 -->
+    <div class="section" style="padding-top: 0;">
+    <div class="stack" id="courseList">
+      <!-- 拾光读书 -->
+      <a class="card course-card" data-cat="reading" href="course-detail-reading.html">
+        <div class="photo photo-read"><span class="photo-label">课程实景</span></div>
+        <div class="card-body">
+          <div class="eyebrow">拾光读书 · 第 3 期</div>
+          <div class="theme">《瓦尔登湖》· 在书里遇见同频的人</div>
+          <div class="meta-line">9 月 6 日起 · 共 8 课 · 线上</div>
+          <div class="meta-line">每周六晚 · 腾讯会议直播</div>
+          <div><span class="tag">填写报名</span></div>
+        </div>
+      </a>
+      <a class="card course-card past" data-cat="reading" href="course-detail-past.html">
+        <div class="photo photo-read"><span class="photo-label">课程实景</span></div>
+        <div class="card-body">
+          <div class="eyebrow">拾光读书 · 第 2 期</div>
+          <div class="theme">《活着》· 在文字里照见自己</div>
+          <div class="meta-line">6 月 7 日起 · 共 8 课 · 线上</div>
+          <div><span class="tag gray">已结束</span></div>
+        </div>
+      </a>
+      <a class="card course-card past" data-cat="reading" href="course-detail-past.html">
+        <div class="photo photo-read"><span class="photo-label">课程实景</span></div>
+        <div class="card-body">
+          <div class="eyebrow">拾光读书 · 第 1 期</div>
+          <div class="theme">《小王子》· 驯养与告别</div>
+          <div class="meta-line">4 月 12 日起 · 共 8 课 · 线上</div>
+          <div><span class="tag gray">已结束</span></div>
+        </div>
+      </a>
+      <!-- 空间管理 -->
+      <a class="card course-card" data-cat="space" href="course-detail-space.html">
+        <div class="photo photo-space"><span class="photo-label">课程实景</span></div>
+        <div class="card-body">
+          <div class="eyebrow">空间管理 · 第 7 期</div>
+          <div class="theme">整理的不是物品，是心的秩序</div>
+          <div class="meta-line">9 月 10 日起 · 共 8 课 · 线上</div>
+          <div class="meta-line">每周三晚 · 腾讯会议直播</div>
+          <div><span class="tag">报名已截止</span></div>
+        </div>
+      </a>
+      <a class="card course-card past" data-cat="space" href="course-detail-past.html">
+        <div class="photo photo-space"><span class="photo-label">课程实景</span></div>
+        <div class="card-body">
+          <div class="eyebrow">空间管理 · 第 6 期</div>
+          <div class="theme">给家做一次温柔的减法</div>
+          <div class="meta-line">6 月 4 日起 · 共 8 课 · 线上</div>
+          <div><span class="tag gray">已结束</span></div>
+        </div>
+      </a>
+      <!-- 生活料理 -->
+      <a class="card course-card" data-cat="cooking" href="course-detail.html">
+        <div class="photo photo-food"><span class="photo-label">课程实景</span></div>
+        <div class="card-body">
+          <div class="eyebrow">生活料理 · 第 12 期</div>
+          <div class="theme">把一日三餐，过成修行</div>
+          <div class="meta-line">9 月 3 日起 · 共 8 课 · 线上</div>
+          <div class="meta-line">每周四晚 · 腾讯会议直播</div>
+          <div><span class="tag green">您已报名</span></div>
+        </div>
+      </a>
+      <a class="card course-card past" data-cat="cooking" href="course-detail-past.html">
+        <div class="photo photo-food"><span class="photo-label">课程实景</span></div>
+        <div class="card-body">
+          <div class="eyebrow">生活料理 · 第 11 期</div>
+          <div class="theme">夏日的一粥一饭</div>
+          <div class="meta-line">6 月 5 日起 · 共 8 课 · 线上</div>
+          <div><span class="tag gray">已结束</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+  </div>
+
+  <!-- 线下课程视图 -->
+  <div id="mode-act" style="display: none;">
+
+    <div class="section fade-up" style="padding-top: 8px; margin-bottom: 36px;">
+      <p class="lede-line">在小小的相聚里，认真地在一起。</p>
+    </div>
+
+    <!-- 近期线下课程 -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-title">近期线下课程</span>
+      </div>
+      <div class="card" style="padding: 6px 18px;">
+        <a class="activity-row" href="course-detail-baking.html">
+          <div class="photo photo-baking"><span class="photo-label">烘焙</span></div>
+          <div>
+            <div class="micro">线下 · 莘庄空间 · 为期 3 天</div>
+            <div class="act-name">食光烘焙</div>
+            <div class="meta">9 月 19 日起 · 连续 3 天</div>
+          </div>
+        </a>
+        <hr class="hairline" style="width: 100%;">
+        <a class="activity-row" href="activity-detail.html">
+          <div class="photo photo-tea"><span class="photo-label">茶会</span></div>
+          <div>
+            <div class="micro">线下 · 莘庄空间</div>
+            <div class="act-name">初秋茶会 <span class="tag" style="font-size: 11px; padding: 1px 6px; border-radius: 4px; vertical-align: 1px;">已报名</span></div>
+            <div class="meta">9 月 7 日（周日）14:00</div>
+          </div>
+        </a>
+        <hr class="hairline" style="width: 100%;">
+        <a class="activity-row" href="activity-detail.html">
+          <div class="photo photo-kids"><span class="photo-label">亲子</span></div>
+          <div>
+            <div class="micro">线下 · 莘庄空间</div>
+            <div class="act-name">少年茶会 · 孩子的一盏茶</div>
+            <div class="meta">9 月 14 日（周日）10:00</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 往期回顾 -->
+    <div class="section past" style="margin-bottom: 24px;">
+      <div class="section-head">
+        <span class="section-title">往期回顾</span>
+      </div>
+      <div class="card" style="padding: 6px 18px;">
+        <div class="activity-row">
+          <div class="photo photo-read"><span class="photo-label">读书</span></div>
+          <div>
+            <div class="micro">7 月 26 日 · 已结束</div>
+            <div class="act-name">仲夏读书会</div>
+          </div>
+        </div>
+        <hr class="hairline" style="width: 100%;">
+        <div class="activity-row">
+          <div class="photo photo-kids"><span class="photo-label">亲子</span></div>
+          <div>
+            <div class="micro">6 月 8 日 · 已结束</div>
+            <div class="act-name">端午包粽 · 亲子厨房</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 底部导航 -->
+  <nav class="tabbar" aria-label="底部导航">
+    <a href="home.html">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V42H39V18L24 6L9 18Z"/><path d="M19 29V42H29V29H19Z"/><path d="M9 42H39"/></svg></span><span>首页</span>
+    </a>
+    <a href="courses.html" class="active">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 44L22.6875 15.5"/><path d="M36 44L25.3125 15.5"/><circle cx="24" cy="12" r="4"/><path d="M37.57 33C33.6618 35.5307 29.0024 37 23.9998 37C18.9973 37 14.3379 35.5307 10.4297 33"/><path d="M24 8V4"/></svg></span><span>成长</span>
+    </a>
+    <a href="shop.html">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12H44V20L42.6015 20.8391C40.3847 22.1692 37.6153 22.1692 35.3985 20.8391L34 20L32.6015 20.8391C30.3847 22.1692 27.6153 22.1692 25.3985 20.8391L24 20L22.6015 20.8391C20.3847 22.1692 17.6153 22.1692 15.3985 20.8391L14 20L12.6015 20.8391C10.3847 22.1692 7.61531 22.1692 5.39853 20.8391L4 20V12Z"/><path d="M8 22.4889V44H40V22"/><path d="M8 11.8222V4H40V12"/><rect x="19" y="32" width="10" height="12"/></svg></span><span>商城</span>
+    </a>
+    <a href="me.html">
+      <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="12" r="8"/><path d="M42 44C42 34.0589 33.9411 26 24 26C14.0589 26 6 34.0589 6 44"/></svg></span><span>我的</span>
+    </a>
+  </nav>
+
+</div>
+<script>
+  var tabCourse = document.getElementById('tab-course');
+  var tabAct = document.getElementById('tab-act');
+  var modeCourse = document.getElementById('mode-course');
+  var modeAct = document.getElementById('mode-act');
+  function switchMode(mode) {
+    if (mode === 'act') {
+      tabCourse.classList.remove('active');
+      tabAct.classList.add('active');
+      modeCourse.style.display = 'none';
+      modeAct.style.display = 'block';
+    } else {
+      tabAct.classList.remove('active');
+      tabCourse.classList.add('active');
+      modeAct.style.display = 'none';
+      modeCourse.style.display = 'block';
+    }
+  }
+  tabCourse.addEventListener('click', function (e) { e.preventDefault(); switchMode('course'); });
+  tabAct.addEventListener('click', function (e) { e.preventDefault(); switchMode('act'); });
+
+  // 板块筛选
+  var catTabs = document.querySelectorAll('#catTabs a');
+  var courseCards = document.querySelectorAll('#courseList .course-card');
+  catTabs.forEach(function (tab) {
+    tab.addEventListener('click', function (e) {
+      e.preventDefault();
+      catTabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      var cat = tab.getAttribute('data-cat');
+      courseCards.forEach(function (card) {
+        card.style.display = (cat === 'all' || card.getAttribute('data-cat') === cat) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

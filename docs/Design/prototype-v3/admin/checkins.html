@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 打卡管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .ck-thumb { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; }
+  .stat-mini { display: flex; gap: 14px; margin-bottom: 16px; }
+  .stat-mini .sm { background: var(--card); border: 1px solid var(--rice); border-radius: 12px; padding: 12px 18px; }
+  .stat-mini .sm .n { font-family: var(--serif); font-size: 20px; font-weight: 600; }
+  .stat-mini .sm .l { font-size: 12px; color: var(--ash); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html" class="active">打卡管理<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <a href="tags.html">标签管理</a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>打卡管理</h1>
+      </div>
+      <a class="btn" href="#" id="exportBtn">批量导出汇总</a>
+    </div>
+
+    <div class="stat-mini">
+      <div class="sm"><div class="n">126</div><div class="l">本期实践总数</div></div>
+      <div class="sm"><div class="n">32</div><div class="l">参与学员</div></div>
+      <div class="sm"><div class="n">18</div><div class="l">本周新增</div></div>
+      <div class="sm"><div class="n">9</div><div class="l">被精选</div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-tabs" id="courseFilter">
+        <a href="#" data-f="all" class="active">全部课程</a>
+        <a href="#" data-f="reading">拾光读书</a>
+        <a href="#" data-f="space">空间管理</a>
+        <a href="#" data-f="cooking">生活料理</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="filter-tabs" id="tagFilter" style="margin-left: 12px;">
+        <a href="#" data-t="all" class="active">全部标签</a>
+        <a href="#" data-t="断舍离">断舍离</a>
+        <a href="#" data-t="整理">整理</a>
+        <a href="#" data-t="食材预处理">食材预处理</a>
+      </div>
+    </div>
+
+    <div class="panel" style="padding-top:14px;">
+      <table class="table" id="ckTable">
+        <thead>
+          <tr>
+            <th>实践内容</th>
+            <th>学员</th>
+            <th>课程</th>
+            <th>标签</th>
+            <th>形式</th>
+            <th>状态</th>
+            <th>日期</th>
+            <th style="text-align:right;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-course="cooking" data-tags="食材预处理">
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-food ck-thumb"></div>
+                <div><div class="td-main">一早去菜市场挑冬瓜，炖了一锅素汤</div><div class="td-sub">关联：生活料理 第 3 课</div></div>
+              </div>
+            </td>
+            <td>阿玲</td>
+            <td>生活料理</td>
+            <td><span class="tag">食材预处理</span></td>
+            <td>图片</td>
+            <td><span class="tag green">被精选</span></td>
+            <td>7 月 24 日</td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-pick>取消精选</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="#">查看</a></td>
+          </tr>
+          <tr data-course="space" data-tags="整理,断舍离">
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-space ck-thumb"></div>
+                <div><div class="td-main">清理了书桌最乱的那个抽屉</div><div class="td-sub">关联：空间管理 第 2 课</div></div>
+              </div>
+            </td>
+            <td>小满</td>
+            <td>空间管理</td>
+            <td><span class="tag">整理</span> <span class="tag">断舍离</span></td>
+            <td>图片</td>
+            <td><span class="tag gray">正常</span></td>
+            <td>7 月 17 日</td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-pick>精选</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="#">查看</a></td>
+          </tr>
+          <tr data-course="reading" data-tags="独处">
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-read ck-thumb"></div>
+                <div><div class="td-main">在阳台给自己收拾出一个阅读角</div><div class="td-sub">关联：拾光读书 第 1 课</div></div>
+              </div>
+            </td>
+            <td>阿瑾</td>
+            <td>拾光读书</td>
+            <td><span class="tag">独处</span></td>
+            <td>图片</td>
+            <td><span class="tag green">被精选</span></td>
+            <td>7 月 3 日</td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-pick>取消精选</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="#">查看</a></td>
+          </tr>
+          <tr data-course="cooking" data-tags="动线设计">
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-baking ck-thumb"></div>
+                <div><div class="td-main">按"餐前—餐中—餐后"节奏做了一顿饭</div><div class="td-sub">关联：生活料理 第 2 课</div></div>
+              </div>
+            </td>
+            <td>小满</td>
+            <td>生活料理</td>
+            <td><span class="tag">动线设计</span></td>
+            <td>图片</td>
+            <td><span class="tag gray">正常</span></td>
+            <td>7 月 10 日</td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-pick>精选</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="#">查看</a></td>
+          </tr>
+          <tr data-course="space" data-tags="盘点">
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-body ck-thumb"></div>
+                <div><div class="td-main">衣柜盘点：只留下常穿的</div><div class="td-sub">关联：空间管理 第 1 课</div></div>
+              </div>
+            </td>
+            <td>阿禾</td>
+            <td>空间管理</td>
+            <td><span class="tag">盘点</span></td>
+            <td>视频</td>
+            <td><span class="tag gray">正常</span></td>
+            <td>7 月 8 日</td>
+            <td style="text-align:right;"><a class="row-link" href="#" data-pick>精选</a> <span style="color:var(--rice);">|</span> <a class="row-link" href="#">查看</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span>共 126 条实践</span>
+        <div class="pages">
+          <a href="#" class="cur">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+  document.getElementById('exportBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    showToast('已生成实践打卡汇总文档（含标签统计）');
+  });
+  // 课程筛选
+  var courseF = 'all', tagF = 'all';
+  var rows = document.querySelectorAll('#ckTable tbody tr');
+  function apply() {
+    rows.forEach(function (r) {
+      var c = r.getAttribute('data-course');
+      var t = r.getAttribute('data-tags') || '';
+      var ok = (courseF === 'all' || c === courseF) && (tagF === 'all' || t.indexOf(tagF) >= 0);
+      r.style.display = ok ? '' : 'none';
+    });
+  }
+  function bindFilter(id, cb) {
+    var box = document.getElementById(id);
+    box.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        box.querySelectorAll('a').forEach(function (x) { x.classList.remove('active'); });
+        a.classList.add('active');
+        cb(a);
+        apply();
+      });
+    });
+  }
+  bindFilter('courseFilter', function (a) { courseF = a.getAttribute('data-f'); });
+  bindFilter('tagFilter', function (a) { tagF = a.getAttribute('data-t'); });
+
+  // 精选 / 取消精选
+  document.querySelectorAll('[data-pick]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      var tr = b.closest('tr');
+      var cells = tr.querySelectorAll('td');
+      var stateCell = cells[5]; // 状态列
+      var picked = stateCell.querySelector('.tag').classList.contains('green');
+      if (picked) {
+        stateCell.innerHTML = '<span class="tag gray">正常</span>';
+        b.textContent = '精选';
+      } else {
+        stateCell.innerHTML = '<span class="tag green">被精选</span>';
+        b.textContent = '取消精选';
+      }
+      showToast(picked ? '已取消精选' : '已精选，学员端将显示「被精选」标记');
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

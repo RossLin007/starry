@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 课程详情</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .fit-list { padding: 0; }
+  .fit-list li {
+    list-style: none; position: relative;
+    font-size: 15px; line-height: 1.7;
+    padding: 0 0 14px 22px; color: var(--ink);
+  }
+  .fit-list li::before {
+    content: "✦"; position: absolute; left: 0; top: 2px;
+    font-size: 8px; color: var(--tea); opacity: .8;
+  }
+  .notice-rows { display: flex; flex-direction: column; }
+  .notice-rows .row { display: flex; padding: 10px 0; font-size: 14px; line-height: 1.6; }
+  .notice-rows .row + .row { border-top: 1px solid var(--rice); }
+  .notice-rows .k { flex-shrink: 0; width: 76px; color: var(--ash); font-size: 13px; padding-top: 1px; }
+  .notice-rows .v { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="courses.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">课程详情</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 头图 -->
+  <div class="section" style="margin-bottom: 26px;">
+    <div class="photo photo-food" style="aspect-ratio: 4/3; border-radius: 12px;"><span class="photo-label">课程实景</span></div>
+  </div>
+
+  <!-- 眉题 + 主题句 -->
+  <div class="section" style="margin-bottom: 30px;">
+    <div class="eyebrow" style="margin-bottom: 10px;">生活料理 · 第 12 期</div>
+    <h1 class="page-title" style="margin-bottom: 18px;">把一日三餐，过成修行</h1>
+    <p class="body-text" style="color: var(--ash);">
+      八周的时间，我们不去追求高超的厨艺，只是回到自己的厨房，重新认识一口锅、一把米、一餐饭。当你在切菜时专心切菜，在吃饭时好好吃饭，日子会自己慢下来，心也会跟着安定下来。
+    </p>
+  </div>
+
+  <!-- 这门课适合谁 -->
+  <div class="section">
+    <div class="section-head"><span class="section-title bilingual">这门课适合谁</span></div>
+    <ul class="fit-list">
+      <li>如果你常常点外卖，想重新为自己和家人做一顿饭</li>
+      <li>如果你觉得做饭是负担，希望它能变成一件安放身心的事</li>
+      <li>如果你想在忙碌里，给自己留一段安静的、手上的时间</li>
+      <li>如果你愿意用八周，慢慢改变和食物的关系</li>
+    </ul>
+  </div>
+
+  <!-- 课程安排 -->
+  <div class="section">
+    <div class="section-head"><span class="section-title bilingual">课程安排</span></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-title">第 1 课 · 认识你的厨房</div>
+        <div class="meta">9 月 3 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">从整理灶台开始，和厨房重新打个招呼。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 2 课 · 一碗好米饭</div>
+        <div class="meta">9 月 10 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">米、水与火候，最基础也最见功夫。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 3 课 · 时令与菜场</div>
+        <div class="meta">9 月 17 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">跟着节气买菜，食物会告诉你季节。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 4 课 · 一菜一汤的日常</div>
+        <div class="meta">9 月 24 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">简单的一餐，也可以郑重地吃。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 5 课 · 发酵与等待</div>
+        <div class="meta">10 月 1 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">做一瓶酱，学会和时间相处。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 6 课 · 为家人做饭</div>
+        <div class="meta">10 月 8 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">餐桌是家里最温暖的角落。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">第 7 课 · 一人食的郑重</div>
+        <div class="meta">10 月 15 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">一个人吃饭，也值得好好对待。</div>
+      </div>
+      <div class="timeline-item" style="padding-bottom: 4px;">
+        <div class="tl-title">第 8 课 · 结业茶话</div>
+        <div class="meta">10 月 22 日（周四）20:00</div>
+        <div class="meta" style="margin-top: 4px;">一起回望这八周，把修行带回日常。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 课程须知 -->
+  <div class="section" style="margin-bottom: 120px;">
+    <div class="section-head"><span class="section-title bilingual">课程须知</span></div>
+    <div class="notice-rows">
+      <div class="row"><span class="k">开课时间</span><span class="v">9 月 3 日起 · 每周四晚 20:00</span></div>
+      <div class="row"><span class="k">课程形式</span><span class="v">线上 · 腾讯会议直播</span></div>
+      <div class="row"><span class="k">课程费用</span><span class="v">¥1,280（含 8 节课与配套食材包）</span></div>
+      <div class="row"><span class="k">报名方式</span><span class="v">填写报名信息后在线支付</span></div>
+    </div>
+  </div>
+
+  <!-- 底部行动条 -->
+  <div class="action-bar split">
+    <button type="button" class="share-fab" id="shareTrigger" aria-label="分享课程给好友"><svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M35 16C37.7614 16 40 13.7614 40 11C40 8.23858 37.7614 6 35 6C32.2386 6 30 8.23858 30 11C30 13.7614 32.2386 16 35 16Z"/><path d="M13 29C15.7614 29 18 26.7614 18 24C18 21.2386 15.7614 19 13 19C10.2386 19 8 21.2386 8 24C8 26.7614 10.2386 29 13 29Z"/><path d="M30.0004 13.5745L17.3393 21.2454"/><path d="M17.3385 26.5639L30.6789 34.4469"/><path d="M35 32C37.7614 32 40 34.2386 40 37C40 39.7614 37.7614 42 35 42C32.2386 42 30 39.7614 30 37C30 34.2386 32.2386 32 35 32Z"/></svg></button>
+    <div class="btn-disabled">您已报名</div>
+  </div>
+
+</div>
+
+<!-- 分享面板 -->
+<div class="share-mask" id="shareMask" role="dialog" aria-modal="true" aria-label="分享课程">
+  <div class="share-panel">
+    <div class="sp-title">把这门课分享给朋友</div>
+    <div class="share-grid">
+      <button type="button" data-share="朋友">
+        <span class="sg-ico" style="background: var(--caramel);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5.00372 42.2311C5.00372 42.6557 5.35807 42.9999 5.79521 42.9999L42.2023 43C42.6394 43 42.9938 42.6558 42.9938 42.2313V41.3131C43.012 41.0364 43.049 39.6555 42.1388 38.1289C41.5648 37.1663 40.7318 36.3347 39.6628 35.6573C38.3696 34.8378 36.7245 34.244 34.7347 33.8865C34.72 33.8846 33.2446 33.689 31.7331 33.303C29.101 32.6307 28.8709 32.0357 28.8694 32.0299C28.8539 31.9711 28.8315 31.9146 28.8028 31.8615C28.7813 31.7505 28.7281 31.3328 28.8298 30.2136C29.088 27.371 30.6128 25.691 31.838 24.3412C32.2244 23.9155 32.5893 23.5134 32.8704 23.1191C34.0827 21.4181 34.1952 19.4839 34.2003 19.364C34.2003 19.1211 34.1724 18.9214 34.1127 18.7363C33.9937 18.3659 33.7698 18.1351 33.6063 17.9666L33.6052 17.9654C33.564 17.923 33.5251 17.8828 33.4933 17.8459C33.4812 17.8318 33.449 17.7945 33.4783 17.603C33.5859 16.8981 33.6505 16.3079 33.6815 15.7456C33.7367 14.7438 33.7798 13.2456 33.5214 11.7875C33.4895 11.5385 33.4347 11.2755 33.3494 10.9622C33.0764 9.95814 32.6378 9.09971 32.0284 8.39124C31.9236 8.27722 29.3756 5.5928 21.9788 5.04201C20.956 4.96586 19.9449 5.00688 18.9496 5.05775C18.7097 5.06961 18.3812 5.08589 18.0738 5.16554C17.3101 5.36337 17.1063 5.84743 17.0528 6.11834C16.9641 6.56708 17.12 6.91615 17.2231 7.14718L17.2231 7.1472L17.2231 7.14723C17.2381 7.18072 17.2566 7.22213 17.2243 7.32997C17.0526 7.59588 16.7825 7.83561 16.5071 8.06273C16.4275 8.13038 14.5727 9.72968 14.4707 11.8189C14.1957 13.4078 14.2165 15.8834 14.5417 17.5944C14.5606 17.6889 14.5885 17.8288 14.5432 17.9233L14.5432 17.9233C14.1935 18.2367 13.7971 18.5919 13.7981 19.4024C13.8023 19.4839 13.9148 21.4181 15.1272 23.1191C15.408 23.5131 15.7726 23.9149 16.1587 24.3403L16.1596 24.3412L16.1596 24.3413C17.3848 25.6911 18.9095 27.371 19.1678 30.2135C19.2694 31.3327 19.2162 31.7505 19.1947 31.8614C19.166 31.9145 19.1436 31.971 19.1282 32.0298C19.1266 32.0356 18.8974 32.6287 16.2772 33.2996C14.7656 33.6867 13.2775 33.8845 13.2331 33.8909C11.2994 34.2173 9.66438 34.7963 8.37351 35.6115C7.30813 36.2844 6.47354 37.1175 5.89289 38.0877C4.96517 39.6379 4.99025 41.0497 5.00372 41.3074V42.2311Z""M5.00372 42.2311C5.00372 42.6557 5.35807 42.9999 5.79521 42.9999L42.2023 43C42.6394 43 42.9938 42.6558 42.9938 42.2313V41.3131C43.012 41.0364 43.049 39.6555 42.1388 38.1289C41.5648 37.1663 40.7318 36.3347 39.6628 35.6573C38.3696 34.8378 36.7245 34.244 34.7347 33.8865C34.72 33.8846 33.2446 33.689 31.7331 33.303C29.101 32.6307 28.8709 32.0357 28.8694 32.0299C28.8539 31.9711 28.8315 31.9146 28.8028 31.8615C28.7813 31.7505 28.7281 31.3328 28.8298 30.2136C29.088 27.371 30.6128 25.691 31.838 24.3412C32.2244 23.9155 32.5893 23.5134 32.8704 23.1191C34.0827 21.4181 34.1952 19.4839 34.2003 19.364C34.2003 19.1211 34.1724 18.9214 34.1127 18.7363C33.9937 18.3659 33.7698 18.1351 33.6063 17.9666L33.6052 17.9654C33.564 17.923 33.5251 17.8828 33.4933 17.8459C33.4812 17.8318 33.449 17.7945 33.4783 17.603C33.5859 16.8981 33.6505 16.3079 33.6815 15.7456C33.7367 14.7438 33.7798 13.2456 33.5214 11.7875C33.4895 11.5385 33.4347 11.2755 33.3494 10.9622C33.0764 9.95814 32.6378 9.09971 32.0284 8.39124C31.9236 8.27722 29.3756 5.5928 21.9788 5.04201C20.956 4.96586 19.9449 5.00688 18.9496 5.05775C18.7097 5.06961 18.3812 5.08589 18.0738 5.16554C17.3101 5.36337 17.1063 5.84743 17.0528 6.11834C16.9641 6.56708 17.12 6.91615 17.2231 7.14718C17.2381 7.18072 17.2566 7.22213 17.2243 7.32997C17.0526 7.59588 16.7825 7.83561 16.5071 8.06273C16.4275 8.13038 14.5727 9.72968 14.4707 11.8189C14.1957 13.4078 14.2165 15.8834 14.5417 17.5944C14.5606 17.6889 14.5885 17.8288 14.5432 17.9233C14.1935 18.2367 13.7971 18.5919 13.7981 19.4024C13.8023 19.4839 13.9148 21.4181 15.1272 23.1191C15.408 23.5131 15.7726 23.9149 16.1587 24.3403L16.1596 24.3412L16.1596 24.3413C17.3848 25.6911 18.9095 27.371 19.1678 30.2135C19.2694 31.3327 19.2162 31.7505 19.1947 31.8614C19.166 31.9145 19.1436 31.971 19.1282 32.0298C19.1266 32.0356 18.8974 32.6287 16.2772 33.2996C14.7656 33.6867 13.2775 33.8845 13.2331 33.8909C11.2994 34.2173 9.66438 34.7963 8.37351 35.6115C7.30813 36.2844 6.47354 37.1175 5.89289 38.0877C4.96517 39.6379 4.99025 41.0497 5.00372 41.3074V42.2311Z"/></svg></span>
+        <span class="sg-label">发送给好友</span>
+      </button>
+      <button type="button" data-share="群聊">
+        <span class="sg-ico" style="background: var(--bamboo);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20C22.866 20 26 16.866 26 13C26 9.13401 22.866 6 19 6C15.134 6 12 9.13401 12 13C12 16.866 15.134 20 19 20Z"/><path d="M32.6077 7C34.6405 8.2249 36.0001 10.4537 36.0001 13C36.0001 15.5463 34.6405 17.7751 32.6077 19"/><path d="M4 40.8V42H34V40.8C34 36.3196 34 34.0794 33.1281 32.3681C32.3611 30.8628 31.1372 29.6389 29.6319 28.8719C27.9206 28 25.6804 28 21.2 28H16.8C12.3196 28 10.0794 28 8.36808 28.8719C6.86278 29.6389 5.63893 30.8628 4.87195 32.3681C4 34.0794 4 36.3196 4 40.8Z"/><path d="M43.9999 42.0001V40.8001C43.9999 36.3197 43.9999 34.0795 43.128 32.3682C42.361 30.8629 41.1371 29.6391 39.6318 28.8721"/></svg></span>
+        <span class="sg-label">分享到群聊</span>
+      </button>
+      <button type="button" data-share="海报">
+        <span class="sg-ico" style="background: var(--ink);"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M39 6H9C7.34315 6 6 7.34315 6 9V39C6 40.6569 7.34315 42 9 42H39C40.6569 42 42 40.6569 42 39V9C42 7.34315 40.6569 6 39 6Z"/><path d="M18 23C20.7614 23 23 20.7614 23 18C23 15.2386 20.7614 13 18 13C15.2386 13 13 15.2386 13 18C13 20.7614 15.2386 23 18 23Z"/><path d="M27.7901 26.2194C28.6064 25.1269 30.2528 25.1538 31.0329 26.2725L39.8077 38.8561C40.7322 40.182 39.7835 42.0001 38.1671 42.0001H16L27.7901 26.2194Z"/></svg></span>
+        <span class="sg-label">生成分享图</span>
+      </button>
+    </div>
+    <button type="button" class="share-cancel" id="shareCancel">取消</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var mask = document.getElementById('shareMask');
+  var toast = document.getElementById('toast');
+  var trigger = document.getElementById('shareTrigger');
+  var cancel = document.getElementById('shareCancel');
+
+  function open() { mask.classList.add('open'); }
+  function close() { mask.classList.remove('open'); }
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  if (trigger) trigger.addEventListener('click', open);
+  if (cancel) cancel.addEventListener('click', close);
+  if (mask) mask.addEventListener('click', function (e) {
+    if (e.target === mask) close();
+  });
+  if (mask) mask.querySelectorAll('[data-share]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      close();
+      showToast('已准备好，把这门课分享给' + btn.getAttribute('data-share'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

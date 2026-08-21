@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 书友故事</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .story-hero { padding: 0; overflow: hidden; margin-bottom: 26px; }
+  .story-hero .photo { height: 220px; }
+  .story-body .body-text { font-size: 15px; line-height: 2; }
+  .story-body .body-text + .body-text { margin-top: 16px; }
+  .story-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0; }
+  .author-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-top: 1px solid var(--rice); }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="story-list.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">书友故事</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <div class="section fade-up" style="margin-bottom: 20px;">
+    <div class="eyebrow" style="margin-bottom: 10px;">拾光读书 · 第 3 期 · 书友故事</div>
+    <h1 class="page-title" style="font-size: 20px;">在山里住了三天，我把手机留在了家里</h1>
+  </div>
+
+  <div class="section" style="padding-top: 0;">
+    <div class="card story-hero">
+      <div class="photo photo-read"><span class="photo-label">阿瑾 · 山中三日</span></div>
+    </div>
+  </div>
+
+  <div class="section story-body" style="padding-top: 0;">
+    <p class="body-text">读到梭罗写"独处"的那一章，我想起去年夏天，在山里住的那三天。</p>
+    <p class="body-text">出发前我把手机留在了家里。没有信号，没有消息提醒，只有一本书、一个本子，和满山的绿。第一天有些坐立不安，总想摸口袋；第二天开始看云，看很久很久；第三天早上，我坐在木屋门口喝完一杯茶，忽然明白梭罗说的"有意识地生活"是什么意思。</p>
+    <p class="body-text">回来后我并没有扔掉手机，但每天会留给自己一小时，不开屏幕，只是读书或散步。独处不是逃离，是回到自己。这是这本书给我最好的礼物。</p>
+    <div class="story-tags">
+      <span class="tag-chip">独处</span><span class="tag-chip">自然</span>
+    </div>
+    <div class="author-row">
+      <div>
+        <div style="font-size: 14px; font-weight: 500; color: var(--ink);">阿瑾</div>
+        <div class="meta" style="margin-top: 2px;">9 月 14 日 · 读书分享会讲述</div>
+      </div>
+      <button type="button" class="dl-btn" data-dl="书友故事·阿瑾.png"><svg width="13" height="13" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24.0083V42H42V24"/><path d="M33 23L24 32L15 23"/><path d="M23.9917 6V32"/></svg>下载图片</button>
+    </div>
+  </div>
+
+  <!-- 留言 -->
+  <div class="section" style="margin-bottom: 0;">
+    <div class="card comment-box">
+      <div class="cb-title">留 言</div>
+      <div class="comment-input">
+        <textarea rows="2" placeholder="写下你的想法…" id="commentText"></textarea>
+        <button type="button" class="send-btn" id="commentSend" aria-label="发送留言"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M43 5L29.7 43L22.1 25.9L5 18.3L43 5Z"/><path d="M43.0001 5L22.1001 25.9"/></svg></button>
+      </div>
+      <div class="comment-list" id="commentList">
+        <div class="comment-item">
+          <div class="c-head"><span class="c-name">知远</span><span class="c-time">9 月 14 日</span></div>
+          <div class="c-text">"独处不是逃离，是回到自己。"这句话记下来了。也想试试留一小时不开屏幕。</div>
+        </div>
+        <div class="comment-item">
+          <div class="c-head"><span class="c-name">青禾</span><span class="c-time">9 月 14 日</span></div>
+          <div class="c-text">山里的三天太让人向往了。原来"坐立不安"到"看云很久"，只差两天没有手机。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  document.querySelectorAll('.dl-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      showToast('已开始下载 ' + b.getAttribute('data-dl'));
+    });
+  });
+  var sendBtn = document.getElementById('commentSend');
+  var textEl = document.getElementById('commentText');
+  var listEl = document.getElementById('commentList');
+  sendBtn.addEventListener('click', function () {
+    var t = textEl.value.trim();
+    if (!t) { showToast('先写一点什么，再发送'); return; }
+    var div = document.createElement('div');
+    div.className = 'comment-item';
+    div.innerHTML = '<div class="c-head"><span class="c-name">我</span><span class="c-time">刚刚</span></div><div class="c-text"></div>';
+    div.querySelector('.c-text').textContent = t;
+    listEl.insertBefore(div, listEl.firstChild);
+    textEl.value = '';
+    showToast('留言已发布');
+  });
+})();
+</script>
+</body>
+</html>

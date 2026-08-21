@@ -1,0 +1,22 @@
+{
+  "miniprogramRoot": "miniprogram/",
+  "projectname": "starry-space-miniprogram",
+  "description": "若星空间微信小程序",
+  "appid": "touristappid",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "enhance": true,
+    "showShadowRootInWxmlPanel": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "disableUseStrict": false,
+    "minifyWXML": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.5.0",
+  "condition": {}
+}

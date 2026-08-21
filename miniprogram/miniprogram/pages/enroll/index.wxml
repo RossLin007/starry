@@ -1,0 +1,81 @@
+<!-- pages/enroll/index.wxml -->
+<view class="container enroll-page">
+  <!-- 课程概要条 -->
+  <view class="starry-card course-summary" wx:if="{{ course }}">
+    <view class="tag">{{ course.category }}</view>
+    <view class="title">{{ course.title }}</view>
+    <view class="price">报名费用：¥{{ course.price }}</view>
+  </view>
+
+  <!-- 学员问卷调查 (PRD 3.3) -->
+  <view class="starry-card form-card">
+    <view class="card-title">📝 入营初访问卷</view>
+    <view class="form-item">
+      <view class="form-label">您当前最想改善的空间整理问题：</view>
+      <textarea
+        class="form-textarea"
+        value="{{ formData.goal }}"
+        bindinput="onInputGoal"
+        placeholder="如：客厅杂物堆积、衣橱换季收纳混乱..."
+      />
+    </view>
+  </view>
+
+  <!-- 实体物料寄送地址 (PRD 3.10) -->
+  <view class="starry-card form-card">
+    <view class="card-title">📦 配套物料收货地址</view>
+    <view class="form-item">
+      <view class="form-label">收件人姓名</view>
+      <input
+        class="form-input"
+        value="{{ shippingAddress.name }}"
+        data-field="name"
+        bindinput="onInputAddress"
+        placeholder="收件人姓名"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-label">联系电话</view>
+      <input
+        class="form-input"
+        type="number"
+        value="{{ shippingAddress.phone }}"
+        data-field="phone"
+        bindinput="onInputAddress"
+        placeholder="手机号码"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-label">省份 / 城市 / 区县</view>
+      <input
+        class="form-input"
+        value="{{ shippingAddress.province }}{{ shippingAddress.city }}{{ shippingAddress.district }}"
+        data-field="province"
+        bindinput="onInputAddress"
+        placeholder="如：浙江省杭州市西湖区"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-label">详细街道门牌</view>
+      <input
+        class="form-input"
+        value="{{ shippingAddress.address }}"
+        data-field="address"
+        bindinput="onInputAddress"
+        placeholder="街道、小区、楼栋门牌号"
+      />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-box">
+    <button
+      class="starry-btn submit-btn"
+      loading="{{ submitting }}"
+      disabled="{{ submitting }}"
+      bindtap="onSubmitEnroll"
+    >
+      确认并完成报名
+    </button>
+  </view>
+</view>

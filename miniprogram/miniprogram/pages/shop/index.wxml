@@ -1,0 +1,42 @@
+<!-- pages/shop/index.wxml -->
+<view class="container shop-page">
+  <!-- 头部引言 -->
+  <view class="starry-card shop-header">
+    <view class="header-title">✦ 若星甄选好物</view>
+    <view class="header-desc">克制而美好的器物，陪伴你的日常整理生活</view>
+  </view>
+
+  <!-- 分类横滑栏 -->
+  <view class="cat-bar">
+    <view
+      wx:for="{{ categories }}"
+      wx:key="*this"
+      class="cat-tab {{ activeCategory === item ? 'active' : '' }}"
+      data-cat="{{ item }}"
+      bindtap="onSelectCategory"
+    >
+      {{ item }}
+    </view>
+  </view>
+
+  <!-- 商品网格 -->
+  <view class="goods-grid">
+    <view
+      wx:for="{{ goods }}"
+      wx:key="id"
+      class="starry-card good-card"
+      data-item="{{ item }}"
+      bindtap="onTapGoods"
+    >
+      <image class="good-cover" src="{{ item.coverUrl }}" mode="aspectFill" />
+      <view class="good-info">
+        <view class="good-cat-tag">{{ item.category }}</view>
+        <view class="good-title">{{ item.title }}</view>
+        <view class="good-price-row">
+          <text class="good-price">¥{{ item.price }}</text>
+          <text class="jump-tip">第三方购买 ➔</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

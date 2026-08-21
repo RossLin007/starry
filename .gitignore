@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.output/
+miniprogram/miniprogram/**/*.js
+miniprogram/miniprogram/**/*.js.map
+!miniprogram/miniprogram/app.js
+
+# Environment and sensitive credentials
+.env
+.env.local
+.env.production
+*.pem
+*.key
+*.cert
+apiclient_key.pem
+apiclient_cert.pem
+
+# Database & Uploads
+uploads/
+*.sqlite
+*.sqlite-journal
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# WeChat DevTools
+miniprogram/miniprogram/.miniprogram/
+miniprogram/typings/

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 标签管理</title>
+<link rel="stylesheet" href="assets/ruoxing-admin.css">
+<style>
+  .tag-panel { margin-bottom: 22px; }
+  .tag-panel .tp-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+  .tag-panel .tp-name { font-family: var(--serif); font-size: 16px; font-weight: 600; }
+  .tag-panel .tp-note { font-size: 12px; color: var(--ash); }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--rice);
+    border-radius: 18px; padding: 8px 14px; font-size: 13px; color: var(--ink);
+  }
+  .tag-pill .cnt { font-size: 11px; color: var(--ash); }
+  .tag-pill .del { color: var(--ash); cursor: pointer; font-size: 12px; line-height: 1; }
+  .tag-pill .del:hover { color: var(--crimson); }
+  .tag-add {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px dashed var(--rice); border-radius: 18px;
+    padding: 8px 14px; font-size: 13px; color: var(--ash); background: none; cursor: pointer;
+  }
+  .tag-add:hover { color: var(--caramel); border-color: var(--caramel); }
+  .new-tag-input { display: flex; gap: 10px; margin-top: 16px; }
+  .new-tag-input input { flex: 1; max-width: 280px; border: 1px solid var(--rice); border-radius: 10px; padding: 9px 12px; font-size: 14px; font-family: inherit; background: var(--card); color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="admin">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+      <div class="brand-sub">团队工作台</div>
+    </div>
+    <nav class="side-nav" aria-label="后台导航">
+      <a href="index.html">工作台<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <div class="nav-group">课程与活动</div>
+      <a href="courses.html">课程管理</a>
+      <a href="activities.html">活动管理</a>
+      <a href="publish.html">内容发布</a>
+      <a href="stories.html">故事管理</a>
+      <a href="checkins.html">打卡管理</a>
+      <a href="tags.html" class="active">标签管理<span class="nav-star" style="margin-left:auto">✦</span></a>
+      <a href="orders.html">订单管理</a>
+      <a href="goods.html">商品管理</a>
+      <div class="nav-group">页面配置</div>
+      <a href="home-config.html">首页配置</a>
+      <a href="enroll-config.html">报名配置</a>
+      <div class="nav-group">人与关系</div>
+      <a href="students.html">学员管理</a>
+      <a href="members.html">会员管理</a>
+    </nav>
+    <div class="side-foot">
+      小蔡，下午好。<br>
+      今天也是安静做事的一天。
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>标签管理</h1>
+      </div>
+      <span class="head-note">按课程配置标签集 · 供打卡与故事分类</span>
+    </div>
+
+    <div class="panel-desc" style="margin-bottom: 18px; font-size: 13px; color: var(--ash);">
+      书友 / 学员上传实践或故事时需选择标签；标签用于日后分类统计与一期汇总导出。
+    </div>
+
+    <!-- 拾光读书 -->
+    <div class="panel tag-panel">
+      <div class="tp-head">
+        <span class="tp-name">拾光读书</span>
+        <span class="tp-note">标签按每期书籍主题设定 · 本期《瓦尔登湖》</span>
+      </div>
+      <div class="tag-cloud" data-set="reading">
+        <span class="tag-pill">独处<span class="cnt">32 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">自然<span class="cnt">27 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">简朴<span class="cnt">19 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">阅读<span class="cnt">24 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">沉思<span class="cnt">11 次</span><span class="del" data-del>✕</span></span>
+        <button type="button" class="tag-add" data-add="reading">+ 添加标签</button>
+      </div>
+      <div class="new-tag-input" style="display: none;" data-input="reading">
+        <input type="text" placeholder="新标签名称">
+        <a class="btn btn-small" href="#" data-save="reading">保存</a>
+      </div>
+    </div>
+
+    <!-- 空间管理 -->
+    <div class="panel tag-panel">
+      <div class="tp-head">
+        <span class="tp-name">空间管理</span>
+        <span class="tp-note">盘点 · 断舍离 · 整理 · 清洁</span>
+      </div>
+      <div class="tag-cloud" data-set="space">
+        <span class="tag-pill">盘点<span class="cnt">41 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">断舍离<span class="cnt">38 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">整理<span class="cnt">35 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">清洁<span class="cnt">22 次</span><span class="del" data-del>✕</span></span>
+        <button type="button" class="tag-add" data-add="space">+ 添加标签</button>
+      </div>
+      <div class="new-tag-input" style="display: none;" data-input="space">
+        <input type="text" placeholder="新标签名称">
+        <a class="btn btn-small" href="#" data-save="space">保存</a>
+      </div>
+    </div>
+
+    <!-- 生活料理 -->
+    <div class="panel tag-panel" style="margin-bottom: 0;">
+      <div class="tp-head">
+        <span class="tp-name">生活料理</span>
+        <span class="tp-note">冰箱管理 · 动线设计 · 食材预处理</span>
+      </div>
+      <div class="tag-cloud" data-set="cooking">
+        <span class="tag-pill">冰箱管理<span class="cnt">28 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">动线设计<span class="cnt">24 次</span><span class="del" data-del>✕</span></span>
+        <span class="tag-pill">食材预处理<span class="cnt">33 次</span><span class="del" data-del>✕</span></span>
+        <button type="button" class="tag-add" data-add="cooking">+ 添加标签</button>
+      </div>
+      <div class="new-tag-input" style="display: none;" data-input="cooking">
+        <input type="text" placeholder="新标签名称">
+        <a class="btn btn-small" href="#" data-save="cooking">保存</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  // 添加
+  document.querySelectorAll('[data-add]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var key = b.getAttribute('data-add');
+      var box = document.querySelector('[data-input="' + key + '"]');
+      box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+    });
+  });
+  document.querySelectorAll('[data-save]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      var key = b.getAttribute('data-save');
+      var input = document.querySelector('[data-input="' + key + '"] input');
+      var name = input.value.trim();
+      if (!name) { showToast('请输入标签名称'); return; }
+      var cloud = document.querySelector('[data-set="' + key + '"]');
+      var pill = document.createElement('span');
+      pill.className = 'tag-pill';
+      pill.innerHTML = name + '<span class="cnt">0 次</span><span class="del" data-del>✕</span>';
+      cloud.insertBefore(pill, cloud.querySelector('.tag-add'));
+      input.value = '';
+      document.querySelector('[data-input="' + key + '"]').style.display = 'none';
+      bindDel(pill.querySelector('[data-del]'));
+      showToast('已添加标签「' + name + '」');
+    });
+  });
+  // 删除
+  function bindDel(el) {
+    el.addEventListener('click', function () {
+      var pill = el.closest('.tag-pill');
+      var name = pill.firstChild.textContent;
+      pill.remove();
+      showToast('已删除标签「' + name + '」（历史数据保留）');
+    });
+  }
+  document.querySelectorAll('[data-del]').forEach(bindDel);
+})();
+</script>
+</body>
+</html>

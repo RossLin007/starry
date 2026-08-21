@@ -1,0 +1,36 @@
+<!-- pages/daily-feed/index.wxml -->
+<view class="container daily-page" wx:if="{{ daily }}">
+  <!-- 每日星语大卡片 (日签设计) -->
+  <view class="quote-card">
+    <view class="card-top">
+      <text class="brand-text">✦ 若星空间 · 每日星语</text>
+      <text class="date-text">{{ daily.date }}</text>
+    </view>
+
+    <view class="quote-main">
+      <view class="quote-mark">“</view>
+      <view class="quote-text">{{ daily.quote }}</view>
+      <view class="quote-author">—— {{ daily.author || '若星' }}</view>
+    </view>
+
+    <!-- 伴读音频条 (若有) -->
+    <view class="audio-bar" wx:if="{{ daily.audioUrl || true }}" bindtap="onToggleAudio">
+      <text class="audio-icon">{{ isPlayingAudio ? '⏸️' : '▶️' }}</text>
+      <view class="audio-info">
+        <view class="audio-title">聆听今日伴读导言</view>
+        <view class="audio-status">{{ isPlayingAudio ? '正在播放中 · 01:28' : '点击播放若星温润原声' }}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 伴读沉思短文 -->
+  <view class="starry-card reflection-card" wx:if="{{ daily.content }}">
+    <view class="card-title">今日沉思</view>
+    <view class="reflection-body">{{ daily.content }}</view>
+  </view>
+
+  <!-- 底部操作按钮 -->
+  <view class="actions-box">
+    <button class="starry-btn save-btn" bindtap="onSaveQuote">截屏保存今日星语卡片</button>
+  </view>
+</view>

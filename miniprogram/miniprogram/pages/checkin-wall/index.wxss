@@ -1,0 +1,123 @@
+/* pages/checkin-wall/index.wxss */
+.wall-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding-bottom: 120rpx;
+}
+
+.wall-header {
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+  color: #FFFFFF;
+  text-align: center;
+  padding: 40rpx 32rpx;
+}
+
+.header-quote {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FBBF24;
+  margin-bottom: 10rpx;
+}
+
+.header-desc {
+  font-size: 22rpx;
+  color: #CBD5E1;
+}
+
+.checkins-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.item-user {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.user-avatar-text {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #E0E7FF;
+  color: var(--starry-primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+}
+
+.user-name {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--starry-text-main);
+}
+
+.course-name {
+  font-size: 20rpx;
+  color: var(--starry-text-muted);
+}
+
+.item-content {
+  font-size: 26rpx;
+  color: var(--starry-text-secondary);
+  line-height: 1.6;
+}
+
+.item-images {
+  display: flex;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.checkin-thumb {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: var(--starry-radius-md);
+}
+
+.comment-box {
+  background: #FEF3C7;
+  border-left: 6rpx solid #F59E0B;
+  padding: 16rpx 20rpx;
+  border-radius: 0 var(--starry-radius-md) var(--starry-radius-md) 0;
+}
+
+.comment-title {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #92400E;
+  margin-bottom: 6rpx;
+}
+
+.comment-body {
+  font-size: 24rpx;
+  color: #78350F;
+  line-height: 1.5;
+}
+
+.floating-btn {
+  position: fixed;
+  bottom: 60rpx;
+  right: 32rpx;
+  background: var(--starry-primary);
+  color: #FFFFFF;
+  padding: 20rpx 36rpx;
+  border-radius: var(--starry-radius-full);
+  box-shadow: 0 8rpx 24rpx rgba(79, 70, 229, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  z-index: 100;
+}

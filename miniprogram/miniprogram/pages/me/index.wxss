@@ -1,0 +1,270 @@
+/* pages/me/index.wxss */
+.me-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding-bottom: 60rpx;
+}
+
+.profile-card {
+  padding: 36rpx 32rpx;
+}
+
+.profile-main {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.avatar-box {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-letter {
+  color: #FFFFFF;
+  font-size: 48rpx;
+  font-weight: 800;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.nickname-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 8rpx;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--starry-text-main);
+}
+
+.tier-tag {
+  font-size: 20rpx;
+  padding: 4rpx 16rpx;
+  border-radius: var(--starry-radius-full);
+  font-weight: 700;
+}
+
+.tier-vip {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1rpx solid #FCD34D;
+}
+
+.tier-free {
+  background: #F1F5F9;
+  color: var(--starry-text-muted);
+}
+
+.join-days {
+  font-size: 22rpx;
+  color: var(--starry-text-muted);
+}
+
+.stats-bar {
+  margin-top: 28rpx;
+  border-top: 1rpx solid var(--starry-muted-bg);
+  padding-top: 20rpx;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.stat-num {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--starry-gold);
+}
+
+.stat-unit {
+  font-size: 22rpx;
+  font-weight: normal;
+  color: var(--starry-text-muted);
+}
+
+.stat-name {
+  font-size: 22rpx;
+  color: var(--starry-primary);
+  font-weight: 600;
+}
+
+.vip-banner {
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+  border-radius: var(--starry-radius-lg);
+  padding: 28rpx 32rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #FFFFFF;
+  box-shadow: 0 8rpx 24rpx rgba(30, 27, 75, 0.15);
+}
+
+.vip-banner-title {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #FBBF24;
+  margin-bottom: 4rpx;
+}
+
+.vip-banner-desc {
+  font-size: 20rpx;
+  color: #CBD5E1;
+}
+
+.vip-banner-btn {
+  font-size: 22rpx;
+  background: #FBBF24;
+  color: #1E1B4B;
+  padding: 10rpx 24rpx;
+  border-radius: var(--starry-radius-full);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.menu-card {
+  padding: 8rpx 24rpx;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 8rpx;
+  border-bottom: 1rpx solid var(--starry-muted-bg);
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.menu-icon {
+  font-size: 32rpx;
+}
+
+.menu-label {
+  font-size: 28rpx;
+  color: var(--starry-text-main);
+  font-weight: 500;
+}
+
+.menu-arrow {
+  font-size: 24rpx;
+  color: var(--starry-text-muted);
+}
+
+/* 弹窗样式 */
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 32rpx;
+}
+
+.modal-box {
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  padding: 40rpx 32rpx;
+  width: 100%;
+  max-width: 600rpx;
+}
+
+.modal-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--starry-text-main);
+  margin-bottom: 24rpx;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  font-size: 26rpx;
+}
+
+.lbl {
+  width: 140rpx;
+  color: var(--starry-text-secondary);
+}
+
+.ipt {
+  flex: 1;
+  background: #F8FAFC;
+  padding: 14rpx 20rpx;
+  border-radius: var(--starry-radius-sm);
+  border: 1rpx solid #E2E8F0;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 32rpx;
+}
+
+.m-cancel {
+  flex: 1;
+  background: #F1F5F9;
+  color: var(--starry-text-secondary);
+  font-size: 26rpx;
+  border-radius: var(--starry-radius-full);
+}
+
+.m-save {
+  flex: 1;
+  background: var(--starry-primary);
+  color: #FFFFFF;
+  font-size: 26rpx;
+  border-radius: var(--starry-radius-full);
+  font-weight: 600;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.contact-hint {
+  font-size: 24rpx;
+  color: var(--starry-text-muted);
+  margin-bottom: 16rpx;
+}
+
+.contact-wechat-id {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: var(--starry-primary);
+  margin-bottom: 8rpx;
+}
+
+.contact-phone {
+  font-size: 24rpx;
+  color: var(--starry-text-secondary);
+  margin-bottom: 32rpx;
+}
+
+.w-full {
+  width: 100%;
+}

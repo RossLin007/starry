@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若星 · 每日</title>
+<link rel="stylesheet" href="assets/ruoxing.css">
+<style>
+  .feed-tabs { display: flex; gap: 20px; overflow-x: auto; padding: 4px 20px 14px; scrollbar-width: none; }
+  .feed-tabs::-webkit-scrollbar { display: none; }
+  .feed-tabs a { flex-shrink: 0; text-decoration: none; font-size: 13px; color: var(--ash); padding-bottom: 6px; border-bottom: 1px solid transparent; }
+  .feed-tabs a.active { font-family: var(--serif); font-weight: 600; color: var(--ink); border-bottom-color: var(--tea); }
+  .recipe-cta { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--caramel); color: var(--caramel); background: none; border-radius: 16px; padding: 6px 14px; font-size: 12px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="screen no-tabbar">
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+      <svg width="25" height="11" viewBox="0 0 25 11" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="10" rx="2.5"/><rect x="2.5" y="2.5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M23.5 3.5v4a2 2 0 0 0 0-4z" fill="currentColor" stroke="none"/></svg>
+    </span>
+  </div>
+
+  <div class="navbar">
+    <a class="back" aria-label="返回" href="learn-cooking.html"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 36L19 24L31 12"/></svg></a>
+    <span class="nav-title">每日</span>
+    <div class="capsule" aria-hidden="true"><span class="cap-half"><span class="cap-dots"><i></i><i></i><i></i></span></span><span class="cap-divider"></span><span class="cap-half"><span class="cap-target"></span></span></div>
+  </div>
+
+  <!-- 内容类型 -->
+  <div class="feed-tabs" id="feedTabs">
+    <a href="#" data-feed="all" class="active">全部</a>
+    <a href="#" data-feed="guide">日日新生</a>
+    <a href="#" data-feed="gold">生活金句</a>
+    <a href="#" data-feed="recipe">若星食谱</a>
+  </div>
+
+  <div class="section" style="padding-top: 4px; margin-bottom: 0;" id="feedList">
+
+    <!-- 明日解锁 -->
+    <div class="locked-day">
+      <svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z"/><path d="M24.0084 12.0001L24.0072 24.0089L32.4866 32.4883"/></svg>
+      <span>明日内容 · 明早 7:30 解锁</span>
+    </div>
+
+    <!-- 日日新生（空间） -->
+    <div class="card daily-card" data-type="guide">
+      <div class="photo photo-space"><span class="photo-label">日日新生 · 第 18 天</span></div>
+      <div class="d-body">
+        <div class="d-date">9 月 15 日 · 空间管理</div>
+        <div class="d-text">今天整理一个抽屉就好。不需要整个房间，一个抽屉。把里面的东西都倒出来，只留下每天真的在用的。</div>
+        <div class="d-foot">
+          <span class="meta">安老师</span>
+          <a class="btn-text" href="checkin.html">记录心得</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生活金句（料理） -->
+    <div class="card daily-note" data-type="gold">
+      <div class="n-date">9 月 15 日 · 生活料理</div>
+      <div class="n-quote">"一餐一饭，都是开始。"——今天给自己做一顿简单的饭，慢慢吃。</div>
+      <div class="n-foot">
+        <a class="btn-text" href="checkin.html">记录心得</a>
+      </div>
+    </div>
+
+    <!-- 若星食谱（料理） -->
+    <div class="card daily-card" data-type="recipe">
+      <div class="photo photo-food"><span class="photo-label">若星食谱</span></div>
+      <div class="d-body">
+        <div class="d-date">9 月 14 日 · 秋日时蔬豆腐煲</div>
+        <div class="d-text">当季的莲藕、山药和豆腐一起慢炖，只加一点点盐。汤是甜的，暖的，很适合这个渐凉的秋天。</div>
+        <div class="d-foot">
+          <span class="meta">若星 · 每周更新</span>
+          <button type="button" class="recipe-cta" id="recipeCta">我也做了</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 日日新生 -->
+    <div class="card daily-note" data-type="guide">
+      <div class="n-date">9 月 14 日 · 空间管理</div>
+      <div class="n-quote">清理台面：把厨房台面上的东西都暂时收进柜子，只留三件最常用的。看一看，空间好像大了一倍。</div>
+      <div class="n-foot"><a class="btn-text" href="checkin.html">记录心得</a></div>
+    </div>
+
+    <!-- 生活金句 -->
+    <div class="card daily-note" data-type="gold">
+      <div class="n-date">9 月 13 日 · 生活料理</div>
+      <div class="n-quote">"好好吃饭，是生活的起点。"——忙碌时更要好好吃饭，这是对自己最基本的照顾。</div>
+      <div class="n-foot"><a class="btn-text" href="checkin.html">记录心得</a></div>
+    </div>
+
+    <!-- 若星食谱 -->
+    <div class="card daily-card" data-type="recipe">
+      <div class="photo photo-baking"><span class="photo-label">若星食谱</span></div>
+      <div class="d-body">
+        <div class="d-date">9 月 12 日 · 香煎豆腐配时蔬</div>
+        <div class="d-text">老豆腐切厚片，小火慢煎至两面金黄，配焯水西兰花。简单，却很安心。</div>
+        <div class="d-foot">
+          <span class="meta">若星 · 每周更新</span>
+          <button type="button" class="recipe-cta">我也做了</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('#feedTabs a');
+  var items = document.querySelectorAll('#feedList [data-type]');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function (e) {
+      e.preventDefault();
+      tabs.forEach(function (x) { x.classList.remove('active'); });
+      t.classList.add('active');
+      var f = t.getAttribute('data-feed');
+      items.forEach(function (item) {
+        item.style.display = (f === 'all' || item.getAttribute('data-type') === f) ? '' : 'none';
+      });
+    });
+  });
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  document.querySelectorAll('.recipe-cta').forEach(function (b) {
+    b.addEventListener('click', function () {
+      showToast('太好了！去打卡里上传你做的同款菜吧');
+      setTimeout(function () { location.href = 'checkin.html'; }, 900);
+    });
+  });
+})();
+</script>
+</body>
+</html>
