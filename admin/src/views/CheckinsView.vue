@@ -95,13 +95,13 @@ onMounted(() => {
     <!-- 头部说明 -->
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-2xl font-bold text-slate-800">实践打卡与陪伴管理</h1>
-        <p class="text-sm text-slate-500 mt-1">查看学员在学打卡心得、审核精选上墙、撰写若星主理人温润陪伴寄语</p>
+        <h1 class="text-2xl font-bold text-starry-ink">实践打卡与陪伴管理</h1>
+        <p class="text-sm text-starry-ash mt-1">查看学员在学打卡心得、审核精选上墙、撰写若星主理人温润陪伴寄语</p>
       </div>
     </div>
 
     <!-- 筛选工具条 -->
-    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm mb-6 flex items-center justify-between">
+    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm mb-6 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <button
           v-for="tab in ['全部', '待审核', '精选上墙']"
@@ -109,40 +109,40 @@ onMounted(() => {
           @click="currentTab = tab"
           :class="[
             'px-3 py-1.5 rounded-lg text-sm font-medium transition',
-            currentTab === tab ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
+            currentTab === tab ? 'bg-starry-green text-white' : 'text-starry-tea hover:bg-starry-bud'
           ]"
         >
           {{ tab }}
         </button>
       </div>
-      <div class="text-xs text-slate-400">
+      <div class="text-xs text-starry-ash">
         共 {{ checkins.length }} 条打卡记录
       </div>
     </div>
 
     <!-- 打卡瀑布流列表 -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div v-if="checkins.length === 0 && !loading" class="col-span-2 text-center text-slate-400 py-16 bg-white rounded-xl border">
+      <div v-if="checkins.length === 0 && !loading" class="col-span-2 text-center text-starry-ash py-16 bg-white rounded-xl border border-slate-200/80">
         暂无打卡数据，学员提交打卡后将显示在此处
       </div>
 
       <div
         v-for="c in checkins"
         :key="c.id"
-        class="bg-white rounded-xl border border-slate-100 shadow-sm p-5 space-y-4 hover:shadow-md transition"
+        class="bg-white rounded-xl border border-slate-200/80 shadow-sm p-5 space-y-4 hover:shadow-md transition"
       >
         <!-- 学员头部 -->
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-sm">
+            <div class="w-10 h-10 rounded-full bg-starry-bud text-starry-green font-bold flex items-center justify-center text-sm border border-starry-green/20">
               {{ c.user.nickname.slice(0, 1) }}
             </div>
             <div>
-              <div class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <div class="font-bold text-starry-ink text-sm flex items-center gap-2">
                 {{ c.user.nickname }}
-                <span class="text-xs text-slate-400 font-normal">({{ c.createdAt.slice(0, 10) }})</span>
+                <span class="text-xs text-starry-ash font-normal">({{ c.createdAt.slice(0, 10) }})</span>
               </div>
-              <div class="text-xs text-indigo-600 font-medium">
+              <div class="text-xs text-starry-green font-medium">
                 {{ c.course?.title || '日常自由打卡' }} {{ c.lesson ? `· ${c.lesson.title}` : '' }}
               </div>
             </div>
@@ -151,17 +151,17 @@ onMounted(() => {
           <div class="flex items-center gap-2">
             <span
               :class="[
-                'text-[11px] px-2.5 py-0.5 rounded-md font-semibold',
-                c.isFeatured ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-500'
+                'text-[11px] px-2.5 py-0.5 rounded-full font-medium',
+                c.isFeatured ? 'bg-amber-100 text-amber-800 border border-amber-300/50' : 'bg-slate-100 text-slate-500'
               ]"
             >
-              {{ c.isFeatured ? '★ 精选上墙' : '常规打卡' }}
+              {{ c.isFeatured ? '✦ 精选上墙' : '常规打卡' }}
             </span>
           </div>
         </div>
 
         <!-- 打卡心得文字 -->
-        <div class="text-sm text-slate-700 leading-relaxed bg-slate-50/70 p-3.5 rounded-lg border border-slate-100">
+        <div class="text-sm text-starry-ink leading-relaxed bg-[#FAF9F5] p-3.5 rounded-lg border border-slate-100">
           {{ c.content }}
         </div>
 
@@ -179,12 +179,12 @@ onMounted(() => {
             @click="toggleFeatured(c)"
             class="text-amber-600 hover:text-amber-700 font-medium flex items-center gap-1"
           >
-            <span>{{ c.isFeatured ? '★ 取消精选' : '☆ 设为精选' }}</span>
+            <span>{{ c.isFeatured ? '✦ 取消精选' : '✧ 设为精选' }}</span>
           </button>
 
           <button
             @click="openReviewModal(c)"
-            class="px-3 py-1.5 bg-slate-900 hover:bg-black text-white font-medium rounded-lg shadow-sm"
+            class="px-3 py-1.5 bg-starry-ink hover:bg-black text-white font-medium rounded-lg shadow-sm"
           >
             {{ c.adminComment ? '修改寄语' : '撰写温润寄语 ➔' }}
           </button>
@@ -196,29 +196,29 @@ onMounted(() => {
     <div v-if="showReviewModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
       <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl space-y-4">
         <div class="flex items-center justify-between border-b pb-3">
-          <h2 class="text-lg font-bold text-slate-900">撰写若星主理人温润寄语</h2>
+          <h2 class="text-lg font-bold text-starry-ink">撰写若星主理人温润寄语</h2>
           <button @click="showReviewModal = false" class="text-slate-400 text-xl font-bold">✕</button>
         </div>
 
         <div class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg">
-          学员：<span class="font-bold text-slate-800">{{ activeCheckin?.user.nickname }}</span><br />
+          学员：<span class="font-bold text-starry-ink">{{ activeCheckin?.user.nickname }}</span><br />
           心得：{{ activeCheckin?.content }}
         </div>
 
         <div class="space-y-3 text-sm">
           <div class="flex items-center gap-4">
             <label class="flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" v-model="reviewForm.isFeatured" class="rounded text-indigo-600" />
-              <span class="font-medium text-slate-700">同步推荐至打卡广场精选墙</span>
+              <input type="checkbox" v-model="reviewForm.isFeatured" class="rounded text-starry-green focus:ring-starry-green" />
+              <span class="font-medium text-starry-tea">同步推荐至打卡广场精选墙</span>
             </label>
           </div>
 
           <div>
-            <label class="block text-slate-700 font-medium mb-1">温润陪伴寄语内容</label>
+            <label class="block text-starry-ink font-medium mb-1">温润陪伴寄语内容</label>
             <textarea
               v-model="reviewForm.adminComment"
               rows="4"
-              class="w-full p-3 border rounded-xl text-sm"
+              class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-starry-green focus:border-transparent"
               placeholder="给学员写一句温润笃定的鼓励..."
             ></textarea>
           </div>
@@ -226,7 +226,7 @@ onMounted(() => {
 
         <div class="flex justify-end gap-3 pt-2">
           <button @click="showReviewModal = false" class="px-4 py-2 border rounded-lg text-slate-600 hover:bg-slate-50">取消</button>
-          <button @click="submitReview" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg">
+          <button @click="submitReview" class="px-4 py-2 bg-starry-green hover:bg-[#018A42] text-white font-medium rounded-lg">
             保存寄语并发布
           </button>
         </div>

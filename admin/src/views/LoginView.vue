@@ -1,48 +1,48 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-slate-900 px-4">
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 space-y-8">
+  <div class="min-h-screen flex items-center justify-center bg-starry-night px-4">
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 space-y-8 border border-slate-700/50">
       <div class="text-center space-y-2">
-        <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-bold text-2xl mx-auto shadow-lg shadow-indigo-600/30">
-          ✨
+        <div class="w-12 h-12 rounded-2xl bg-starry-green flex items-center justify-center text-white font-bold text-2xl mx-auto shadow-lg shadow-starry-green/30">
+          ✦
         </div>
-        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">若星空间 · 管理中台</h2>
-        <p class="text-sm text-slate-500">请输入管理员账号登录系统</p>
+        <h2 class="text-2xl font-bold text-starry-ink tracking-tight">若星空间 · 陪伴管理中台</h2>
+        <p class="text-sm text-starry-ash">请输入管理员账号登录系统</p>
       </div>
 
       <form @submit.prevent="handleLogin" class="space-y-5">
         <div class="space-y-1.5">
-          <label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">用户名</label>
+          <label class="text-xs font-semibold text-starry-tea uppercase tracking-wider">用户名</label>
           <input
             v-model="form.username"
             type="text"
             required
             placeholder="admin"
-            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm transition-all"
+            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-starry-green focus:border-transparent text-sm transition-all"
           />
         </div>
 
         <div class="space-y-1.5">
-          <label class="text-xs font-semibold text-slate-700 uppercase tracking-wider">登录密码</label>
+          <label class="text-xs font-semibold text-starry-tea uppercase tracking-wider">登录密码</label>
           <input
             v-model="form.password"
             type="password"
             required
             placeholder="••••••••"
-            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm transition-all"
+            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-starry-green focus:border-transparent text-sm transition-all"
           />
         </div>
 
         <button
           type="submit"
           :disabled="loading"
-          class="w-full py-3.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all disabled:opacity-50"
+          class="w-full py-3.5 px-4 rounded-xl bg-starry-green hover:bg-[#018A42] text-white font-semibold text-sm shadow-lg shadow-starry-green/30 transition-all disabled:opacity-50"
         >
-          {{ loading ? '正在登录中...' : '立即登录' }}
+          {{ loading ? '正在登录中...' : '进入管理中台' }}
         </button>
       </form>
 
-      <div class="text-center text-xs text-slate-400">
-        默认测试超管账号：<code class="text-indigo-600 font-semibold font-mono">admin</code> / <code class="text-indigo-600 font-semibold font-mono">admin123456</code>
+      <div class="text-center text-xs text-starry-ash">
+        默认测试超管账号：<code class="text-starry-green font-semibold font-mono">admin</code> / <code class="text-starry-green font-semibold font-mono">admin123456</code>
       </div>
     </div>
   </div>
