@@ -1,36 +1,44 @@
 /**
- * 若星空间 (Starry Space) - VI 设计规范全局变量
- * 依据: docs/Design/VI/
+ * 若星空间 (Starry Space) - VI 视觉设计系统 Design Tokens
+ * 权威依据: docs/Design/design.md (V1.0)
  */
 page {
-  /* 品牌色系 */
-  --starry-primary: #4F46E5;
-  --starry-primary-light: #EEF2FF;
-  --starry-dark: #0F172A;
-  --starry-gold: #F59E0B;
-  --starry-gold-light: #FEF3C7;
-  --starry-emerald: #10B981;
-  --starry-emerald-light: #ECFDF5;
-  --starry-rose: #F43F5E;
+  /* ---------- 1. 白昼世界 · 核心色板 (Day Palette - 90% 场景) ---------- */
+  --starry-green: #019A4A;       /* 若星绿：品牌主色 · 唯一行动色 (按钮/主链接/序号圆) */
+  --starry-primary: #019A4A;     /* 系统主色别名 */
+  --starry-ink: #16300F;         /* 深林绿：主要阅读文字 (对比度 14:1) */
+  --starry-tea: #38502E;         /* 橄榄绿：辅助文字、眉题 (对比度 8.7:1) */
+  --starry-olive: #7BAF42;       /* 橄榄黄绿：点缀过渡、插画与影像辅助 */
+  --starry-paper: #FEFFFD;       /* 纸白：全局页面与卡片底色 (温润通透) */
+  --starry-bud: #F0F8E4;         /* 浅芽绿：标签底色、提示条浅底 */
+  --starry-rice: #F0F2E9;        /* 暖米灰：分隔线、卡片描边、占位底 */
+  --starry-ash: #4F5345;         /* 灰褐：次要文字、英文小字 (对比度 7.7:1) */
+  --starry-crimson: #B04A33;     /* 绯红：朱文印章与必要警示 (不作装饰面) */
 
-  /* 背景与表面色 */
-  --starry-bg: #F8FAFC;
-  --starry-card-bg: #FFFFFF;
-  --starry-muted-bg: #F1F5F9;
+  /* 基础映射别名 */
+  --starry-bg: #F1F0E8;          /* 页面衬底色 (浅米灰) */
+  --starry-card-bg: #FEFFFD;     /* 卡片白底 (纸白) */
+  --starry-muted-bg: #F0F2E9;    /* 浅灰底 (暖米灰) */
+  --starry-text-main: #16300F;   /* 主文字 (深林绿) */
+  --starry-text-secondary: #38502E; /* 次文字 (橄榄绿) */
+  --starry-text-muted: #4F5345;  /* 弱文字 (灰褐) */
 
-  /* 文字颜色 */
-  --starry-text-main: #0F172A;
-  --starry-text-secondary: #475569;
-  --starry-text-muted: #94A3B8;
+  /* ---------- 2. 星夜世界 · 核心色板 (Night Palette - 10% 场景) ---------- */
+  --starry-night: #1F2A44;       /* 夜空蓝：星愿会员、成长星图、仪式感底色 */
+  --starry-mist: #3D4E73;        /* 雾蓝：夜空蓝上的层级过渡面板 */
+  --starry-star: #F0D9A8;        /* 星光金：星标、星座星点、关键金句 */
+  --starry-gold: #F0D9A8;        /* 金色别名 */
+  --starry-cream: #E9E4D8;       /* 星夜米白：星夜世界正文 (对夜空蓝 9.6:1) */
 
-  /* 圆角 */
-  --starry-radius-sm: 12rpx;
-  --starry-radius-md: 20rpx;
-  --starry-radius-lg: 32rpx;
+  /* ---------- 3. 尺寸与圆角规范 ---------- */
+  --starry-radius-sm: 8rpx;
+  --starry-radius-md: 16rpx;
+  --starry-radius-lg: 24rpx;
+  --starry-radius-xl: 32rpx;
   --starry-radius-full: 9999rpx;
 
-  /* 阴影 */
-  --starry-shadow-sm: 0 2rpx 8rpx rgba(15, 23, 42, 0.04);
-  --starry-shadow-md: 0 8rpx 24rpx rgba(15, 23, 42, 0.06);
-  --starry-shadow-lg: 0 16rpx 40rpx rgba(15, 23, 42, 0.08);
+  /* ---------- 4. 温润微投影 ---------- */
+  --starry-shadow-sm: 0 2rpx 10rpx rgba(22, 48, 15, 0.04);
+  --starry-shadow-md: 0 8rpx 24rpx rgba(22, 48, 15, 0.06);
+  --starry-shadow-night: 0 12rpx 36rpx rgba(31, 42, 68, 0.25);
 }
