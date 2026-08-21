@@ -1,133 +1,232 @@
 <template>
-  <div class="space-y-8">
-    <!-- 顶部欢迎卡片 (星夜世界微光氛围) -->
-    <div class="bg-gradient-to-r from-starry-night via-[#1A263D] to-starry-night rounded-2xl p-8 text-white shadow-xl flex items-center justify-between border border-slate-700/50">
-      <div class="space-y-2">
-        <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2">
-          下午好，{{ authStore.user?.realName || '若星团队' }} <span class="text-starry-star">✦</span>
-        </h2>
-        <p class="text-slate-300 text-sm max-w-xl">
-          欢迎回到若星空间管理中台。今天有 <span class="text-starry-star font-semibold">12</span> 条学员打卡待审核，<span class="text-starry-star font-semibold">3</span> 个课程班级正在进行中。
-        </p>
+  <div>
+    <!-- 页头 -->
+    <div class="page-head">
+      <div>
+        <h1>工作台</h1>
       </div>
-      <div class="flex gap-3">
-        <router-link to="/checkins" class="px-4 py-2.5 bg-starry-green hover:bg-[#018A42] text-white rounded-xl text-sm font-medium transition-colors shadow-lg shadow-starry-green/30">
-          去审核打卡
-        </router-link>
-        <router-link to="/courses" class="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-medium transition-colors backdrop-blur">
-          发布新课程
-        </router-link>
+      <span class="head-note">{{ todayFormatted }}</span>
+    </div>
+
+    <!-- 今日概览 4 大指标卡片 -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">6</div>
+        <div class="stat-label">本周新报名</div>
+        <div class="stat-note">料理课 4 · 烘焙课 2</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">进行中的课程</div>
+        <div class="stat-note">最近一课在本周四</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">近期活动</div>
+        <div class="stat-note">初秋茶会 9 月 7 日</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">待处理事项</div>
+        <div class="stat-note">不着急，一件件来</div>
       </div>
     </div>
 
-    <!-- 4 大核心指标卡片 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-        <div class="flex items-center justify-between text-starry-tea text-sm font-medium">
-          <span>总在学学员</span>
-          <span class="p-2 rounded-xl bg-starry-bud text-starry-green">👥</span>
-        </div>
-        <div class="flex items-baseline gap-2">
-          <span class="text-3xl font-bold text-starry-ink">1,280</span>
-          <span class="text-xs font-semibold text-starry-green">+12% 同比</span>
-        </div>
+    <!-- 待处理 (系统替你记住的事) -->
+    <div class="panel">
+      <div class="panel-title">
+        待处理<span class="title-note">系统替你记住的事</span>
       </div>
-
-      <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-        <div class="flex items-center justify-between text-starry-tea text-sm font-medium">
-          <span>累计打卡数</span>
-          <span class="p-2 rounded-xl bg-amber-50 text-amber-600">📝</span>
-        </div>
-        <div class="flex items-baseline gap-2">
-          <span class="text-3xl font-bold text-starry-ink">8,542</span>
-          <span class="text-xs font-semibold text-starry-green">+28 篇今日</span>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-        <div class="flex items-center justify-between text-starry-tea text-sm font-medium">
-          <span>深度会员总数</span>
-          <span class="p-2 rounded-xl bg-rose-50 text-rose-600">👑</span>
-        </div>
-        <div class="flex items-baseline gap-2">
-          <span class="text-3xl font-bold text-starry-ink">326</span>
-          <span class="text-xs font-semibold text-starry-ash">活跃率 89%</span>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-        <div class="flex items-center justify-between text-starry-tea text-sm font-medium">
-          <span>本月交易总额</span>
-          <span class="p-2 rounded-xl bg-starry-bud text-starry-green">💳</span>
-        </div>
-        <div class="flex items-baseline gap-2">
-          <span class="text-3xl font-bold text-starry-green">¥48,600</span>
-          <span class="text-xs font-semibold text-starry-green">+18% 环比</span>
-        </div>
-      </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td style="width:24px; color: var(--tea);">✦</td>
+            <td>
+              <div class="td-main">初秋茶会的报名将在 9 月 5 日截止</div>
+              <div class="td-sub">目前已有 8 人报名，限 12 人</div>
+            </td>
+            <td style="width:120px; text-align:right;">
+              <router-link class="btn-text" to="/activities">去看看</router-link>
+            </td>
+          </tr>
+          <tr>
+            <td style="color: var(--tea);">✦</td>
+            <td>
+              <div class="td-main">料理课第 3 课资料将于 9 月 17 日自动开放</div>
+              <div class="td-sub">已设置定时开放，无需手动操作</div>
+            </td>
+            <td style="text-align:right;">
+              <router-link class="btn-text" to="/courses">查看课程设置</router-link>
+            </td>
+          </tr>
+          <tr>
+            <td style="color: var(--tea);">✦</td>
+            <td>
+              <div class="td-main">有 2 位学员的打卡还没有回复</div>
+              <div class="td-sub">阿玲 · 7 月 24 日 / 小满 · 7 月 23 日</div>
+            </td>
+            <td style="text-align:right;">
+              <router-link class="btn-text" to="/checkins">回复打卡</router-link>
+            </td>
+          </tr>
+          <tr>
+            <td style="color: var(--tea);">✦</td>
+            <td>
+              <div class="td-main">1 笔退款申请待处理</div>
+              <div class="td-sub">订单 20260718 · 插花活动</div>
+            </td>
+            <td style="text-align:right;">
+              <router-link class="btn-text" to="/orders">处理</router-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <!-- 快捷操作与待办区域 -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- 待办审核清单 -->
-      <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-6">
-        <div class="flex items-center justify-between">
-          <h3 class="font-bold text-starry-ink text-base">待办事项</h3>
-          <span class="text-xs text-starry-green font-medium">查看全部</span>
-        </div>
-        <div class="divide-y divide-slate-100">
-          <div class="py-3.5 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              <span class="text-sm font-medium text-starry-ink">学员实践打卡待审核 (12 篇)</span>
-            </div>
-            <router-link to="/checkins" class="text-xs font-medium text-starry-green hover:text-[#018A42]">处理 ➔</router-link>
-          </div>
-          <div class="py-3.5 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-starry-green"></span>
-              <span class="text-sm font-medium text-starry-ink">空间整理营第三期：明日需定时开放课节资料</span>
-            </div>
-            <router-link to="/courses" class="text-xs font-medium text-starry-green hover:text-[#018A42]">查看 ➔</router-link>
-          </div>
-          <div class="py-3.5 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-starry-olive"></span>
-              <span class="text-sm font-medium text-starry-ink">线下沙龙活动报名已满员 (30/30 人)</span>
-            </div>
-            <router-link to="/activities" class="text-xs font-medium text-starry-green hover:text-[#018A42]">名单 ➔</router-link>
-          </div>
-        </div>
+    <!-- 进行中的课程 -->
+    <div class="panel">
+      <div class="panel-title">
+        进行中的课程<span class="title-note"><router-link class="btn-text" to="/courses">全部课程</router-link></span>
       </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>课程</th>
+            <th>进度</th>
+            <th>学员</th>
+            <th>本周作业提交</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-food thumb"></div>
+                <div>
+                  <div class="td-main">生活料理 · 第 12 期</div>
+                  <div class="td-sub">每周四晚 · 线上</div>
+                </div>
+              </div>
+            </td>
+            <td>第 2 / 8 课</td>
+            <td class="num">32</td>
+            <td><span class="tag green">21 份</span></td>
+            <td style="text-align:right;">
+              <router-link class="row-link" to="/courses">管理</router-link>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-space thumb"></div>
+                <div>
+                  <div class="td-main">空间管理 · 第 7 期</div>
+                  <div class="td-sub">每周三晚 · 线上</div>
+                </div>
+              </div>
+            </td>
+            <td>第 4 / 6 课</td>
+            <td class="num">28</td>
+            <td><span class="tag green">19 份</span></td>
+            <td style="text-align:right;">
+              <router-link class="row-link" to="/courses">管理</router-link>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <div class="photo photo-baking thumb"></div>
+                <div>
+                  <div class="td-main">纯素烘焙 · 第 5 期</div>
+                  <div class="td-sub">每周六上午 · 线上</div>
+                </div>
+              </div>
+            </td>
+            <td>第 1 / 6 课</td>
+            <td class="num">24</td>
+            <td><span class="tag">收集中</span></td>
+            <td style="text-align:right;">
+              <router-link class="row-link" to="/courses">管理</router-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <!-- 系统状态与快捷入口 -->
-      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-6">
-        <h3 class="font-bold text-starry-ink text-base">快捷入口</h3>
-        <div class="grid grid-cols-2 gap-3">
-          <router-link to="/publish" class="p-4 rounded-xl bg-slate-50 hover:bg-starry-bud text-starry-tea hover:text-starry-green transition-colors flex flex-col items-center gap-2 text-center">
-            <span class="text-2xl">✍️</span>
-            <span class="text-xs font-medium">发布每日星语</span>
-          </router-link>
-          <router-link to="/stories" class="p-4 rounded-xl bg-slate-50 hover:bg-starry-bud text-starry-tea hover:text-starry-green transition-colors flex flex-col items-center gap-2 text-center">
-            <span class="text-2xl">📖</span>
-            <span class="text-xs font-medium">会员故事审核</span>
-          </router-link>
-          <router-link to="/students" class="p-4 rounded-xl bg-slate-50 hover:bg-starry-bud text-starry-tea hover:text-starry-green transition-colors flex flex-col items-center gap-2 text-center">
-            <span class="text-2xl">👥</span>
-            <span class="text-xs font-medium">学员标签维护</span>
-          </router-link>
-          <router-link to="/configs" class="p-4 rounded-xl bg-slate-50 hover:bg-starry-bud text-starry-tea hover:text-starry-green transition-colors flex flex-col items-center gap-2 text-center">
-            <span class="text-2xl">⚙️</span>
-            <span class="text-xs font-medium">首页模块配置</span>
-          </router-link>
-        </div>
+    <!-- 最新报名 -->
+    <div class="panel">
+      <div class="panel-title">
+        最新报名<span class="title-note"><router-link class="btn-text" to="/orders">全部订单</router-link></span>
       </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>学员</th>
+            <th>报名内容</th>
+            <th>时间</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <span class="avatar">满</span>
+                <div>
+                  <div class="td-main">林小满</div>
+                  <div class="td-sub">上海</div>
+                </div>
+              </div>
+            </td>
+            <td>生活料理 · 第 12 期</td>
+            <td class="td-sub">今天 10:24</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <span class="avatar">晴</span>
+                <div>
+                  <div class="td-main">苏晚晴</div>
+                  <div class="td-sub">杭州</div>
+                </div>
+              </div>
+            </td>
+            <td>初秋茶会</td>
+            <td class="td-sub">昨天 21:07</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="id-cell">
+                <span class="avatar">禾</span>
+                <div>
+                  <div class="td-main">陈禾禾</div>
+                  <div class="td-sub">苏州</div>
+                </div>
+              </div>
+            </td>
+            <td>纯素烘焙 · 第 5 期</td>
+            <td class="td-sub">昨天 16:42</td>
+            <td><span class="tag green">已支付</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '../stores/auth.js';
+import { computed } from 'vue';
 
-const authStore = useAuthStore();
+const todayFormatted = computed(() => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  const weekday = weekdays[now.getDay()];
+  return `${year} 年 ${month} 月 ${day} 日 · ${weekday}`;
+});
 </script>

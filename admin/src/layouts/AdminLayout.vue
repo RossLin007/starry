@@ -1,127 +1,93 @@
 <template>
-  <div class="min-h-screen flex bg-[#F9F9F6]">
-    <!-- 侧边栏导航 (星夜世界质感) -->
-    <aside class="w-64 bg-starry-night text-slate-300 flex flex-col flex-shrink-0 border-r border-slate-800">
-      <!-- 品牌 Logo -->
-      <div class="h-16 flex items-center px-6 border-b border-slate-800/80 gap-3">
-        <div class="w-8 h-8 rounded-lg bg-starry-green flex items-center justify-center text-white font-bold text-base shadow-md shadow-starry-green/20">
-          ✦
-        </div>
-        <div>
-          <div class="font-semibold text-white tracking-wide text-sm">若星空间</div>
-          <div class="text-xs text-starry-star">团队陪伴中台</div>
-        </div>
+  <div class="admin">
+    <!-- 侧边栏 (严格对齐 prototype-v3/admin/index.html) -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-name"><span class="brand-star">✦</span>若 星</div>
+        <div class="brand-sub">团队工作台</div>
       </div>
 
-      <!-- 菜单列表 -->
-      <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2">业务陪伴管理</div>
+      <nav class="side-nav" aria-label="后台导航">
+        <router-link to="/" :class="{ active: isExactActive('/') }">
+          工作台<span class="nav-star">✦</span>
+        </router-link>
 
-        <router-link
-          v-for="item in menuItems"
-          :key="item.path"
-          :to="item.path"
-          class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors"
-          :class="isActive(item.path) ? 'bg-starry-green text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white'"
-        >
-          <span class="text-base">{{ item.icon }}</span>
-          <span>{{ item.label }}</span>
+        <div class="nav-group">课程与活动</div>
+        <router-link to="/courses" :class="{ active: isActive('/courses') }">
+          课程管理<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/activities" :class="{ active: isActive('/activities') }">
+          活动管理<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/publish" :class="{ active: isActive('/publish') }">
+          内容发布<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/stories" :class="{ active: isActive('/stories') }">
+          故事管理<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/checkins" :class="{ active: isActive('/checkins') }">
+          打卡管理<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/tags" :class="{ active: isActive('/tags') }">
+          标签管理<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/orders" :class="{ active: isActive('/orders') }">
+          订单管理<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/goods" :class="{ active: isActive('/goods') }">
+          商品管理<span class="nav-star">✦</span>
+        </router-link>
+
+        <div class="nav-group">页面配置</div>
+        <router-link to="/configs" :class="{ active: isActive('/configs') }">
+          首页配置<span class="nav-star">✦</span>
+        </router-link>
+
+        <div class="nav-group">人与关系</div>
+        <router-link to="/students" :class="{ active: isActive('/students') }">
+          学员管理<span class="nav-star">✦</span>
+        </router-link>
+        <router-link to="/members" :class="{ active: isActive('/members') }">
+          会员管理<span class="nav-star">✦</span>
         </router-link>
       </nav>
 
-      <!-- 底部管理员信息与退出 -->
-      <div class="p-4 border-t border-slate-800/80 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-starry-star font-medium text-sm">
-            {{ userInitial }}
-          </div>
-          <div>
-            <div class="text-sm font-medium text-white">{{ authStore.user?.realName || authStore.user?.username || '管理员' }}</div>
-            <div class="text-xs text-starry-star font-mono">{{ authStore.user?.role === 'SUPER_ADMIN' ? '超级管理员' : '陪伴运营人' }}</div>
-          </div>
+      <div class="side-foot">
+        {{ userName }}，下午好。<br>
+        今天也是安静做事的一天。
+        <div style="margin-top: 10px;">
+          <button @click="handleLogout" class="btn-text" style="font-size: 11px; color: var(--ash);">
+            退出登录
+          </button>
         </div>
-        <button
-          @click="handleLogout"
-          class="text-slate-400 hover:text-rose-400 text-xs px-2 py-1 rounded transition-colors"
-          title="退出登录"
-        >
-          退出
-        </button>
       </div>
     </aside>
 
-    <!-- 右侧主体内容区 -->
-    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
-      <!-- 顶部状态栏 -->
-      <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-8 z-10">
-        <div class="flex items-center gap-4">
-          <h1 class="text-lg font-bold text-starry-ink">{{ currentTitle }}</h1>
-          <span class="text-xs px-2.5 py-0.5 rounded-full bg-starry-bud text-starry-green font-medium border border-starry-green/20">
-            服务正常
-          </span>
-        </div>
-        <div class="flex items-center gap-4 text-sm text-starry-ash">
-          <span>{{ todayFormatted }}</span>
-        </div>
-      </header>
-
-      <!-- 页面视图出口 -->
-      <main class="flex-1 overflow-y-auto p-8">
-        <router-view />
-      </main>
-    </div>
+    <!-- 主内容区 -->
+    <main class="main">
+      <router-view />
+    </main>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useAuthStore } from '../stores/auth.js';
 
 const route = useRoute();
-const router = useRouter();
 const authStore = useAuthStore();
 
-const menuItems = [
-  { path: '/', label: '工作台看板', icon: '📊' },
-  { path: '/courses', label: '课程管理', icon: '📚' },
-  { path: '/activities', label: '活动管理', icon: '🎈' },
-  { path: '/checkins', label: '打卡审核', icon: '📝' },
-  { path: '/publish', label: '内容发布', icon: '✍️' },
-  { path: '/stories', label: '学员故事', icon: '📖' },
-  { path: '/students', label: '学员档案', icon: '👥' },
-  { path: '/members', label: '会员管理', icon: '👑' },
-  { path: '/goods', label: '商品好物', icon: '🎁' },
-  { path: '/orders', label: '订单中心', icon: '💳' },
-  { path: '/tags', label: '标签集管理', icon: '🏷️' },
-  { path: '/configs', label: '页面配置', icon: '⚙️' },
-];
+const isExactActive = (path: string) => {
+  return route.path === path;
+};
 
 const isActive = (path: string) => {
-  if (path === '/') {
-    return route.path === '/';
-  }
   return route.path.startsWith(path);
 };
 
-const currentTitle = computed(() => {
-  const current = menuItems.find((item) => isActive(item.path));
-  return current ? current.label : (route.meta.title as string) || '管理后台';
-});
-
-const userInitial = computed(() => {
-  const name = authStore.user?.realName || authStore.user?.username || 'A';
-  return name.charAt(0).toUpperCase();
-});
-
-const todayFormatted = computed(() => {
-  const now = new Date();
-  return now.toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  });
+const userName = computed(() => {
+  return authStore.user?.realName || authStore.user?.username || '小蔡';
 });
 
 const handleLogout = () => {

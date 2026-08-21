@@ -1,48 +1,46 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-starry-night px-4">
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 space-y-8 border border-slate-700/50">
+  <div class="min-h-screen flex items-center justify-center bg-[#F7F3EA] px-4">
+    <div class="max-w-md w-full bg-[#FDFAF3] rounded-2xl shadow-sm p-10 space-y-8 border border-[#E7E4D5]">
       <div class="text-center space-y-2">
-        <div class="w-12 h-12 rounded-2xl bg-starry-green flex items-center justify-center text-white font-bold text-2xl mx-auto shadow-lg shadow-starry-green/30">
-          ✦
+        <div class="brand-name text-2xl font-semibold tracking-widest text-[#2B4420] flex items-center justify-center gap-2">
+          <span class="text-xs text-[#5A5F52]">✦</span>若 星
         </div>
-        <h2 class="text-2xl font-bold text-starry-ink tracking-tight">若星空间 · 陪伴管理中台</h2>
-        <p class="text-sm text-starry-ash">请输入管理员账号登录系统</p>
+        <div class="text-xs text-[#6E6B5E] tracking-widest">团队工作台</div>
       </div>
 
-      <form @submit.prevent="handleLogin" class="space-y-5">
-        <div class="space-y-1.5">
-          <label class="text-xs font-semibold text-starry-tea uppercase tracking-wider">用户名</label>
+      <form @submit.prevent="handleLogin" class="space-y-6">
+        <div class="a-field">
+          <label>用户名</label>
           <input
             v-model="form.username"
             type="text"
             required
             placeholder="admin"
-            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-starry-green focus:border-transparent text-sm transition-all"
           />
         </div>
 
-        <div class="space-y-1.5">
-          <label class="text-xs font-semibold text-starry-tea uppercase tracking-wider">登录密码</label>
+        <div class="a-field">
+          <label>登录密码</label>
           <input
             v-model="form.password"
             type="password"
             required
             placeholder="••••••••"
-            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-starry-green focus:border-transparent text-sm transition-all"
           />
         </div>
 
         <button
           type="submit"
           :disabled="loading"
-          class="w-full py-3.5 px-4 rounded-xl bg-starry-green hover:bg-[#018A42] text-white font-semibold text-sm shadow-lg shadow-starry-green/30 transition-all disabled:opacity-50"
+          class="btn w-full"
+          style="height: 44px; border-radius: 22px; font-size: 14px;"
         >
-          {{ loading ? '正在登录中...' : '进入管理中台' }}
+          {{ loading ? '正在进入...' : '进入工作台' }}
         </button>
       </form>
 
-      <div class="text-center text-xs text-starry-ash">
-        默认测试超管账号：<code class="text-starry-green font-semibold font-mono">admin</code> / <code class="text-starry-green font-semibold font-mono">admin123456</code>
+      <div class="text-center text-xs text-[#6E6B5E]">
+        测试账号：<code class="text-[#2B4420] font-semibold font-mono">admin</code> / <code class="text-[#2B4420] font-semibold font-mono">admin123456</code>
       </div>
     </div>
   </div>
@@ -69,7 +67,7 @@ const handleLogin = async () => {
     await authStore.login(form);
     router.push('/');
   } catch (err: any) {
-    // 错误在 request 拦截器中统一 alert
+    // 错误处理
   } finally {
     loading.value = false;
   }
