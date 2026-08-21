@@ -1,6 +1,31 @@
 // pages/activities/index.ts
 import { request } from '../../utils/request';
 
+const DEFAULT_ACTIVITIES = [
+  {
+    id: 'act1',
+    title: '若星生活雅集 · 秋日器物收纳工作坊',
+    activityType: 'OFFLINE',
+    location: '杭州市西湖区若星空间美学馆',
+    price: 199,
+    coverUrl: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600',
+    startTime: '2026-09-12 14:00',
+    maxParticipants: 16,
+    currentParticipants: 12,
+  },
+  {
+    id: 'act2',
+    title: '《整理的艺术》线上深度共读与心念研讨',
+    activityType: 'ONLINE',
+    location: '腾讯会议',
+    price: 0,
+    coverUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600',
+    startTime: '2026-09-18 19:30',
+    maxParticipants: 50,
+    currentParticipants: 38,
+  },
+];
+
 Page({
   data: {
     types: [
@@ -32,35 +57,11 @@ Page({
       if (res && res.length > 0) {
         this.setData({ activities: res });
       } else {
-        this.setData({
-          activities: [
-            {
-              id: 'act1',
-              title: '若星生活雅集 · 秋日器物收纳工作坊',
-              activityType: 'OFFLINE',
-              location: '杭州市西湖区若星空间美学馆',
-              price: 199,
-              coverUrl: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600',
-              startTime: '2026-09-12 14:00',
-              maxParticipants: 16,
-              currentParticipants: 12,
-            },
-            {
-              id: 'act2',
-              title: '《整理的艺术》线上深度共读与心念研讨',
-              activityType: 'ONLINE',
-              location: '腾讯会议',
-              price: 0,
-              coverUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600',
-              startTime: '2026-09-18 19:30',
-              maxParticipants: 50,
-              currentParticipants: 38,
-            },
-          ],
-        });
+        this.setData({ activities: DEFAULT_ACTIVITIES });
       }
     } catch (err) {
-      console.error(err);
+      console.warn('Backend server not reachable, using offline activities mock data');
+      this.setData({ activities: DEFAULT_ACTIVITIES });
     } finally {
       this.setData({ loading: false });
     }
