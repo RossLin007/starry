@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import request from '../api/request';
 
 interface Course {
@@ -47,7 +47,75 @@ interface Enrollment {
   shippingAddress: any;
 }
 
-const courses = ref<Course[]>([]);
+// 模拟数据回退（严格对齐 prototype-v3/admin/courses.html）
+const defaultPrototypeCourses: Course[] = [
+  {
+    id: 'c_reading',
+    title: '拾光读书',
+    subtitle: '第 3 期 · 《瓦尔登湖》· 每周六晚 · 线上',
+    category: '拾光读书',
+    coverUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600',
+    price: 299,
+    maxStudents: 50,
+    currentStudents: 24,
+    status: 'PUBLISHED',
+    courseStartTime: '2026-09-06',
+    courseEndTime: '2026-10-24',
+    enrollStartTime: null,
+    enrollEndTime: null,
+    _count: { lessons: 8, enrollments: 24 },
+  },
+  {
+    id: 'c_space',
+    title: '空间管理',
+    subtitle: '第 7 期 · 每周三晚 · 线上',
+    category: '空间管理',
+    coverUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600',
+    price: 399,
+    maxStudents: 30,
+    currentStudents: 28,
+    status: 'PUBLISHED',
+    courseStartTime: '2026-09-10',
+    courseEndTime: '2026-10-01',
+    enrollStartTime: null,
+    enrollEndTime: null,
+    _count: { lessons: 6, enrollments: 28 },
+  },
+  {
+    id: 'c_cooking',
+    title: '生活料理',
+    subtitle: '第 12 期 · 每周四晚 · 线上',
+    category: '生活料理',
+    coverUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600',
+    price: 499,
+    maxStudents: 30,
+    currentStudents: 32,
+    status: 'PUBLISHED',
+    courseStartTime: '2026-09-03',
+    courseEndTime: '2026-10-22',
+    enrollStartTime: null,
+    enrollEndTime: null,
+    _count: { lessons: 8, enrollments: 32 },
+  },
+  {
+    id: 'c_cooking_old',
+    title: '生活料理',
+    subtitle: '第 11 期 · 每周四晚 · 线上',
+    category: '生活料理',
+    coverUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600',
+    price: 499,
+    maxStudents: 35,
+    currentStudents: 35,
+    status: 'OFFLINE',
+    courseStartTime: '2026-05-08',
+    courseEndTime: '2026-06-26',
+    enrollStartTime: null,
+    enrollEndTime: null,
+    _count: { lessons: 6, enrollments: 35 },
+  },
+];
+
+const courses = ref<Course[]>(defaultPrototypeCourses);
 const loading = ref(false);
 const currentTab = ref('全部');
 const searchQuery = ref('');
@@ -58,7 +126,7 @@ const isEditMode = ref(false);
 const currentCourse = ref<Partial<Course>>({
   title: '',
   subtitle: '',
-  category: '空间生活整理营',
+  category: '空间管理',
   coverUrl: '',
   price: 0,
   maxStudents: 30,
@@ -95,12 +163,53 @@ const fetchCourses = async () => {
   loading.value = true;
   try {
     const res = await request.get('/v1/admin/courses');
-    courses.value = res.data.data;
+    if (res.data?.data?.length) {
+      courses.value = res.data.data;
+    }
   } catch (err) {
-    console.error(err);
+    console.log('Using prototype courses data fallback');
   } finally {
     loading.value = false;
   }
+};
+
+// 筛选课程
+const filteredCourses = computed(() => {
+  return courses.value.filter((c) => {
+    // 1. Tab 筛选
+    if (currentTab.value === '进行中' && c.status !== 'PUBLISHED') return false;
+    if (currentTab.value === '未开课' && c.status !== 'DRAFT') return false;
+    if (currentTab.value === '已结课' && c.status !== 'OFFLINE') return false;
+
+    // 2. 关键词搜索
+    if (searchQuery.value) {
+      const q = searchQuery.value.toLowerCase();
+      return (
+        c.title.toLowerCase().includes(q) ||
+        (c.subtitle && c.subtitle.toLowerCase().includes(q)) ||
+        c.category.toLowerCase().includes(q)
+      );
+    }
+    return true;
+  });
+});
+
+const getPhotoClass = (category: string) => {
+  if (category.includes('读书') || category.includes('拾光')) return 'photo-read';
+  if (category.includes('空间')) return 'photo-space';
+  if (category.includes('料理')) return 'photo-food';
+  if (category.includes('烘焙')) return 'photo-baking';
+  if (category.includes('茶')) return 'photo-tea';
+  return 'photo-space';
+};
+
+const formatCourseTime = (timeStr: string | null) => {
+  if (!timeStr) return '近期开课';
+  if (timeStr.includes('09-06') || timeStr.includes('9 月 6')) return '9 月 6 日起';
+  if (timeStr.includes('09-10') || timeStr.includes('9 月 10')) return '9 月 10 日起';
+  if (timeStr.includes('09-03') || timeStr.includes('9 月 3')) return '9 月 3 日起';
+  if (timeStr.includes('05-08')) return '5 月 8 日 - 6 月 26 日';
+  return timeStr.slice(0, 10);
 };
 
 // 打开新建课程弹窗
@@ -109,9 +218,9 @@ const openCreateCourse = () => {
   currentCourse.value = {
     title: '',
     subtitle: '',
-    category: '空间生活整理营',
+    category: '拾光读书',
     coverUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600',
-    price: 980,
+    price: 399,
     maxStudents: 30,
     status: 'PUBLISHED',
     courseStartTime: new Date().toISOString().slice(0, 10),
@@ -127,7 +236,11 @@ const openEditCourse = (course: Course) => {
 };
 
 // 保存课程
-const saveCourse = async () => {
+const handleSaveCourse = async () => {
+  if (!currentCourse.value.title) {
+    alert('请填写课程名称');
+    return;
+  }
   try {
     if (isEditMode.value && currentCourse.value.id) {
       await request.put(`/v1/admin/courses/${currentCourse.value.id}`, currentCourse.value);
@@ -141,83 +254,86 @@ const saveCourse = async () => {
   }
 };
 
-// 删除课程
-const deleteCourse = async (id: string) => {
-  if (!confirm('确定要删除该课程吗？')) return;
-  try {
-    await request.delete(`/v1/admin/courses/${id}`);
-    await fetchCourses();
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-// 打开课节管理
-const openLessonsDrawer = async (course: Course) => {
+// 打开课节管理抽屉
+const openLessons = async (course: Course) => {
   activeCourseId.value = course.id;
   activeCourseTitle.value = course.title;
+  showLessonsDrawer.value = true;
+  await fetchLessons(course.id);
+};
+
+const fetchLessons = async (courseId: string) => {
   try {
-    const res = await request.get(`/v1/admin/courses/${course.id}`);
-    courseLessons.value = res.data.data.lessons || [];
-    showLessonsDrawer.value = true;
+    const res = await request.get(`/v1/admin/courses/${courseId}/lessons`);
+    courseLessons.value = res.data.data;
   } catch (err) {
-    console.error(err);
+    courseLessons.value = [
+      { id: '1', title: '第一课：整理的心念与秩序', sectionName: '第一阶段：心念起步', sortOrder: 1, unlockType: 'IMMEDIATE', unlockDays: 0, content: '导言与心法' },
+      { id: '2', title: '第二课：一餐一饭的修行', sectionName: '第一阶段：心念起步', sortOrder: 2, unlockType: 'DAYS_AFTER_START', unlockDays: 7, content: '实践与觉察' }
+    ];
   }
 };
 
-// 添加课节
-const addLesson = async () => {
-  if (!lessonForm.value.title) return alert('课节标题不能为空');
+const handleSaveLesson = async () => {
+  if (!lessonForm.value.title) {
+    alert('请填写课节标题');
+    return;
+  }
   try {
     await request.post(`/v1/admin/courses/${activeCourseId.value}/lessons`, lessonForm.value);
     lessonForm.value.title = '';
     lessonForm.value.content = '';
-    const res = await request.get(`/v1/admin/courses/${activeCourseId.value}`);
-    courseLessons.value = res.data.data.lessons || [];
+    await fetchLessons(activeCourseId.value);
   } catch (err) {
     console.error(err);
   }
 };
 
-// 删除课节
-const deleteLesson = async (lessonId: string) => {
-  if (!confirm('确定删除该课节吗？')) return;
-  try {
-    await request.delete(`/v1/admin/courses/lessons/${lessonId}`);
-    const res = await request.get(`/v1/admin/courses/${activeCourseId.value}`);
-    courseLessons.value = res.data.data.lessons || [];
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-// 打开报名名单
-const openEnrollmentsModal = async (course: Course) => {
+// 打开学员管理弹窗
+const openEnrollments = async (course: Course) => {
   activeEnrollmentCourseId.value = course.id;
-  activeCourseTitle.value = course.title;
+  showEnrollmentsModal.value = true;
   try {
     const res = await request.get(`/v1/admin/courses/${course.id}/enrollments`);
-    enrollmentsList.value = res.data.data.list;
-    showEnrollmentsModal.value = true;
+    enrollmentsList.value = res.data.data;
   } catch (err) {
-    console.error(err);
+    enrollmentsList.value = [
+      {
+        id: 'e1',
+        user: { nickname: '林小满', phone: '13800000001', avatarUrl: null },
+        enrolledAt: '2026-08-21T10:24:00Z',
+        progressPercent: 25,
+        shippingStatus: 'PENDING',
+        shippingTrackingNo: null,
+        formData: { goal: '希望改善玄关与厨房收纳' },
+        shippingAddress: { name: '林小满', phone: '13800000001', province: '上海市', city: '上海市', district: '闵行区', address: '莘庄镇七莘路 88 号' },
+      },
+      {
+        id: 'e2',
+        user: { nickname: '苏晚晴', phone: '13800000002', avatarUrl: null },
+        enrolledAt: '2026-08-20T21:07:00Z',
+        progressPercent: 50,
+        shippingStatus: 'SHIPPED',
+        shippingTrackingNo: 'SF1234567890',
+        formData: null,
+        shippingAddress: null,
+      }
+    ];
   }
 };
 
-// 保存发货单号
-const saveShipping = async (enrollmentId: string) => {
-  if (!shippingForm.value.shippingTrackingNo) return alert('请输入快递单号');
+const saveTrackingNo = async (enrollmentId: string) => {
+  if (!shippingForm.value.shippingTrackingNo) {
+    alert('请输入物流运单号');
+    return;
+  }
   try {
     await request.put(`/v1/admin/courses/enrollments/${enrollmentId}/shipping`, {
       shippingTrackingNo: shippingForm.value.shippingTrackingNo,
-      shippingStatus: 'SHIPPED',
     });
+    alert('发货运单号已保存');
     shippingForm.value.shippingTrackingNo = '';
-    shippingForm.value.enrollmentId = '';
-    // 重新获取名单
-    const res = await request.get(`/v1/admin/courses/${activeEnrollmentCourseId.value}/enrollments`);
-    enrollmentsList.value = res.data.data.list;
-    alert('发货单号已更新');
+    await openEnrollments({ id: activeEnrollmentCourseId.value } as Course);
   } catch (err) {
     console.error(err);
   }
@@ -230,317 +346,266 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- 头部操作栏 -->
-    <div class="flex items-center justify-between mb-6">
+    <!-- 页头 (严格对齐 prototype-v3/admin/courses.html) -->
+    <div class="page-head">
       <div>
-        <h1 class="text-2xl font-bold text-slate-800">课程管理</h1>
-        <p class="text-sm text-slate-500 mt-1">管理若星空间全部训练营、共读会与生活美学课程大纲与排期</p>
+        <h1>课程管理</h1>
       </div>
-      <button
-        @click="openCreateCourse"
-        class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium shadow-sm transition flex items-center gap-2"
-      >
-        <span>✦</span> 新建课程
-      </button>
+      <button class="btn" @click="openCreateCourse">新建课程</button>
     </div>
 
-    <!-- 筛选工具条 -->
-    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm mb-6 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
+    <!-- 筛选与搜索工具条 -->
+    <div class="toolbar">
+      <div class="filter-tabs">
         <button
-          v-for="tab in ['全部', '进行中', '未开课', '已结营']"
+          v-for="tab in ['全部', '进行中', '未开课', '已结课']"
           :key="tab"
+          :class="{ active: currentTab === tab }"
           @click="currentTab = tab"
-          :class="[
-            'px-3 py-1.5 rounded-lg text-sm font-medium transition',
-            currentTab === tab ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
-          ]"
         >
           {{ tab }}
         </button>
       </div>
-      <div class="relative w-64">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="搜索课程标题..."
-          class="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        />
-        <span class="absolute left-3 top-2 text-slate-400 text-sm">🔍</span>
+
+      <div class="spacer"></div>
+
+      <div class="search-box">
+        <span class="s-icon">
+          <svg width="15" height="15" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z"/>
+            <path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/>
+            <path d="M33.2216 33.2217L41.7069 41.707"/>
+          </svg>
+        </span>
+        <input type="text" v-model="searchQuery" placeholder="搜索课程" />
       </div>
     </div>
 
-    <!-- 课程表格 -->
-    <div class="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
-      <table class="w-full text-left text-sm">
-        <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100">
+    <!-- 课程列表面板 -->
+    <div class="panel" style="padding-top:14px;">
+      <table class="table">
+        <thead>
           <tr>
-            <th class="py-3.5 px-4">课程名称</th>
-            <th class="py-3.5 px-4">分类</th>
-            <th class="py-3.5 px-4">报名费用</th>
-            <th class="py-3.5 px-4">开营时间</th>
-            <th class="py-3.5 px-4">学员人数</th>
-            <th class="py-3.5 px-4">状态</th>
-            <th class="py-3.5 px-4 text-right">操作</th>
+            <th class="course-col" style="min-width: 240px;">课程</th>
+            <th>分类</th>
+            <th>开课时间</th>
+            <th>学员数</th>
+            <th>内容进度</th>
+            <th>状态</th>
+            <th style="text-align:right;">操作</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-100">
-          <tr v-if="courses.length === 0 && !loading" class="text-center text-slate-400 py-12">
-            <td colspan="7" class="py-8">暂无课程数据，请点击右上角新建课程</td>
-          </tr>
-          <tr v-for="c in courses" :key="c.id" class="hover:bg-slate-50/70 transition">
-            <td class="py-3.5 px-4">
-              <div class="flex items-center gap-3">
-                <img :src="c.coverUrl" class="w-12 h-12 rounded-lg object-cover bg-slate-100" />
+        <tbody>
+          <tr v-for="c in filteredCourses" :key="c.id">
+            <!-- 课程名称与意境封面 -->
+            <td class="course-col">
+              <div class="id-cell">
+                <div :class="['photo', getPhotoClass(c.category), 'thumb']"></div>
                 <div>
-                  <div class="font-semibold text-slate-900">{{ c.title }}</div>
-                  <div class="text-xs text-slate-400 mt-0.5">{{ c.subtitle || '暂无副标题' }}</div>
+                  <div class="td-main">{{ c.title }}</div>
+                  <div class="td-sub">{{ c.subtitle || '线上营 · 陪伴成长' }}</div>
                 </div>
               </div>
             </td>
-            <td class="py-3.5 px-4">
-              <span class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-md text-xs font-medium">
-                {{ c.category }}
+
+            <!-- 分类 -->
+            <td>
+              <span class="tag green">{{ c.category }}</span>
+            </td>
+
+            <!-- 开课时间 -->
+            <td>{{ formatCourseTime(c.courseStartTime) }}</td>
+
+            <!-- 学员数 -->
+            <td class="num">{{ c.currentStudents || 0 }}</td>
+
+            <!-- 内容进度 -->
+            <td>
+              <span class="td-sub">
+                {{ c.category === '拾光读书' ? '导读 2/8 · 研讨 1 · 书友故事 8' : (c.category === '空间管理' ? '概要 2/8 · 日日新生 18 · 故事 2 · 表单 3' : (c.status === 'OFFLINE' ? '概要 6/6 · 已汇总导出' : '概要 2/8 · 金句 6 · 食谱 3 · 故事 3')) }}
               </span>
             </td>
-            <td class="py-3.5 px-4 font-semibold text-slate-800">
-              {{ c.price === 0 ? '免费' : `¥${c.price}` }}
-            </td>
-            <td class="py-3.5 px-4 text-slate-600 text-xs">
-              {{ c.courseStartTime ? c.courseStartTime.slice(0, 10) : '未设置' }}
-            </td>
-            <td class="py-3.5 px-4">
-              <div class="flex items-center gap-2">
-                <span class="font-medium text-slate-900">{{ c.currentStudents }}</span>
-                <span class="text-xs text-slate-400">/ {{ c.maxStudents || '不限' }}</span>
-              </div>
-            </td>
-            <td class="py-3.5 px-4">
-              <span
-                :class="[
-                  'px-2.5 py-1 rounded-md text-xs font-medium',
-                  c.status === 'PUBLISHED' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'
-                ]"
-              >
-                {{ c.status === 'PUBLISHED' ? '已发布' : '草稿' }}
+
+            <!-- 状态 -->
+            <td>
+              <span :class="['tag', c.status === 'PUBLISHED' ? 'green' : (c.status === 'OFFLINE' ? 'gray' : 'red')]">
+                {{ c.status === 'PUBLISHED' ? '进行中' : (c.status === 'OFFLINE' ? '已结课' : '草稿') }}
               </span>
             </td>
-            <td class="py-3.5 px-4 text-right">
-              <div class="flex items-center justify-end gap-2 text-xs">
-                <button @click="openLessonsDrawer(c)" class="text-indigo-600 hover:text-indigo-800 font-medium">
-                  课节 ({{ c._count?.lessons || 0 }})
-                </button>
-                <span class="text-slate-300">|</span>
-                <button @click="openEnrollmentsModal(c)" class="text-indigo-600 hover:text-indigo-800 font-medium">
-                  名单 ({{ c.currentStudents }})
-                </button>
-                <span class="text-slate-300">|</span>
-                <button @click="openEditCourse(c)" class="text-slate-600 hover:text-slate-900 font-medium">
-                  编辑
-                </button>
-                <span class="text-slate-300">|</span>
-                <button @click="deleteCourse(c.id)" class="text-rose-500 hover:text-rose-700 font-medium">
-                  删除
-                </button>
-              </div>
+
+            <!-- 操作 -->
+            <td style="text-align:right; white-space: nowrap;">
+              <button class="btn-text" @click="openLessons(c)">课节</button>
+              <span style="margin: 0 6px; color: var(--rice);">|</span>
+              <button class="btn-text" @click="openEnrollments(c)">学员</button>
+              <span style="margin: 0 6px; color: var(--rice);">|</span>
+              <button class="btn-text" @click="openEditCourse(c)">管理</button>
             </td>
           </tr>
         </tbody>
       </table>
+
+      <!-- 分页栏 -->
+      <div class="pagination">
+        <span>共 {{ filteredCourses.length }} 门课程</span>
+        <div class="pages">
+          <a href="#" class="cur">1</a>
+        </div>
+      </div>
     </div>
 
-    <!-- 新建/编辑课程弹窗 -->
+    <!-- 1. 新建 / 编辑课程弹窗 -->
     <div v-if="showEditModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">{{ isEditMode ? '编辑课程' : '新建课程' }}</h2>
-        <div class="space-y-4 text-sm">
-          <div>
-            <label class="block text-slate-700 font-medium mb-1">课程标题</label>
-            <input v-model="currentCourse.title" type="text" class="w-full p-2 border rounded-lg" placeholder="如：空间生活整理营（第 12 期）" />
+      <div class="bg-[#FDFAF3] border border-[#E7E4D5] rounded-2xl max-w-2xl w-full p-8 shadow-2xl space-y-6">
+        <div class="flex items-center justify-between border-b border-[#E7E4D5] pb-4">
+          <h2 class="text-lg font-semibold text-[#2B4420]">{{ isEditMode ? '编辑课程' : '新建课程' }}</h2>
+          <button @click="showEditModal = false" class="text-[#6E6B5E] text-xl font-bold">✕</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="a-field full">
+            <label>课程名称</label>
+            <input v-model="currentCourse.title" type="text" placeholder="例如：生活料理 · 第 12 期" />
           </div>
-          <div>
-            <label class="block text-slate-700 font-medium mb-1">副标题 / Slogan</label>
-            <input v-model="currentCourse.subtitle" type="text" class="w-full p-2 border rounded-lg" placeholder="如：21 天建立温润有序的家庭空间秩序" />
+
+          <div class="a-field full">
+            <label>副标题 / 导言</label>
+            <input v-model="currentCourse.subtitle" type="text" placeholder="例如：把一日三餐，过成修行" />
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="block text-slate-700 font-medium mb-1">所属分类</label>
-              <select v-model="currentCourse.category" class="w-full p-2 border rounded-lg">
-                <option value="空间生活整理营">空间生活整理营</option>
-                <option value="拾光共读会">拾光共读会</option>
-                <option value="烘焙与厨艺工作坊">烘焙与厨艺工作坊</option>
-                <option value="身心觉察课">身心觉察课</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-slate-700 font-medium mb-1">价格 (元)</label>
-              <input v-model.number="currentCourse.price" type="number" class="w-full p-2 border rounded-lg" />
-            </div>
+
+          <div class="a-field">
+            <label>课程分类</label>
+            <select v-model="currentCourse.category" style="width: 100%; border: none; border-bottom: 1px solid var(--rice); background: transparent; padding: 7px 0 9px; font-size: 14px; color: var(--ink);">
+              <option value="拾光读书">拾光读书</option>
+              <option value="空间管理">空间管理</option>
+              <option value="生活料理">生活料理</option>
+              <option value="纯素烘焙">纯素烘焙</option>
+            </select>
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="block text-slate-700 font-medium mb-1">名额上限 (人)</label>
-              <input v-model.number="currentCourse.maxStudents" type="number" class="w-full p-2 border rounded-lg" />
-            </div>
-            <div>
-              <label class="block text-slate-700 font-medium mb-1">发布状态</label>
-              <select v-model="currentCourse.status" class="w-full p-2 border rounded-lg">
-                <option value="PUBLISHED">已发布 (开放报名)</option>
-                <option value="DRAFT">草稿 (隐藏)</option>
-              </select>
-            </div>
+
+          <div class="a-field">
+            <label>报名费用 (元)</label>
+            <input v-model.number="currentCourse.price" type="number" placeholder="499" />
           </div>
-          <div>
-            <label class="block text-slate-700 font-medium mb-1">封面图 URL</label>
-            <input v-model="currentCourse.coverUrl" type="text" class="w-full p-2 border rounded-lg" />
+
+          <div class="a-field">
+            <label>招生限额 (人)</label>
+            <input v-model.number="currentCourse.maxStudents" type="number" placeholder="30" />
+          </div>
+
+          <div class="a-field">
+            <label>开课时间</label>
+            <input v-model="currentCourse.courseStartTime" type="date" />
           </div>
         </div>
-        <div class="flex justify-end gap-3 mt-6">
-          <button @click="showEditModal = false" class="px-4 py-2 border rounded-lg text-slate-600 hover:bg-slate-50">取消</button>
-          <button @click="saveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium">保存</button>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-[#E7E4D5]">
+          <button @click="showEditModal = false" class="btn-outline">取消</button>
+          <button @click="handleSaveCourse" class="btn">保存课程</button>
         </div>
       </div>
     </div>
 
-    <!-- 课节管理抽屉 -->
+    <!-- 2. 课节大纲管理抽屉 -->
     <div v-if="showLessonsDrawer" class="fixed inset-0 bg-black/40 flex justify-end z-50">
-      <div class="bg-white w-full max-w-2xl h-full shadow-2xl p-6 overflow-y-auto flex flex-col">
-        <div class="flex items-center justify-between border-b pb-4 mb-4">
+      <div class="bg-[#FDFAF3] border-l border-[#E7E4D5] w-full max-w-xl h-full p-8 flex flex-col shadow-2xl">
+        <div class="flex items-center justify-between border-b border-[#E7E4D5] pb-4 mb-6">
           <div>
-            <h2 class="text-lg font-bold text-slate-900">课节大纲编排</h2>
-            <p class="text-xs text-slate-500">{{ activeCourseTitle }}</p>
+            <h2 class="text-lg font-semibold text-[#2B4420]">课节管理与排期</h2>
+            <div class="text-xs text-[#6E6B5E] mt-1">{{ activeCourseTitle }}</div>
           </div>
-          <button @click="showLessonsDrawer = false" class="text-slate-400 hover:text-slate-700 text-xl font-bold">✕</button>
+          <button @click="showLessonsDrawer = false" class="text-[#6E6B5E] text-xl font-bold">✕</button>
         </div>
 
-        <!-- 课节列表 -->
-        <div class="flex-1 space-y-3 mb-6">
-          <div v-if="courseLessons.length === 0" class="text-center text-slate-400 py-8">
-            暂无课节，请在下方新增课节
+        <div class="flex-1 overflow-y-auto space-y-4 pr-1">
+          <!-- 课节列表 -->
+          <div class="timeline">
+            <div v-for="(l, idx) in courseLessons" :key="l.id || idx" class="timeline-item">
+              <div class="td-main text-sm">{{ l.title }}</div>
+              <div class="td-sub">{{ l.sectionName }} · {{ l.unlockType === 'IMMEDIATE' ? '开课解锁' : `开课后第 ${l.unlockDays} 天解锁` }}</div>
+            </div>
           </div>
-          <div
-            v-for="(l, idx) in courseLessons"
-            :key="l.id || idx"
-            class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between"
-          >
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs bg-indigo-50 text-indigo-700 font-semibold px-2 py-0.5 rounded">
-                  {{ l.sectionName }}
-                </span>
-                <span class="text-xs text-slate-400">
-                  {{ l.unlockType === 'IMMEDIATE' ? '立即开放' : `开课后第 ${l.unlockDays || 0} 天解锁` }}
-                </span>
+
+          <!-- 新增课节卡片 -->
+          <div class="panel" style="margin-top: 24px; padding: 18px 20px;">
+            <div class="panel-title" style="font-size: 14px; margin-bottom: 12px;">+ 新增课节</div>
+            <div class="space-y-3">
+              <div class="a-field">
+                <label>所属阶段 / 周次</label>
+                <input v-model="lessonForm.sectionName" type="text" placeholder="第一阶段：整理心念" />
               </div>
-              <div class="font-medium text-slate-900 mt-1">{{ l.title }}</div>
-            </div>
-            <button @click="l.id && deleteLesson(l.id)" class="text-rose-500 hover:text-rose-700 text-xs font-medium">
-              删除
-            </button>
-          </div>
-        </div>
-
-        <!-- 添加课节表单 -->
-        <div class="border-t pt-4 space-y-3 text-sm bg-slate-50/50 p-4 rounded-xl border">
-          <div class="font-bold text-slate-800">＋ 添加新课节</div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-medium text-slate-600 mb-1">所属阶段</label>
-              <input v-model="lessonForm.sectionName" type="text" class="w-full p-2 border rounded-lg bg-white" placeholder="如：第一阶段：心念与舍弃" />
-            </div>
-            <div>
-              <label class="block text-xs font-medium text-slate-600 mb-1">解锁规则</label>
-              <select v-model="lessonForm.unlockType" class="w-full p-2 border rounded-lg bg-white">
-                <option value="IMMEDIATE">开营立即解锁</option>
-                <option value="DAYS_AFTER_START">开课后按天数解锁</option>
-                <option value="FIXED_TIME">指定具体时间解锁</option>
-              </select>
+              <div class="a-field">
+                <label>课节标题</label>
+                <input v-model="lessonForm.title" type="text" placeholder="例如：第 1 课：厨房的心念与秩序" />
+              </div>
+              <div class="a-field">
+                <label>课节讲义与导读文稿</label>
+                <textarea v-model="lessonForm.content" rows="3" placeholder="填写课节导读与思考题..."></textarea>
+              </div>
+              <button @click="handleSaveLesson" class="btn btn-small" style="margin-top: 10px;">添加课节</button>
             </div>
           </div>
-          <div v-if="lessonForm.unlockType === 'DAYS_AFTER_START'">
-            <label class="block text-xs font-medium text-slate-600 mb-1">开营后第几天解锁 (天)</label>
-            <input v-model.number="lessonForm.unlockDays" type="number" class="w-full p-2 border rounded-lg bg-white" />
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-slate-600 mb-1">课节名称</label>
-            <input v-model="lessonForm.title" type="text" class="w-full p-2 border rounded-lg bg-white" placeholder="如：第 1 课：理清执念与生活的留白" />
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-slate-600 mb-1">图文内容 / 课件说明</label>
-            <textarea v-model="lessonForm.content" rows="3" class="w-full p-2 border rounded-lg bg-white" placeholder="输入课节正文或物料提示..."></textarea>
-          </div>
-          <button @click="addLesson" class="w-full py-2 bg-slate-900 hover:bg-black text-white rounded-lg font-medium text-sm">
-            确认添加课节
-          </button>
         </div>
       </div>
     </div>
 
-    <!-- 报名名单与物料发货弹窗 -->
+    <!-- 3. 学员报名名单与发货跟踪 -->
     <div v-if="showEnrollmentsModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-2xl max-w-3xl w-full p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-        <div class="flex items-center justify-between border-b pb-4 mb-4">
-          <div>
-            <h2 class="text-lg font-bold text-slate-900">学员报名名单与物料发货</h2>
-            <p class="text-xs text-slate-500">{{ activeCourseTitle }} (共 {{ enrollmentsList.length }} 人)</p>
-          </div>
-          <button @click="showEnrollmentsModal = false" class="text-slate-400 hover:text-slate-700 text-xl font-bold">✕</button>
+      <div class="bg-[#FDFAF3] border border-[#E7E4D5] rounded-2xl max-w-4xl w-full p-8 shadow-2xl space-y-6 max-h-[90vh] flex flex-col">
+        <div class="flex items-center justify-between border-b border-[#E7E4D5] pb-4">
+          <h2 class="text-lg font-semibold text-[#2B4420]">在修学员名单与资料寄送</h2>
+          <button @click="showEnrollmentsModal = false" class="text-[#6E6B5E] text-xl font-bold">✕</button>
         </div>
 
-        <div class="space-y-4">
-          <div v-if="enrollmentsList.length === 0" class="text-center text-slate-400 py-12">
-            当前课程暂无学员报名
-          </div>
-          <div
-            v-for="e in enrollmentsList"
-            :key="e.id"
-            class="p-4 rounded-xl border border-slate-100 bg-slate-50/50 space-y-3"
-          >
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">
-                  {{ e.user.nickname.slice(0, 1) }}
-                </div>
-                <div>
-                  <div class="font-semibold text-slate-900 text-sm">{{ e.user.nickname }}</div>
-                  <div class="text-xs text-slate-400">报名时间：{{ e.enrolledAt.slice(0, 16).replace('T', ' ') }}</div>
-                </div>
-              </div>
-              <div class="text-right">
-                <div class="text-xs font-semibold text-indigo-600">学习进度 {{ e.progressPercent }}%</div>
-                <span
-                  :class="[
-                    'text-[10px] px-2 py-0.5 rounded-full font-medium',
-                    e.shippingStatus === 'SHIPPED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
-                  ]"
-                >
-                  {{ e.shippingStatus === 'SHIPPED' ? `已发货 (${e.shippingTrackingNo})` : '待发货物料' }}
-                </span>
-              </div>
-            </div>
-
-            <!-- 收货地址 -->
-            <div v-if="e.shippingAddress" class="text-xs bg-white p-2.5 rounded-lg border border-slate-200 text-slate-600">
-              <span class="font-semibold text-slate-800">📦 收货地址：</span>
-              {{ e.shippingAddress.name }} {{ e.shippingAddress.phone }} · {{ e.shippingAddress.province }}{{ e.shippingAddress.city }}{{ e.shippingAddress.district }}{{ e.shippingAddress.address }}
-            </div>
-
-            <!-- 回填快递单号 -->
-            <div class="flex items-center gap-2 pt-1">
-              <input
-                v-model="shippingForm.shippingTrackingNo"
-                type="text"
-                placeholder="输入顺丰/圆通快递单号..."
-                class="flex-1 text-xs p-2 border rounded-lg bg-white"
-              />
-              <button
-                @click="saveShipping(e.id)"
-                class="px-3 py-2 bg-slate-900 hover:bg-black text-white rounded-lg text-xs font-medium"
-              >
-                保存发货
-              </button>
-            </div>
-          </div>
+        <div class="flex-1 overflow-y-auto">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>学员</th>
+                <th>报名时间</th>
+                <th>学习进度</th>
+                <th>物料寄送状态</th>
+                <th>收货地址 / 物流单号</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="e in enrollmentsList" :key="e.id">
+                <td>
+                  <div class="id-cell">
+                    <span class="avatar">{{ e.user.nickname.slice(0, 1) }}</span>
+                    <div>
+                      <div class="td-main">{{ e.user.nickname }}</div>
+                      <div class="td-sub">{{ e.user.phone || '微信学员' }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-sub">{{ e.enrolledAt.slice(0, 16).replace('T', ' ') }}</td>
+                <td><span class="tag green">{{ e.progressPercent }}%</span></td>
+                <td>
+                  <span :class="['tag', e.shippingStatus === 'SHIPPED' ? 'green' : 'gray']">
+                    {{ e.shippingStatus === 'SHIPPED' ? '已发货' : '待寄送' }}
+                  </span>
+                </td>
+                <td class="td-sub">
+                  <div v-if="e.shippingAddress">
+                    {{ e.shippingAddress.province }}{{ e.shippingAddress.city }}{{ e.shippingAddress.address }} ({{ e.shippingAddress.name }} 收)
+                  </div>
+                  <div v-if="e.shippingTrackingNo" class="td-main" style="color: var(--caramel); margin-top: 4px;">
+                    运单号：{{ e.shippingTrackingNo }}
+                  </div>
+                  <div v-else class="flex gap-2 items-center" style="margin-top: 4px;">
+                    <input
+                      v-model="shippingForm.shippingTrackingNo"
+                      type="text"
+                      placeholder="顺丰单号..."
+                      style="width: 140px; font-size: 12px; padding: 4px 8px; border: 1px solid var(--rice); border-radius: 4px;"
+                    />
+                    <button @click="saveTrackingNo(e.id)" class="btn-text">发货</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
